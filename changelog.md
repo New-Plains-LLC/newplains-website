@@ -20,6 +20,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.6.0] — 2026-02-11 — M6: Polish + Deploy
+
+### Added
+- @tailwindcss/typography plugin for blog post prose styling
+- `type-check` script in package.json (`tsc --noEmit`)
+
+### Fixed
+- Windmills invisible on mobile — repositioned to x=-6/7/9/10 (from x=-14/15/20/22) with smaller scales for mobile viewport
+
+### Deployed
+- Production deploy to Vercel with SSL on www.newplains.dev + newplains.dev
+
+---
+
 ## [0.5.0] — 2026-02-11 — M5: Analytics, SEO, Chatbot
 
 ### Added

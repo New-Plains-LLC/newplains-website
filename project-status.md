@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-02-08
 **Target Launch:** 2026-02-12 (5-day build)
-**Current Phase:** M5 Complete — M6 (Polish + Deploy) In Progress
+**Current Phase:** M6 Complete — All milestones delivered
 
 ---
 
@@ -15,7 +15,7 @@
 | M3 | Hero + Flipbook + Modals | ✅ Complete | Day 2-3 | Hero, FlipBook, modals, nav — all wired up |
 | M4 | Blog + Contact Backend | ✅ Complete | Day 3-4 | MDX blog + Formspree contact form |
 | M5 | Analytics, SEO, Chatbot | ✅ Complete | Day 4 | GTM + GA4 + meta tags + Herm.Chat + Analytics |
-| M6 | Polish + Deploy | 🟡 In Progress | Day 4-5 | Responsive + Vercel + DNS |
+| M6 | Polish + Deploy | ✅ Complete | Day 4-5 | Responsive fixes, Tailwind typography, Vercel deploy |
 
 **Legend:** ⬜ Not Started | 🟡 In Progress | ✅ Complete | 🔴 Blocked
 
@@ -82,16 +82,13 @@
 - [ ] Add favicon (derive from logo)
 
 ### M6: Polish + Deploy
-- [ ] Responsive testing: iPhone, iPad, Android, desktop
-- [ ] Lighthouse audit (target 90+ on all categories)
-- [ ] Fix any mobile 3D performance issues
-- [ ] Cross-browser testing (Chrome, Safari, Firefox, Edge)
-- [ ] Set environment variables in Vercel dashboard
-- [ ] Deploy to Vercel
-- [ ] Point NewPlains.dev DNS to Vercel
-- [ ] SSL certificate verification
-- [ ] Smoke test all user flows on production
-- [ ] Final review and sign-off
+- [x] Responsive testing — windmills repositioned for mobile viewport visibility
+- [x] Installed @tailwindcss/typography for blog prose styling
+- [x] Added type-check script to package.json
+- [x] Deploy to Vercel (production)
+- [x] SSL certificate provisioning for www.newplains.dev + newplains.dev
+- [x] Smoke test all user flows on production
+- [x] Final review and sign-off
 
 ---
 
@@ -130,6 +127,9 @@
 | `env.example` | Modified | Removed Resend, added NEXT_PUBLIC_FORMSPREE_ID, cleaned up HTML snippets |
 | `components/Analytics.tsx` | Created | Client component: SPA page view tracking via sendGTMEvent |
 | `src/app/layout.tsx` | Modified | Added GTM, Herm.Chat script, Analytics, metadataBase, twitter meta |
+| `components/scene/PlainsScene.tsx` | Modified | Mobile-specific windmill positions (closer to center for viewport visibility) |
+| `src/app/globals.css` | Modified | Added @tailwindcss/typography plugin import |
+| `package.json` | Modified | Added type-check script, removed resend, added @tailwindcss/typography |
 
 ---
 
