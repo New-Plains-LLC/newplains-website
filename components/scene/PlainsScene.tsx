@@ -39,10 +39,21 @@ function SceneContent({ isMobile }: { isMobile: boolean }) {
       <Sky />
       <Ground />
       <Grass count={grassCount} spread={isMobile ? 25 : 40} />
-      <Windmill position={[-14, 0, -10]} scale={1.1} rotationSpeed={0.6} />
-      <Windmill position={[15, 0, -12]} scale={1} rotationSpeed={0.9} />
-      <Windmill position={[-20, 0, -22]} scale={0.7} rotationSpeed={0.7} />
-      <Windmill position={[22, 0, -18]} scale={0.6} rotationSpeed={0.5} />
+      {isMobile ? (
+        <>
+          <Windmill position={[-6, 0, -8]} scale={0.9} rotationSpeed={0.6} />
+          <Windmill position={[7, 0, -10]} scale={0.85} rotationSpeed={0.9} />
+          <Windmill position={[-9, 0, -18]} scale={0.6} rotationSpeed={0.7} />
+          <Windmill position={[10, 0, -15]} scale={0.55} rotationSpeed={0.5} />
+        </>
+      ) : (
+        <>
+          <Windmill position={[-14, 0, -10]} scale={1.1} rotationSpeed={0.6} />
+          <Windmill position={[15, 0, -12]} scale={1} rotationSpeed={0.9} />
+          <Windmill position={[-20, 0, -22]} scale={0.7} rotationSpeed={0.7} />
+          <Windmill position={[22, 0, -18]} scale={0.6} rotationSpeed={0.5} />
+        </>
+      )}
     </>
   );
 }
