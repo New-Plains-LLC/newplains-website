@@ -9,7 +9,7 @@ interface GrassProps {
   spread?: number;
 }
 
-export default function Grass({ count = 15000, spread = 40 }: GrassProps) {
+export default function Grass({ count = 60000, spread = 40 }: GrassProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 

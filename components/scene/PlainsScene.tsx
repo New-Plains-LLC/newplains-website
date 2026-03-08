@@ -38,7 +38,7 @@ function SceneContent({ isMobile }: { isMobile: boolean }) {
     <>
       <Sky />
       <Ground />
-      <Grass count={grassCount} spread={isMobile ? 25 : 40} />
+      <Grass spread={isMobile ? 25 : 40} />
       {isMobile ? (
         <>
           <Windmill position={[-6, 0, -8]} scale={0.9} rotationSpeed={0.6} />
