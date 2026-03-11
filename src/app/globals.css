@@ -111,69 +111,24 @@ body {
   to { transform: skewX(2deg); }
 }
 
-/* Flipbook — aged paper look */
-.flipbook-container {
-  filter: drop-shadow(0 8px 24px rgba(45, 42, 38, 0.35));
+/* Projects section */
+.projects-section {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(250, 248, 245, 0.95) 8%,
+    rgba(250, 248, 245, 0.98) 100%
+  );
 }
 
-.flipbook-page {
-  /* Layered aged-paper background */
-  background:
-    /* Coffee-ring stain in corner */
-    radial-gradient(
-      ellipse at 85% 90%,
-      rgba(184, 115, 51, 0.06) 0%,
-      transparent 50%
-    ),
-    /* Foxing spots scattered */
-    radial-gradient(
-      circle at 20% 15%,
-      rgba(180, 140, 80, 0.08) 0%,
-      transparent 8%
-    ),
-    radial-gradient(
-      circle at 70% 40%,
-      rgba(180, 140, 80, 0.06) 0%,
-      transparent 6%
-    ),
-    radial-gradient(
-      circle at 35% 75%,
-      rgba(180, 140, 80, 0.07) 0%,
-      transparent 7%
-    ),
-    /* Uneven yellowing from edges */
-    radial-gradient(
-      ellipse at 50% 50%,
-      #F5ECD8 0%,
-      #EDE0C8 70%,
-      #E4D4B4 100%
-    );
-  /* Darkened, worn border */
-  border: 1px solid rgba(160, 130, 80, 0.5);
-  /* Aged inset shadows — darker at edges like old paper */
+/* Project card hover glow */
+.project-card {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover {
   box-shadow:
-    inset 0 0 30px rgba(160, 120, 60, 0.12),
-    inset 3px 3px 10px rgba(120, 90, 40, 0.1),
-    inset -2px -2px 8px rgba(120, 90, 40, 0.08),
-    inset 0 0 60px rgba(196, 162, 101, 0.06);
-  position: relative;
-}
-
-/* Paper grain texture overlay */
-.flipbook-page::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.4;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Ensure page content sits above the grain */
-.flipbook-page > * {
-  position: relative;
-  z-index: 1;
+    0 20px 40px rgba(45, 42, 38, 0.12),
+    0 0 0 1px var(--card-accent, #B87333) / 0.15;
 }

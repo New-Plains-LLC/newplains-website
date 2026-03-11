@@ -29,4 +29,34 @@ export const projects: Project[] = [
     image: "/projects/pillbuddy.png",
     color: "#7A8B5C",
   },
+  {
+    id: "newplains-properties",
+    name: "New Plains Properties",
+    tagline: "Modern Real Estate Solutions",
+    description:
+      "A streamlined real estate platform connecting buyers and sellers across the plains. Featuring intuitive property search, virtual tours, and AI-powered market insights to make your next move effortless.",
+    url: "https://www.newplainsproperties.com",
+    image: "/projects/newplains-properties.png",
+    color: "#C4A265",
+  },
+  {
+    id: "compass",
+    name: "Compass",
+    tagline: "Private Strategy AI",
+    description:
+      "A private Strategy AI tool built to help leadership teams make better decisions and stay aligned with company strategies, training, SOPs, and goals.",
+    url: "",
+    image: "/projects/compass.png",
+    color: "#3B6BF5",
+  },
+  {
+    id: "schedule-board-pro",
+    name: "Schedule Board Pro",
+    tagline: "Intelligent Job Scheduling",
+    description:
+      "A scheduling tool built to connect to ERPs that simplifies assigning jobs to technicians, creating workorders, and prioritizing scheduling. Gives service teams real-time visibility into technician locations and proximity to new job requests.",
+    url: "",
+    image: "/projects/schedule-board-pro.png",
+    color: "#E05A33",
+  },
 ];

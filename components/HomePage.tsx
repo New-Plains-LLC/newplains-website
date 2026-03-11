@@ -3,7 +3,7 @@
 import { useState } from "react";
 import SceneLoader from "./scene/SceneLoader";
 import Hero from "./hero/Hero";
-import FlipBook from "./hero/FlipBook";
+import ProjectCards from "./hero/ProjectCards";
 import Navigation from "./ui/Navigation";
 import ProjectModal from "./modals/ProjectModal";
 import ContactModal from "./modals/ContactModal";
@@ -29,8 +29,8 @@ export default function HomePage() {
       <Navigation onContactClick={handleContactClick} />
       <div className="hero-overlay">
         <Hero onContactClick={handleContactClick} />
-        <FlipBook onProjectClick={handleProjectClick} />
       </div>
+      <ProjectCards onProjectClick={handleProjectClick} />
       <ProjectModal
         project={selectedProject}
         isOpen={projectModalOpen}
