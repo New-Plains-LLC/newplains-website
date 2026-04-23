@@ -29,11 +29,11 @@ export default function Navigation({ onContactClick }: NavigationProps) {
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-6 py-3">
         <div className="flex items-center gap-2">
           <Image
-            src="/logo.jpg"
+            src="/logo.png"
             alt="New Plains"
-            width={36}
-            height={36}
-            className="rounded-full"
+            width={1264}
+            height={848}
+            className="h-9 w-auto md:h-10"
           />
           <span className="font-heading font-bold text-brand-charcoal text-lg hidden sm:inline">
             New Plains

@@ -42,12 +42,12 @@ export const projects: Project[] = [
   {
     id: "compass",
     name: "Compass",
-    tagline: "Private Strategy AI",
+    tagline: "Intelligence Terminal",
     description:
-      "A private Strategy AI tool built to help leadership teams make better decisions and stay aligned with company strategies, training, SOPs, and goals.",
+      "A specialized AI strategy archive designed for leadership teams. Grounded in your unique company data, it provides an exportable, auditable, and fast way to stay aligned with corporate goals and SOPs.",
     url: "",
     image: "/projects/compass.png",
-    color: "#3B6BF5",
+    color: "#D4B87A",
   },
   {
     id: "schedule-board-pro",
@@ -58,5 +58,25 @@ export const projects: Project[] = [
     url: "",
     image: "/projects/schedule-board-pro.png",
     color: "#E05A33",
+  },
+  {
+    id: "project-yj",
+    name: "Project YJ",
+    tagline: "Custom Hobby Build Showcase",
+    description:
+      "A personal hobby site for a 1992 Jeep Wrangler rock crawler, designed to present the build with a bold visual system, strong storytelling, and a focused single-page experience.",
+    url: "https://projectyj-rockcrawler.netlify.app/",
+    image: "/projects/project-yj-rockcrawler.png",
+    color: "#C4825A",
+  },
+  {
+    id: "first-home-fix",
+    name: "First Home Fix",
+    tagline: "Autonomous AI Home Care",
+    description:
+      "An experimental home improvement platform built and maintained entirely by an autonomous AI agent. From initial planning to daily content creation and maintenance, this site operates independently to help homeowners fix smarter and spend less.",
+    url: "https://firsthomefix.com",
+    image: "/projects/first-home-fix.png",
+    color: "#B87333",
   },
 ];

@@ -45,12 +45,12 @@ export default function Hero({ onContactClick }: HeroProps) {
     <div ref={containerRef} className="flex flex-col items-center gap-4 text-center px-4">
       <Image
         data-hero-logo
-        src="/logo.jpg"
+        src="/logo.png"
         alt="New Plains LLC"
-        width={180}
-        height={180}
+        width={1264}
+        height={848}
         priority
-        className="hero-logo rounded-full shadow-lg"
+        className="hero-logo drop-shadow-[0_14px_30px_rgba(45,42,38,0.28)]"
       />
       <div className="bg-brand-charcoal/50 backdrop-blur-sm rounded-2xl px-6 py-4">
         <h1

@@ -71,8 +71,8 @@ body {
 }
 
 .hero-logo {
-  width: clamp(6rem, 15vw, 11rem);
-  height: clamp(6rem, 15vw, 11rem);
+  width: clamp(14rem, 38vw, 30rem);
+  height: auto;
 }
 
 /* CSS fallback for devices without WebGL */
