@@ -79,4 +79,14 @@ export const projects: Project[] = [
     image: "/projects/first-home-fix.png",
     color: "#B87333",
   },
+  {
+    id: "stoic-goal-planner",
+    name: "Stoic Goal Planner",
+    tagline: "Stoic Philosophy & Productivity",
+    description:
+      "An open-source personal goal-planning and daily productivity app. Structured around Stoic philosophy, it connects your long-term vision to your daily actions through a hierarchy of goals, daily habits, and a weekly review practice.",
+    url: "https://github.com/New-Plains-LLC/stoic-goal-planner",
+    image: "/projects/stoic-planner.png",
+    color: "#2D2A26",
+  },
 ];
