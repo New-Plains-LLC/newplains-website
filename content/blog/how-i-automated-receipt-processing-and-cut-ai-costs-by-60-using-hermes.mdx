@@ -1,0 +1,86 @@
+---
+title: "How I Automated Receipt Processing and Cut AI Costs by 60% Using Hermes"
+date: "2026-06-08"
+excerpt: "I pointed Hermes at my expense tracking problem. Here's what it built, and the cost optimization insight that saved more than the automation itself."
+author: "Shawn Skaggs"
+---
+
+---
+title: "How I Automated Receipt Processing and Cut AI Costs by 60% Using Hermes"
+date: 2026-06-08
+description: "I pointed Hermes at my expense tracking problem. Here's what it built, and the cost optimization insight that saved more than the automation itself."
+---
+
+I run multiple business entities. Each has receipts. Each needs those receipts categorized, tracked, and filed monthly. For a while I'd been meaning to automate this, but off-the-shelf tools never quite fit — different entities have different expense categories, different reimbursement rules, different reporting needs. Custom setups cost thousands.
+
+So this week I pointed Hermes at the problem and let it build.
+
+## What It Built
+
+The system is straightforward. Receipts land in Google Drive inbox folders. Every four hours, a scanner wakes up, checks every inbox, and hands new files to an AI agent. The agent OCRs them, matches each vendor to a chart of accounts, flags reimbursable charges, and appends them to a monthly CSV.
+
+That's it. About 80 lines of Python for the scanner, a cron schedule, and an LLM doing the categorization. No external orchestration tools. No webhooks. Just Hermes running the whole thing.
+
+When there are no new receipts, nothing happens. No notifications, no noise. The agent only surfaces when there's actual work.
+
+The batch size is intentional — 5 receipts per run. It means Google Drive never gets hammered, I never get flooded with notifications, and if something breaks, I lose 5 receipts instead of 500. This was Hermes's call, not mine, and it was the right one.
+
+## Who Did What
+
+Here's what's worth being honest about: I didn't build this. Hermes did.
+
+My role was steering. "Here's the problem. That approach didn't work — try this instead." Then I went back to my day and let it keep working. It wrote the scanner script. It mapped the folder structure. It built the chart of accounts. It created the cron schedule. When things broke — calendar endpoints that silently fail with one content type but work with another, symlinks that get blocked by cron's security model — it debugged them, documented what went wrong, and tried something else.
+
+I never opened a code editor. I never wrote a line of Python. I just kept pointing it at the problem and saying "keep going."
+
+This is the shift that matters. Not "I learned to code with AI" but "I stopped needing to code at all."
+
+## The Cost Win I Didn't Expect
+
+Here's what surprised me. When Hermes first wired this up, every automated workflow was running on the most capable reasoning model available. That felt right — use the best tool for every job.
+
+After watching it run for a few days, it became obvious this was wasteful. OCR and category matching don't need advanced reasoning. They need pattern recognition. A fast, cheap model handles this identically to an expensive one — same accuracy, same output, roughly a quarter of the cost.
+
+Hermes audited every automated workflow and the results were eye-opening:
+
+| Workflow | Before | After | Savings |
+|----------|--------|-------|---------|
+| Receipt processing (every 4h) | Pro tier | Fast tier | ~75% |
+| Morning briefing (daily) | Pro tier | Fast tier | ~75% |
+| Midday/evening check-ins (2x daily) | Pro tier | Fast tier | ~75% |
+| Friday project pulse (weekly) | Pro tier | Fast tier | ~75% |
+
+The only agents still on the pro tier do work that actually benefits from deeper reasoning — strategic planning, complex architecture, multi-step code generation. Everything operational runs on the fast tier.
+
+Across a full week of automated tasks, that's roughly a 60% reduction in token costs. Not from prompt engineering or clever caching. Just from asking: *does this job actually need the expensive model?*
+
+Most of the time, the answer is no.
+
+## Why Hermes Profiles Matter
+
+There's one architectural decision that made all of this cleaner: agent profiles.
+
+When the expense system was first built, it ran in my main profile — the one I use for strategy and big-picture thinking. But receipt processing doesn't belong there. It's operations work.
+
+Moving it took five minutes: copy the scripts to the operations agent's profile, update its context so it knows it owns the system, and point the cron job at the right profile. Now when the operations agent wakes up every four hours, it already knows everything — the folder structure, the categories, the edge cases. It doesn't need a briefing. It just works.
+
+Each agent on Hermes has its own lane. Operations handles bookkeeping and daily planning. Marketing handles content. Strategy handles big decisions. Build handles code and architecture. Nobody gets confused about what they're supposed to be doing, and I pay fast-tier prices for fast-tier work.
+
+## What's Running Now
+
+As I type this, the system is processing historical receipts — nearly 100 files from months past, drip-fed at 5 per batch so nothing gets overwhelmed. The inboxes are live. New receipts get picked up within 4 hours. Monthly reports build themselves.
+
+The next step is automated monthly summaries, but honestly, the system already does what I needed: I can stop thinking about expense tracking and focus on what the numbers mean.
+
+## The Principle
+
+If you're running automated AI workflows, spend twenty minutes this week asking: does every task need the smartest model? If an agent is summarizing data, matching categories, or formatting output, switch it to something faster and cheaper.
+
+The cost savings alone are worth it. But the real unlock is that once AI automation is cheap enough to be boring, you start automating more things — because there's no reason not to. That's where I am now. Every manual process that crosses my desk gets the same question: can Hermes handle this? 
+
+And the answer is increasingly yes.
+
+---
+
+*Built entirely on Hermes. I steered. It built.*
+
