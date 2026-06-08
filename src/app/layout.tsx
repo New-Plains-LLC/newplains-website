@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import Analytics from "@/../components/Analytics";
+import Footer from "@/../components/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,6 +48,7 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} antialiased`}
       >
         {children}
+        <Footer />
         <Analytics />
         {/* Herm.Chat widget */}
         <Script
