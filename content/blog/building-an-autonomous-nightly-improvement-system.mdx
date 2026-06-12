@@ -1,0 +1,75 @@
+---
+title: "Building an Autonomous Nightly Improvement System"
+date: "2026-06-12"
+excerpt: "Every night while I sleep, an AI agent picks an area of my infrastructure, finds what's broken or improvable, and builds fixes. Here's how it works and what it's produced in its first week."
+author: "Shawn Skaggs"
+---
+
+I have a recurring problem: I know things in my infrastructure need fixing, but I never have time during the day to find them all. Docker containers accumulate unused volumes. Log files grow unbounded. Workflows drift from their original design. Codebases accumulate small issues that individually don't matter but collectively slow everything down.
+
+The obvious answer is "schedule time for maintenance." But maintenance is the kind of work that always gets deprioritized when something urgent comes up — which is every day.
+
+So I built something that does it for me.
+
+## The Overnight Build
+
+Every night at 2 AM, a Hermes agent wakes up and runs what I call an "overnight build." It picks one area of my infrastructure — rotating through six domains — and spends the session finding issues, selecting the most impactful improvement, building it, and packaging everything into a morning review brief.
+
+The six areas it cycles through:
+
+- **DI Stack** — Docker services, containers, volumes, networking
+- **n8n Workflows** — automation pipelines, error rates, stale workflows
+- **Parallel Ag Codebase** — the main codebase, technical debt, small fixes
+- **Internal Tools** — scripts, utilities, cron jobs, monitoring
+- **Content / Blog** — drafts, SEO gaps, broken links, stale content
+- **Documentation** — READMEs, runbooks, setup guides
+
+Each night it focuses on exactly one area. It never deploys to production — everything lands as a preview, a draft, or a branch. I review it in the morning and decide what to merge.
+
+## What It's Built So Far
+
+The system has been running for about a week. Here's what it's actually produced:
+
+**Docker cleanup scripts.** The agent found 40GB of unused volumes, dangling images, and orphaned networks across my Docker environment. It wrote a cleanup script with dry-run mode, safety checks, and a log of what was removed. I reviewed it, ran it, and reclaimed the space.
+
+**Log rotation configuration.** One of my services had been writing to the same log file for months — 2.3GB and growing. The agent noticed, researched best practices, and wrote a logrotate config with compression, retention policies, and a test mode. Applied it the next morning.
+
+**Workflow audit.** It audited every n8n workflow, found three that had been failing silently for weeks (a webhook endpoint that changed, a credential that expired, a rate limit that was never handled), and generated a report with reproduction steps and fix recommendations.
+
+**Code fixes.** In the Parallel Ag codebase, it found a handful of small issues — an unused import, a variable shadowing a built-in, a missing null check — and opened a PR for each one. Nothing earth-shattering, but the kind of cleanup that keeps a codebase healthy.
+
+None of these were urgent. None of them would have made it to the top of my to-do list on their own. But together, they represent a week of steady improvement that happened while I was doing other things.
+
+## How It Works
+
+The system is built on three things: Hermes Agent's cron scheduling, skills-based workflows, and subagent delegation.
+
+The cron job triggers at 2 AM with a simple instruction: "Run an overnight build. Pick the next area in the rotation. Find the most impactful improvement you can complete in this session. Build it. Write a brief. Do not deploy."
+
+Hermes loads a skill that defines the overnight build workflow — the rotation schedule, the constraints (no production deploys, no destructive operations without confirmation), the briefing format. Within that session, it delegates subagents for specific tasks: one to investigate the area, one to design the fix, one to implement it, one to write the brief.
+
+The rotation is tracked in a simple state file. Each night, the agent reads it, advances to the next area, and writes back the updated position. If something goes wrong mid-session, the next night picks up where it left off.
+
+## What I Learned
+
+The first thing I learned is that the hardest part isn't the automation — it's defining what "improvement" means. The agent needs clear boundaries. Without them, it will happily spend an entire session optimizing something that doesn't matter, or worse, breaking something that was working fine.
+
+The constraints I landed on:
+
+1. **One area per night.** Focus beats breadth.
+2. **One improvement per session.** Build it, brief it, move on.
+3. **Never deploy.** Everything is review-only. I'm the gate.
+4. **Prefer reversible changes.** If it can't be rolled back, it needs extra scrutiny.
+5. **Document everything.** Every session produces a brief, not just code.
+
+The second thing I learned is that the morning review is the most important part of the system. The overnight build is only useful if I actually read the brief and act on it. I've started blocking 15 minutes after coffee to review whatever the agent left for me. Some days I merge everything. Some days I reject everything. Either way, the loop stays tight.
+
+## The Principle
+
+If you're running any kind of infrastructure — even a small setup — there's maintenance work that you know needs doing but never gets done. You don't need a full DevOps team. You need a scheduled, constrained, review-gated process that chips away at it one piece at a time.
+
+The overnight build doesn't replace me. It replaces the backlog of things I'll never get to during the day. And that's exactly what I needed.
+
+---
+
+*Built on Hermes. I review. It builds. We sleep.*
