@@ -28,12 +28,21 @@ export const metadata: Metadata = {
     url: "https://newplains.dev",
     siteName: "New Plains LLC",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "New Plains LLC — Practical AI Innovation",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "New Plains LLC — Practical AI Innovation",
     description:
       "AI innovation studio building practical tools that bring the power of AI to everyday workflows.",
+    images: ["/og-image.png"],
   },
 };
 

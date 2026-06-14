@@ -34,6 +34,14 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.frontmatter.date,
       authors: [post.frontmatter.author],
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: post.frontmatter.title,
+        },
+      ],
     },
   };
 }
