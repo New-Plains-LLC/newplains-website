@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     "Full AI delivery pipeline spec: receipt pipeline, lead triage, deal flow routing. Latency, cost, and guardrails.",
 };
 
-const SCOPE_MAILTO = "mailto:dsskaggs@gmail.com?subject=Scope";
+const SCOPE_MAILTO = "mailto:info@newplains.dev?subject=Scope";
 
 const pipelines = [
   {

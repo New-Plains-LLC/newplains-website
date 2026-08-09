@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Capabilities Statement — New Plains LLC",
   description:
-    "Capabilities statement and credentials: New Plains LLC, Oklahoma, HUBZone-eligible, SAM.gov active. NAICS 561210, 722310, 561720, 561730, 561790, 541512, 541511.",
+    "Capabilities statement and credentials: New Plains LLC, Oklahoma. SAM.gov active. NAICS 561210, 722310, 561720, 561730, 561790, 541512, 541511.",
 };
 
-const CAPS_MAILTO = "mailto:dsskaggs@gmail.com?subject=Capabilities%20Statement";
-const RFQ_MAILTO = "mailto:dsskaggs@gmail.com?subject=RFQ";
+const CAPS_MAILTO = "mailto:info@newplains.dev?subject=Capabilities%20Statement";
+const RFQ_MAILTO = "mailto:info@newplains.dev?subject=RFQ";
 
 const naics = [
   { code: "561210", title: "Facilities Support Services" },
@@ -55,7 +55,7 @@ export default function CapabilitiesPage() {
           <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#8FA1B7]">
             Entity
           </p>
-          <div className="mt-4 grid gap-8 md:grid-cols-4">
+          <div className="mt-4 grid gap-8 md:grid-cols-3">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8FA1B7]">Name</p>
               <p className="mt-1 text-lg font-black text-white">New Plains LLC</p>
@@ -67,10 +67,6 @@ export default function CapabilitiesPage() {
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8FA1B7]">Status</p>
               <p className="mt-1 text-lg font-black text-[#F5C518]">SAM.gov Active</p>
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8FA1B7]">Set-Aside</p>
-              <p className="mt-1 text-lg font-black text-white">HUBZone-Eligible</p>
             </div>
           </div>
         </div>
@@ -98,7 +94,7 @@ export default function CapabilitiesPage() {
             ))}
             <div className="flex flex-col justify-center bg-[#132338] p-6">
               <p className="text-sm font-bold text-white">
-                Contract vehicles: GSA Schedule (application in progress) · OASIS+ ready
+                Contract vehicles: GSA Schedule (application in progress) · OASIS+ TBD
               </p>
             </div>
           </div>
@@ -131,8 +127,8 @@ export default function CapabilitiesPage() {
                 WE TEAM WELL.
               </h2>
               <p className="mt-5 text-sm leading-relaxed text-[#8FA1B7]">
-                Existing relationships with 8(a), SDVOSB, and WOSB primes — ready to plug into a
-                teaming agreement on your next solicitation, whether we prime or sub.
+                Existing relationships with SBA-certified small business primes — ready to plug
+                into a teaming agreement on your next solicitation, whether we prime or sub.
               </p>
             </div>
           </div>

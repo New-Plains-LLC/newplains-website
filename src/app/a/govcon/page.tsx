@@ -80,10 +80,7 @@ export default function GovConPage() {
           Built to deliver. Registered to bid.
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-brand-charcoal/70">
-          New Plains LLC is a registered service-disabled veteran-owned small business. We hold
-          active registrations on SAM.gov and we bid work across property services, food service,
-          janitorial, grounds, and — as of this year — AI services and training for federal, state,
-          and local agencies.
+          New Plains LLC is an Oklahoma small business. We hold the registrations needed to bid on federal, state, and local work across property services, food service, janitorial, grounds, and — as of this year — AI services and training for federal, state, and local agencies.
         </p>
         <a
           href={RFQ_MAILTO}

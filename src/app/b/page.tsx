@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const RFQ_MAILTO = "mailto:dsskaggs@gmail.com?subject=RFQ";
+const RFQ_MAILTO = "mailto:info@newplains.dev?subject=RFQ";
 
 const capabilities = [
   {
@@ -159,10 +159,9 @@ export default function ConceptBPage() {
         <div className="mx-auto max-w-7xl px-6 py-5">
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[#8FA1B7]">
             <span className="text-[#F5C518]">SAM.gov Active</span>
-            <span>HUBZone-Eligible</span>
-            <span>OASIS+ Ready</span>
+            <span>OASIS+ — TBD</span>
             <span>GSA Schedule — In Progress</span>
-            <span>8(a) · SDVOSB · WOSB Partnerships</span>
+            <span>SBA-Certified Subcontractor Partners</span>
           </div>
         </div>
       </section>
@@ -265,7 +264,7 @@ export default function ConceptBPage() {
                   Entity
                 </p>
                 <p className="mt-2 font-bold text-white">
-                  New Plains LLC — Oklahoma, HUBZone-eligible, SAM.gov active
+                  New Plains LLC — Oklahoma · SAM.gov active
                 </p>
               </div>
               <div>
@@ -273,7 +272,7 @@ export default function ConceptBPage() {
                   Contract Vehicles
                 </p>
                 <p className="mt-2 font-bold text-white">
-                  GSA Schedule application in progress · OASIS+ ready
+                  GSA Schedule — In Progress · OASIS+ TBD
                 </p>
               </div>
               <div>
@@ -281,7 +280,7 @@ export default function ConceptBPage() {
                   Subcontractor Partners
                 </p>
                 <p className="mt-2 font-bold text-white">
-                  Existing relationships with 8(a), SDVOSB, and WOSB primes
+                  Existing relationships with SBA-certified small business primes
                 </p>
               </div>
             </div>
@@ -322,7 +321,7 @@ export default function ConceptBPage() {
             Send RFQ
           </a>
           <p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-[#8FA1B7]">
-            dsskaggs@gmail.com · subject: RFQ
+            info@newplains.dev · subject: RFQ
           </p>
         </div>
       </section>

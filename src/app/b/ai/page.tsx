@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "AI Implementation Services — scoping, integration, training. AI systems that ship and stick.",
 };
 
-const RFQ_MAILTO = "mailto:dsskaggs@gmail.com?subject=RFQ";
+const RFQ_MAILTO = "mailto:info@newplains.dev?subject=RFQ";
 
 const engagements = [
   {
