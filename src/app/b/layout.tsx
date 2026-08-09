@@ -53,7 +53,7 @@ export default function ConceptBLayout({
             </Link>
           </nav>
           <Link
-            href="mailto:dsskaggs@gmail.com?subject=RFQ"
+            href="mailto:info@newplains.dev?subject=RFQ"
             className="bg-[#F5C518] px-5 py-2.5 text-xs font-black uppercase tracking-[0.15em] text-[#0E1B2C] transition-colors hover:bg-white"
           >
             Send RFQ

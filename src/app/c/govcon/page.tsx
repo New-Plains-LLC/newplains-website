@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     "Capability matrix: NAICS codes, status, and contract vehicles. Table-driven, no narrative.",
 };
 
-const SCOPE_MAILTO = "mailto:dsskaggs@gmail.com?subject=Scope";
+const SCOPE_MAILTO = "mailto:info@newplains.dev?subject=Scope";
 
 const naicsRows = [
   { code: "561210", description: "Facilities Support Services", status: "Active", vehicle: "SAM.gov, OASIS+" },
@@ -21,14 +21,12 @@ const entityRows = [
   { key: "Entity", value: "New Plains LLC — Oklahoma" },
   { key: "SAM.gov", value: "Registered" },
   { key: "UEI", value: "On file" },
-  { key: "CAGE", value: "Assigned" },
-  { key: "HUBZone status", value: "Eligible" },
-  { key: "Set-asides", value: "8(a)-eligibility under review" },
-  { key: "Bonding capacity", value: "TBD" },
-  { key: "Subcontractors", value: "8(a) / SDVOSB / WOSB partners" },
-];
+    { key: "CAGE", value: "Assigned" },
+    { key: "Bonding capacity", value: "TBD" },
+    { key: "Subcontractors", value: "SBA-certified small business partners" },
+  ];
 
-export default function GovConPage() {
+  export default function GovConPage() {
   return (
     <>
       <section className="mx-auto max-w-5xl px-6 pb-14 pt-14 md:pt-20">

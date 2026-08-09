@@ -133,7 +133,7 @@ export default function ConceptAPage() {
       {/* CREDIBILITY STRIP */}
       <section className="border-y border-brand-copper/15 bg-white/60 py-8">
         <p className="mx-auto max-w-3xl px-6 text-center font-heading text-xl font-medium tracking-tight text-brand-charcoal md:text-2xl">
-          Service-disabled veteran-owned. American-built. Born in Oklahoma.
+          American-built. American-staffed. Born in Oklahoma.
         </p>
       </section>
 

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "An AI consulting + GovCon delivery stack. Spec: every component below is real and runs in production.",
 };
 
-const SCOPE_MAILTO = "mailto:dsskaggs@gmail.com?subject=Scope";
+const SCOPE_MAILTO = "mailto:info@newplains.dev?subject=Scope";
 
 const heroTerminal = `$ ./newplains --status
 An AI consulting + GovCon delivery stack.
@@ -77,12 +77,10 @@ const naicsRows = [
 ];
 
 const entityRows = [
-  { key: "HUBZone status", value: "Eligible" },
   { key: "UEI", value: "On file" },
   { key: "CAGE", value: "Assigned" },
-  { key: "Set-asides", value: "8(a)-eligibility under review" },
   { key: "Bonding capacity", value: "TBD" },
-  { key: "Subcontractors", value: "8(a) / SDVOSB / WOSB partners" },
+  { key: "Subcontractors", value: "SBA-certified small business partners" },
 ];
 
 const metrics = [
@@ -266,7 +264,7 @@ export default function ConceptCPage() {
             [ Send scope ]
           </a>
           <p className="mt-5 text-xs text-[#4ADE80]/50">
-            dsskaggs@gmail.com · subject: Scope
+            info@newplains.dev · subject: Scope
           </p>
         </div>
       </section>

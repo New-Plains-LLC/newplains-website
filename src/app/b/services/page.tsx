@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Prime and subcontract services: property services, catering and food service, janitorial, landscaping. Federal, state, and commercial.",
 };
 
-const RFQ_MAILTO = "mailto:dsskaggs@gmail.com?subject=RFQ";
+const RFQ_MAILTO = "mailto:info@newplains.dev?subject=RFQ";
 
 const services = [
   {

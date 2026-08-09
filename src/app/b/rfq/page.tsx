@@ -28,7 +28,7 @@ export default function RfqPage() {
           <RfqForm />
         </div>
         <p className="mt-6 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#8FA1B7]">
-          Prefer plain email? Send it to dsskaggs@gmail.com with subject: RFQ
+          Prefer plain email? Send it to info@newplains.dev with subject: RFQ
         </p>
       </section>
     </>

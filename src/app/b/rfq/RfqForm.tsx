@@ -40,7 +40,7 @@ export default function RfqForm() {
       scope || "Not provided",
     ];
     const body = encodeURIComponent(lines.join("\n"));
-    window.location.href = `mailto:dsskaggs@gmail.com?subject=${encodeURIComponent("RFQ")}&body=${body}`;
+    window.location.href = `mailto:info@newplains.dev?subject=${encodeURIComponent("RFQ")}&body=${body}`;
   }
 
   const inputClass =
