@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { JetBrains_Mono } from "next/font/google";
 
 const jetbrains = JetBrains_Mono({
@@ -24,8 +25,18 @@ export default function ConceptCLayout({
     >
       <header className="border-b border-[#4ADE80]/25 bg-[#0F0F10]">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4 text-xs">
-          <Link href="/c" className="font-semibold text-[#F59E0B]">
-            guest@newplains:~$ <span className="text-[#4ADE80]">cd /</span>
+          <Link href="/c" className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="New Plains LLC"
+              width={60}
+              height={40}
+              priority
+              className="h-9 w-auto shrink-0"
+            />
+            <span className="font-semibold text-[#F59E0B]">
+              guest@newplains:~$ <span className="text-[#4ADE80]">cd /</span>
+            </span>
           </Link>
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link href="/c" className="transition-colors hover:text-[#F59E0B]">

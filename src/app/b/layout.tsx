@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Anton } from "next/font/google";
 
 const anton = Anton({
@@ -27,12 +28,22 @@ export default function ConceptBLayout({
       <div className="h-1.5 bg-[repeating-linear-gradient(45deg,#F5C518_0,#F5C518_16px,#0E1B2C_16px,#0E1B2C_32px)]" />
       <header className="border-b border-white/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">
-          <Link href="/b" className="flex flex-col leading-none">
-            <span className="[font-family:var(--font-anton)] text-2xl tracking-wide text-white">
-              NEW PLAINS
-            </span>
-            <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#8FA1B7]">
-              General Contractor · AI &amp; Property Services
+          <Link href="/b" className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="New Plains LLC"
+              width={60}
+              height={40}
+              priority
+              className="h-10 w-auto shrink-0"
+            />
+            <span className="flex flex-col leading-none">
+              <span className="[font-family:var(--font-anton)] text-2xl tracking-wide text-white">
+                NEW PLAINS
+              </span>
+              <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#8FA1B7]">
+                General Contractor · AI &amp; Property Services
+              </span>
             </span>
           </Link>
           <nav className="hidden items-center gap-7 text-xs font-bold uppercase tracking-[0.15em] lg:flex">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "New Plains LLC — Two Ways We Work. One Promise.",
@@ -15,12 +16,22 @@ export default function ConceptALayout({
     <div className="min-h-screen bg-brand-cream text-brand-charcoal antialiased">
       <header className="border-b border-brand-copper/15 bg-brand-cream/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <Link href="/a" className="flex items-baseline gap-3">
-            <span className="font-heading text-xl font-semibold tracking-tight text-brand-charcoal">
-              New Plains <span className="text-brand-copper">LLC</span>
-            </span>
-            <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">
-              Concept A · Two Ways
+          <Link href="/a" className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="New Plains LLC"
+              width={60}
+              height={40}
+              priority
+              className="h-10 w-auto shrink-0"
+            />
+            <span className="flex flex-col leading-tight">
+              <span className="font-heading text-xl font-semibold tracking-tight text-brand-charcoal">
+                New Plains <span className="text-brand-copper">LLC</span>
+              </span>
+              <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">
+                Concept A · Two Ways
+              </span>
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
