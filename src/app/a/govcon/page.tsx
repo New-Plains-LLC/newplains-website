@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import RfqForm from "./RfqForm";
 
 export const metadata: Metadata = {
@@ -10,36 +11,45 @@ export const metadata: Metadata = {
 
 const RFQ_MAILTO = "mailto:info@newplains.dev?subject=RFQ";
 
+const img = (id: string) =>
+  `https://images.unsplash.com/${id}?w=600&h=450&fit=crop&q=80&auto=format`;
+
 const offerings = [
   {
     naics: "561210",
-    title: "Facilities Support",
-    body: "Facility operations and administrative support for government and commercial sites.",
+    title: "Property Services",
+    body: "Facility maintenance, custodial oversight, landscaping, repair services for federal buildings and installations.",
+    image: img("photo-1521791136064-7986c2920216"),
   },
   {
-    naics: "722310",
-    title: "Catering / Food Service",
-    body: "Cafeteria and dining contract operations, staffing, and food-service management.",
+    naics: "722310 · 722320 · 722330",
+    title: "Catering & Food Service",
+    body: "Event catering, full-service kitchen operations, meal program delivery for government facilities and conferences.",
+    image: img("photo-1687369595840-e96a912586f1"),
   },
   {
-    naics: "561720",
+    naics: "561720 · 561740",
     title: "Janitorial",
-    body: "Recurring custodial contracts — offices, industrial, and institutional facilities.",
+    body: "Day and night janitorial services for federal offices, depots, and field sites. Bondable, insured, cleared staff.",
+    image: img("photo-1581578731548-c64695cc6952"),
   },
   {
     naics: "561730",
-    title: "Landscaping",
-    body: "Grounds maintenance, turf care, and exterior site management.",
+    title: "Grounds & Landscaping",
+    body: "Lawn care, irrigation, snow removal, and grounds maintenance for installations and federal parks.",
+    image: img("photo-1689728222087-6984f72460c4"),
   },
   {
     naics: "541512",
-    title: "AI Services",
-    body: "Automation pipelines, AI agents, and document processing for agency back offices.",
+    title: "AI Services for Government",
+    body: "Workflow automation, document processing, AI agents, and Microsoft Office (Excel, Word, PowerPoint) generation for federal and state programs.",
+    image: img("photo-1521737711867-e3b97375f902"),
   },
   {
     naics: "541715",
-    title: "AI Training",
-    body: "Hands-on workshops that get agency teams building automations, not just watching demos.",
+    title: "Training",
+    body: "On-site or virtual AI literacy workshops for federal and state employees.",
+    image: img("photo-1552664730-d307ca884978"),
   },
 ];
 
@@ -67,12 +77,13 @@ export default function GovConPage() {
           Government Contracting
         </p>
         <h1 className="font-heading max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight text-brand-charcoal sm:text-6xl">
-          Government contracting, with receipts.
+          Built to deliver. Registered to bid.
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-brand-charcoal/70">
-          Property services, catering, janitorial — and now AI services for federal, state, and
-          local agencies. We keep the paperwork current so your acquisition team doesn&apos;t
-          have to chase it.
+          New Plains LLC is a registered service-disabled veteran-owned small business. We hold
+          active registrations on SAM.gov and we bid work across property services, food service,
+          janitorial, grounds, and — as of this year — AI services and training for federal, state,
+          and local agencies.
         </p>
         <a
           href={RFQ_MAILTO}
@@ -96,7 +107,7 @@ export default function GovConPage() {
         </div>
       </section>
 
-      {/* OFFERINGS */}
+      {/* SERVICE LINE CARDS */}
       <section className="py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
@@ -109,13 +120,28 @@ export default function GovConPage() {
             {offerings.map((o) => (
               <div
                 key={o.naics}
-                className="rounded-2xl border border-brand-charcoal/10 bg-white/60 p-7 transition-shadow hover:shadow-lg hover:shadow-brand-copper/10"
+                className="flex flex-col overflow-hidden rounded-2xl border border-brand-charcoal/10 bg-white shadow-sm transition-shadow hover:shadow-lg hover:shadow-brand-copper/10"
               >
-                <span className="font-heading text-2xl font-semibold tracking-tight text-brand-copper">
-                  {o.naics}
-                </span>
-                <h3 className="mt-3 text-lg font-semibold text-brand-charcoal">{o.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-charcoal/70">{o.body}</p>
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={o.image}
+                    alt={o.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="font-heading text-xl font-semibold tracking-tight text-brand-charcoal">
+                    {o.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-charcoal/70">
+                    {o.body}
+                  </p>
+                  <span className="mt-4 inline-block self-start rounded-full bg-brand-cream px-3 py-1 font-mono text-[11px] font-semibold tracking-wide text-brand-charcoal/70">
+                    NAICS {o.naics}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

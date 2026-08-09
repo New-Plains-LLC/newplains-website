@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "New Plains LLC — Two Ways We Work With You",
+  title: "New Plains LLC — Two Ways We Work. One Promise.",
   description:
-    "AI consulting — the $999 1-hour audit call, real automations, a hosted agent team, and AI training. Or government contracting with an embedded RFQ form. info@newplains.dev",
+    "AI consulting — the $999 1-hour audit call, workflow automation, custom agents, and AI training. Or government contracting with an embedded RFQ form. info@newplains.dev",
   robots: { index: false },
 };
 
@@ -20,7 +20,7 @@ export default function ConceptALayout({
               New Plains <span className="text-brand-copper">LLC</span>
             </span>
             <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">
-              Concept A · Two Doors
+              Concept A · Two Ways
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
