@@ -11,12 +11,12 @@ const concepts = [
   {
     slug: "/a",
     tag: "Concept A",
-    name: "Two Doors",
+    name: "Two Ways",
     accent: "#B87333",
     bg: "#FAF8F5",
     fg: "#2D2A26",
     line:
-      "Double hero: AI consulting — the $999 1-hour audit call, real production automations, a hosted agent team, and AI training — or government contracting with an embedded RFQ form. Cream / copper / slate-navy.",
+      "Credibility-led double hero: AI for small business — the $999 1-hour audit call, workflow automation, custom agents, and AI training — or government contracting with an embedded RFQ form. Cream / copper / slate-navy, real-people photography.",
     routes: ["/a", "/a/ai", "/a/govcon"],
   },
   {
