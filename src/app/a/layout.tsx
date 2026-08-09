@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "New Plains LLC — The $999 AI Audit",
+  title: "New Plains LLC — Two Ways We Work With You",
   description:
-    "We find the money your business is already losing to manual work — and we ship the fix in 7 days. Or you don't pay.",
+    "AI consulting — the $999 1-hour audit call, real automations, a hosted agent team, and AI training. Or government contracting with an embedded RFQ form. info@newplains.dev",
   robots: { index: false },
 };
 
@@ -20,15 +20,12 @@ export default function ConceptALayout({
               New Plains <span className="text-brand-copper">LLC</span>
             </span>
             <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">
-              Concept A · The Audit
+              Concept A · Two Doors
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <Link href="/a" className="transition-colors hover:text-brand-copper">
-              The Audit
-            </Link>
-            <Link href="/a/audit" className="transition-colors hover:text-brand-copper">
-              How It Works
+            <Link href="/a/ai" className="transition-colors hover:text-brand-copper">
+              AI Consulting
             </Link>
             <Link href="/a/govcon" className="transition-colors hover:text-brand-copper">
               GovCon
@@ -41,7 +38,7 @@ export default function ConceptALayout({
             </Link>
           </nav>
           <Link
-            href="mailto:dsskaggs@gmail.com?subject=AI%20Audit"
+            href="mailto:info@newplains.dev?subject=AI%20Audit"
             className="rounded-full bg-brand-copper px-5 py-2.5 text-sm font-semibold text-brand-cream shadow-sm transition-colors hover:bg-brand-copper-light"
           >
             Book the Audit

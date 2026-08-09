@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    // Concept A — The Audit (unlisted, noindex)
+    // Concept A — Two Doors (unlisted, noindex)
     {
       url: `${baseUrl}/a`,
       lastModified: new Date(),
@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/a/audit`,
+      url: `${baseUrl}/a/ai`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,
