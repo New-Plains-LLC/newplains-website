@@ -77,7 +77,7 @@ const rungs = [
     price: "$3,000–$10,000/mo",
     timeline: "Ongoing",
     includes:
-      "Continuous builds. The audit pipeline refills itself; we keep shipping what earns. Two clients at $5K/mo = $120K/yr.",
+      "Continuous builds. The audit pipeline refills itself; we keep shipping what earns.",
     conversion: "—",
   },
 ];
