@@ -12,13 +12,14 @@ const tiers = [
       "7-day diagnostic on a single high-leverage workflow",
       "Written findings + recommended architecture",
       "Time & cost estimates for the build",
-      "Yours to keep regardless of who builds it — your team, our team, or a third party",
+      "Yours to keep, always — build it with us, your team, or a third party",
+      "No lock-in. The audit transfers whether or not we ever work together again.",
     ],
   },
   {
     n: "II.",
     name: "Implementation Project",
-    price: "Custom (quote-based)",
+    price: "Custom (quote-based, premium)",
     cadence: "one-time",
     delivery: "30 days",
     primary: false,
@@ -27,6 +28,8 @@ const tiers = [
       "Production automation, deployed into your stack",
       "Hands-on change-management for the team using it",
       "90-day post-launch support window",
+      "Keys to everything we build, handed over at delivery — source, configs, prompts, accounts",
+      "You pay for that portability. The one-off project costs MORE upfront than the retainer.",
     ],
   },
   {
@@ -40,6 +43,8 @@ const tiers = [
       "∞ automations — build as many as your operation needs",
       "∞ usage — no per-call, per-query, or per-seat metering",
       "∞ our team on retainer to keep building, maintaining, and improving them",
+      "Agents live inside our Orgo workspace — there is lock-in by design",
+      "Lock-in is the trade for $5K/mo flat and ∞ usage. Leave anytime; the work stays ours.",
     ],
   },
 ];
@@ -242,6 +247,54 @@ export default function Tiers() {
                 <br />
                 on retainer
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Lock-in honesty block — explicit three-tier trade */}
+        <div className="rule pt-12">
+          <div className="eyebrow text-[#5B6470] mb-6">
+            The honest trade, in writing
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[rgba(26,24,20,0.18)]">
+            <div className="bg-[#F6EFE1] p-6 md:p-8">
+              <div className="[font-family:var(--font-geist-mono)] text-[10px] uppercase tracking-widest text-[#B08A3E] mb-3">
+                Tier I · Audit
+              </div>
+              <div className="[font-family:var(--font-fraunces)] text-3xl text-[#1A1814] leading-tight mb-3">
+                No lock-in.
+              </div>
+              <p className="text-sm text-[#1A1814]/75 leading-relaxed">
+                Deliverable is a written report. You own it. Use it with us,
+                your team, or anyone else. We have no claim on what you build
+                from it.
+              </p>
+            </div>
+            <div className="bg-[#F6EFE1] p-6 md:p-8">
+              <div className="[font-family:var(--font-geist-mono)] text-[10px] uppercase tracking-widest text-[#B08A3E] mb-3">
+                Tier II · Project
+              </div>
+              <div className="[font-family:var(--font-fraunces)] text-3xl text-[#1A1814] leading-tight mb-3">
+                Keys handed over.
+              </div>
+              <p className="text-sm text-[#1A1814]/75 leading-relaxed">
+                Source, configs, prompts, accounts — you keep it all. We leave
+                the project. The portability has a price: this engagement costs
+                more upfront than the retainer.
+              </p>
+            </div>
+            <div className="bg-[#F6EFE1] p-6 md:p-8">
+              <div className="[font-family:var(--font-geist-mono)] text-[10px] uppercase tracking-widest text-[#9B2C2C] mb-3">
+                Tier III · Retainer
+              </div>
+              <div className="[font-family:var(--font-fraunces)] text-3xl text-[#9B2C2C] leading-tight mb-3">
+                Lock-in. By design.
+              </div>
+              <p className="text-sm text-[#1A1814]/75 leading-relaxed">
+                Agents live inside our Orgo workspace. You can leave any month.
+                What we built stays with us. The lock-in is the trade for
+                $5K/mo flat and ∞ usage — no metering, ever.
+              </p>
             </div>
           </div>
         </div>
