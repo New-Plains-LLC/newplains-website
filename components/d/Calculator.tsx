@@ -35,8 +35,8 @@ function fmtMonth(m: number) {
 }
 
 export default function Calculator() {
-  const [hours, setHours] = useState(30);
-  const [rate, setRate] = useState(60);
+  const [hours, setHours] = useState(40);
+  const [rate, setRate] = useState(20);
   const [includeRetainer, setIncludeRetainer] = useState(true);
   const [includeSolutions, setIncludeSolutions] = useState(false);
 
@@ -106,7 +106,7 @@ export default function Calculator() {
               />
               <div className="flex justify-between [font-family:var(--font-geist-mono)] text-xs text-[#8A929C] mt-2">
                 <span>0</span>
-                <span>30 (typical)</span>
+                <span>40 (1 FTE)</span>
                 <span>80</span>
               </div>
             </div>
@@ -124,16 +124,16 @@ export default function Calculator() {
               <input
                 type="range"
                 className="slider-brass"
-                min={20}
-                max={150}
+                min={10}
+                max={60}
                 step={5}
                 value={rate}
                 onChange={(e) => setRate(Number(e.target.value))}
               />
               <div className="flex justify-between [font-family:var(--font-geist-mono)] text-xs text-[#8A929C] mt-2">
+                <span>$10</span>
                 <span>$20</span>
-                <span>$60 (median)</span>
-                <span>$150</span>
+                <span>$60</span>
               </div>
             </div>
 
@@ -380,11 +380,11 @@ export default function Calculator() {
           {/* Footnote / methodology */}
           <div className="mt-4 rule pt-4 grid grid-cols-12 gap-4 [font-family:var(--font-geist-mono)] text-sm text-[#5B6470] leading-relaxed">
             <span className="col-span-12 md:col-span-7">
-              Calculated at $60/hr fully-loaded operator cost (median US
-              knowledge-worker rate per BLS). Adjust the rate to match your
-              operation. Rates below $40/hr understate savings; above $120/hr,
-              they’re aspirational. Numbers are estimates — production values
-              are scoped per engagement.
+              Calculated at $20/hr fully-loaded operator cost (US mid-tier
+              knowledge-worker rate). Adjust the rate to match your operation.
+              Rates below $15/hr understate savings; above $50/hr, they’re
+              aspirational. Numbers are estimates — production values are
+              scoped per engagement.
             </span>
             <span className="col-span-12 md:col-span-5 md:text-right">
               Status quo: hours × rate × 4.33 weeks/month, compounded monthly.

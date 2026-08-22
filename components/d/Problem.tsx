@@ -44,11 +44,11 @@ export default function Problem() {
           </div>
           <div className="space-y-0 [font-family:var(--font-geist-mono)] text-sm">
             {[
-              { y: "Year 1", a: "$TBD / yr", n: "Headcount additions to absorb workload" },
-              { y: "Year 2", a: "$TBD / yr", n: "Process debt + tool sprawl" },
-              { y: "Year 3", a: "$TBD / yr", n: "Turnover from overwork" },
-              { y: "Year 4", a: "$TBD / yr", n: "Opportunity cost — deals/quotes/responses missed" },
-              { y: "Year 5", a: "$TBD / yr", n: "Compounding" },
+              { y: "Year 1", a: "$208K / yr", n: "5 engagements × 40 hrs/wk × 52 wk × $20/hr (FTE scale)" },
+              { y: "Year 2", a: "$218K / yr", n: "Manual overhead +5% drift, process debt" },
+              { y: "Year 3", a: "$229K / yr", n: "Turnover from overwork + tool sprawl" },
+              { y: "Year 4", a: "$239K / yr", n: "Opportunity cost — deals/quotes/responses missed" },
+              { y: "Year 5", a: "$250K / yr", n: "Compounding + competitor gap widens" },
             ].map((row, i) => (
               <div
                 key={i}
@@ -66,10 +66,10 @@ export default function Problem() {
             <div className="grid grid-cols-12 gap-3 py-5 items-baseline">
               <div className="col-span-3 eyebrow text-[#1A1814]">Σ</div>
               <div className="col-span-4 [font-family:var(--font-fraunces)] italic text-2xl text-[#9B2C2C] tabular">
-                $0.00
+                $1.144M
               </div>
               <div className="col-span-5 text-[#5B6470] text-xs leading-snug">
-                Automation built: <span className="text-[#9B2C2C]">$0.00</span>
+                5-year manual overhead · automation built: <span className="text-[#9B2C2C]">$0.00</span>
               </div>
             </div>
           </div>

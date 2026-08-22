@@ -97,9 +97,9 @@ export default function Hero() {
         {/* Bottom data strip */}
         <div className="mt-20 md:mt-28 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-[rgba(26,24,20,0.18)] pt-8">
           {[
-            { k: "~30 hrs/wk", l: "typical engagement, fully-loaded operator time returned" },
+            { k: "40 hrs/wk", l: "1 FTE per engagement absorbed into automation" },
             { k: "90 days", l: "typical audit-to-production timeline" },
-            { k: "6.0×", l: "median Year-1 ROI vs. continuing manual workflow (calc’d below)" },
+            { k: "$41.6K", l: "annual operator cost absorbed per engagement (40 × 52 × $20)" },
             { k: "∞", l: "the operator that does the work doesn’t take vacation" },
           ].map((s, i) => (
             <div
@@ -118,7 +118,7 @@ export default function Hero() {
         </div>
 
         <p className="mt-6 [font-family:var(--font-geist-mono)] text-xs text-[#5B6470]">
-          Derived from observable operator baselines at $60/hr fully-loaded. Swap
+          Derived from observable operator baselines at $20/hr fully-loaded. Swap
           the rate to match your operation.
         </p>
       </div>

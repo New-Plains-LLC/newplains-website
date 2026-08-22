@@ -5,40 +5,40 @@ const engagements = [
     n: "01",
     name: "Document Automation",
     body: "Excel / Word / PowerPoint / PDF generated from raw data.",
-    baseline: "Internal baseline: 8 hrs/wk producing weekly reports across 4 entities.",
-    value: "~$25K/yr",
+    baseline: "Internal baseline: 8 hrs/day (40 hrs/wk) producing weekly reports across 4 entities.",
+    value: "~$41.6K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
     n: "02",
     name: "Spreadsheet Automation",
     body: "Reconciliation, modeling, roll-ups that re-run themselves.",
-    baseline: "Internal baseline: 12 hrs/wk manual reconciliation across 4 chart-of-accounts.",
-    value: "~$38K/yr",
+    baseline: "Internal baseline: 8 hrs/day (40 hrs/wk) manual reconciliation across 4 chart-of-accounts.",
+    value: "~$41.6K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
     n: "03",
     name: "RAG over Proprietary Corpus",
     body: "Your internal knowledge base — manuals, deal jackets, contracts — queryable in plain English.",
-    baseline: "Internal baseline: 6 hrs/wk research/lookup across internal docs.",
-    value: "~$19K/yr",
+    baseline: "Internal baseline: 8 hrs/day (40 hrs/wk) research/lookup across internal docs.",
+    value: "~$41.6K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
     n: "04",
     name: "Voice & Call Agents",
     body: "Inbound calls transcribed, summarized, routed. Outbound follow-ups drafted.",
-    baseline: "Internal baseline: 5 hrs/wk call-summary + follow-up drafting.",
-    value: "~$16K/yr",
+    baseline: "Internal baseline: 8 hrs/day (40 hrs/wk) call-summary + follow-up drafting.",
+    value: "~$41.6K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
     n: "05",
     name: "Multi-Source Data Integration",
     body: "One source of truth across CRM, accounting, inventory, comms.",
-    baseline: "Internal baseline: 4 hrs/wk cross-system reconciliation + reporting.",
-    value: "~$12K/yr",
+    baseline: "Internal baseline: 8 hrs/day (40 hrs/wk) cross-system reconciliation + reporting.",
+    value: "~$41.6K/yr",
     note: "Client outcome: scoped per audit.",
   },
 ];
@@ -94,7 +94,7 @@ export default function CaseStudies() {
                   {e.value}
                 </span>
                 <span className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470]">
-                  @ $60/hr
+                  @ $20/hr
                 </span>
               </div>
               <div className="[font-family:var(--font-geist-mono)] text-xs uppercase tracking-widest text-[#5B6470] mt-2">
