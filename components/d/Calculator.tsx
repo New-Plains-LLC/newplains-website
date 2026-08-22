@@ -35,12 +35,13 @@ function fmtMonth(m: number) {
 }
 
 export default function Calculator() {
-  const [hours, setHours] = useState(40);
-  const [rate, setRate] = useState(20);
+  const [hours, setHours] = useState(30);
+  const [rate, setRate] = useState(25);
+  const [automations, setAutomations] = useState(5);
   const [includeRetainer, setIncludeRetainer] = useState(true);
   const [includeSolutions, setIncludeSolutions] = useState(false);
 
-  const monthlyManual = hours * rate * WEEKS_PER_MONTH;
+  const monthlyManual = hours * rate * WEEKS_PER_MONTH * automations;
   const engagementMonthly = includeRetainer ? RETAINER : 0;
 
   const data = [];
@@ -106,8 +107,37 @@ export default function Calculator() {
               />
               <div className="flex justify-between [font-family:var(--font-geist-mono)] text-xs text-[#8A929C] mt-2">
                 <span>0</span>
-                <span>40 (1 FTE)</span>
+                <span>30 (typical)</span>
                 <span>80</span>
+              </div>
+            </div>
+
+            {/* Number of automations */}
+            <div>
+              <div className="flex items-baseline justify-between mb-3">
+                <label className="eyebrow text-[#5B6470]">
+                  Number of automations
+                </label>
+                <span className="[font-family:var(--font-geist-mono)] text-base text-[#1A1814] tabular">
+                  {automations}
+                </span>
+              </div>
+              <input
+                type="range"
+                className="slider-brass"
+                min={1}
+                max={20}
+                step={1}
+                value={automations}
+                onChange={(e) => setAutomations(Number(e.target.value))}
+              />
+              <div className="flex justify-between [font-family:var(--font-geist-mono)] text-xs text-[#8A929C] mt-2">
+                <span>1</span>
+                <span>5 (typical)</span>
+                <span>20</span>
+              </div>
+              <div className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470] mt-2">
+                Each automation absorbs 30 hrs/wk of manual work
               </div>
             </div>
 
@@ -125,15 +155,15 @@ export default function Calculator() {
                 type="range"
                 className="slider-brass"
                 min={10}
-                max={30}
+                max={50}
                 step={1}
                 value={rate}
                 onChange={(e) => setRate(Number(e.target.value))}
               />
               <div className="flex justify-between [font-family:var(--font-geist-mono)] text-xs text-[#8A929C] mt-2">
                 <span>$10</span>
-                <span>$20 (default)</span>
-                <span>$30</span>
+                <span>$25 (default)</span>
+                <span>$50</span>
               </div>
             </div>
 
@@ -380,15 +410,15 @@ export default function Calculator() {
           {/* Footnote / methodology */}
           <div className="mt-4 rule pt-4 grid grid-cols-12 gap-4 [font-family:var(--font-geist-mono)] text-sm text-[#5B6470] leading-relaxed">
             <span className="col-span-12 md:col-span-7">
-              Calculated at $20/hr fully-loaded operator cost (US mid-tier
-              knowledge-worker rate). Adjust the rate to match your operation.
-              Rates below $15/hr understate savings; above $50/hr, they’re
-              aspirational. Numbers are estimates — production values are
-              scoped per engagement.
+              Status quo = hours/wk × rate/hr × 4.33 weeks/mo × automations.
+              Default 30 hrs/wk × $25/hr × 5 automations = $16,250/mo manual
+              overhead ($195K/yr). Each automation absorbs one unit of manual
+              work. Adjust inputs to match your operation; production values
+              are scoped per engagement.
             </span>
             <span className="col-span-12 md:col-span-5 md:text-right">
-              Status quo: hours × rate × 4.33 weeks/month, compounded monthly.
-              Engagement: audit fee / monthly retainer as toggled.
+              Engagement: audit fee + monthly retainer as toggled.
+              Crossover marks the month engagement &lt; status quo.
             </span>
           </div>
 
