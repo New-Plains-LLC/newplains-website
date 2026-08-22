@@ -45,24 +45,24 @@ const engagements = [
     n: "06",
     name: "Speed-to-Lead Systems",
     body: "Inbound leads engaged within 60 seconds, 24/7 — by SMS, email, or voice.",
-    baseline: "Internal baseline: 30 hrs/wk on first-touch outreach + qualification.",
-    value: "~$39K/yr",
-    note: "Client outcome: scoped per audit.",
+    baseline: "Internal baseline: 20 hrs/wk on first-touch outreach + qualification.",
+    value: "~$26K/yr",
+    note: "MIT / InsideSales.com: <5-min response = 21× more likely to qualify.",
   },
   {
     n: "07",
     name: "Lead Generation",
     body: "Outbound prospecting — list build, enrichment, sequence drafting, reply handling.",
-    baseline: "Internal baseline: 30 hrs/wk pipeline-building + nurture.",
-    value: "~$39K/yr",
+    baseline: "Internal baseline: 20 hrs/wk pipeline-building + nurture.",
+    value: "~$26K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
     n: "08",
     name: "Automated Competitor Research",
     body: "Weekly briefs on pricing, product, positioning — pulled from public sources.",
-    baseline: "Internal baseline: 30 hrs/wk market-intel gathering.",
-    value: "~$39K/yr",
+    baseline: "Internal baseline: 5 hrs/wk market-intel gathering.",
+    value: "~$6.5K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
@@ -77,16 +77,16 @@ const engagements = [
     n: "10",
     name: "Automated Survey Reports",
     body: "Survey responses cleaned, themed, and turned into executive-ready reports.",
-    baseline: "Internal baseline: 30 hrs/wk survey distribution + analysis.",
-    value: "~$39K/yr",
+    baseline: "Internal baseline: 5 hrs/wk survey distribution + analysis.",
+    value: "~$6.5K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
     n: "11",
     name: "Content Automations",
     body: "Video scripts + shorts + SEO posts drafted, scored, scheduled.",
-    baseline: "Internal baseline: 30 hrs/wk video + SEO content production.",
-    value: "~$39K/yr",
+    baseline: "Internal baseline: 20 hrs/wk video + SEO content production.",
+    value: "~$26K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
@@ -97,6 +97,14 @@ const engagements = [
     value: "~$39K/yr",
     note: "Client outcome: scoped per audit.",
   },
+  {
+    n: "13",
+    name: "Email Automation",
+    body: "Drip sequences, lifecycle mailings, transactional sends — built + maintained.",
+    baseline: "Internal baseline: 20 hrs/wk email sequence drafting + maintenance.",
+    value: "~$26K/yr",
+    note: "Client outcome: scoped per audit.",
+  },
 ];
 
 export default function CaseStudies() {
@@ -104,13 +112,17 @@ export default function CaseStudies() {
     <Section
       id="engagements"
       numeral="IV."
-      label="Twelve Engagements"
+      label="Thirteen Engagements"
       variant="parchment"
     >
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-16 items-end">
         <div className="col-span-12 lg:col-span-8">
           <h2 className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.01em] text-[#1A1814]">
             Twelve engagements.
+            <br />
+            <span className="italic text-[#B08A3E] text-3xl md:text-4xl lg:text-5xl">
+              (and counting.)
+            </span>
           </h2>
         </div>
         <div className="col-span-12 lg:col-span-4">
@@ -163,17 +175,17 @@ export default function CaseStudies() {
         {/* Σ cell */}
         <div className="bg-[#1A1814] p-8 md:p-10 flex flex-col justify-center">
           <div className="eyebrow text-[#C9A26B] mb-4">
-            Σ · 12-engagement baseline
+            Σ · 13-engagement baseline
           </div>
           <div className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl text-[#F6EFE1] leading-tight mb-3">
-            360 hrs/wk returned
+            280 hrs/wk returned
           </div>
           <div className="[font-family:var(--font-fraunces)] italic text-2xl text-[#C9A26B] mb-5">
-            ~$468K/yr
+            ~$364K/yr
           </div>
           <p className="text-[#F6EFE1]/75 leading-relaxed text-base">
-            12 × 30 hrs/wk × 52 wk × $25/hr. Pick the four that matter most at
-            audit; the rest activate on retainer.
+            13 engagements × weighted hrs/wk × 52 wk × $25/hr. Pick the four
+            that matter most at audit; the rest activate on retainer.
           </p>
         </div>
       </div>
