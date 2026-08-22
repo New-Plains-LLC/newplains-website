@@ -423,10 +423,10 @@ export default function Calculator() {
           </div>
 
           {/* Result strip */}
-          <div className="mt-10 grid grid-cols-3 gap-4 md:gap-6 border-t border-[#1A1814] pt-6">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-[#1A1814] pt-6">
             <div>
               <div className="eyebrow text-[#5B6470] mb-2">Crossover month</div>
-              <div className="[font-family:var(--font-fraunces)] text-3xl md:text-4xl text-[#B08A3E] tabular leading-none">
+              <div className="[font-family:var(--font-fraunces)] text-2xl sm:text-3xl md:text-4xl text-[#B08A3E] tabular leading-none whitespace-nowrap">
                 {crossover ? fmtMonth(crossover.month) : "—"}
               </div>
               <div className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470] mt-2">
@@ -435,7 +435,7 @@ export default function Calculator() {
             </div>
             <div>
               <div className="eyebrow text-[#5B6470] mb-2">12-month savings</div>
-              <div className="[font-family:var(--font-fraunces)] text-3xl md:text-4xl text-[#1A1814] tabular leading-none">
+              <div className="[font-family:var(--font-fraunces)] text-2xl sm:text-3xl md:text-4xl text-[#1A1814] tabular leading-none whitespace-nowrap">
                 {twelveMonthSavings > 0 ? fmtCurrency(twelveMonthSavings) : "$0"}
               </div>
               <div className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470] mt-2">
@@ -446,8 +446,8 @@ export default function Calculator() {
               <div className="eyebrow text-[#5B6470] mb-2">
                 Hours / week returned
               </div>
-              <div className="[font-family:var(--font-fraunces)] text-3xl md:text-4xl text-[#1A1814] tabular leading-none">
-                {hours}
+              <div className="[font-family:var(--font-fraunces)] text-2xl sm:text-3xl md:text-4xl text-[#1A1814] tabular leading-none whitespace-nowrap">
+                {hours * automations}
               </div>
               <div className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470] mt-2">
                 Back to the business

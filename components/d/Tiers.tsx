@@ -39,7 +39,7 @@ const tiers = [
     bullets: [
       "∞ automations — build as many as your operation needs",
       "∞ usage — no per-call, per-query, or per-seat metering",
-      "∞ a principal on retainer to keep building, maintaining, and improving them",
+      "∞ our team on retainer to keep building, maintaining, and improving them",
     ],
   },
 ];
@@ -200,7 +200,7 @@ export default function Tiers() {
               ∞
             </div>
             <div className="[font-family:var(--font-fraunces)] italic text-xl text-[#F6EFE1]/80 mt-2">
-              automations. usage. me on retainer.
+              automations. usage. our team on retainer.
             </div>
           </div>
           <div className="col-span-12 md:col-span-8 md:pl-8 md:border-l border-[rgba(246,239,225,0.18)]">
@@ -238,7 +238,9 @@ export default function Tiers() {
                 <div className="text-[#C9A26B] text-2xl tabular leading-none mb-1">
                   ∞
                 </div>
-                principal on retainer
+                our team
+                <br />
+                on retainer
               </div>
             </div>
           </div>
