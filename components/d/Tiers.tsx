@@ -43,8 +43,8 @@ const tiers = [
       "∞ automations — build as many as your operation needs",
       "∞ usage — no per-call, per-query, or per-seat metering",
       "∞ our team on retainer to keep building, maintaining, and improving them",
-      "Agents live inside our Orgo workspace — there is lock-in by design",
-      "Lock-in is the trade for $5K/mo flat and ∞ usage. Leave anytime; the work stays ours.",
+      "What we build during the engagement stays with us — that is the trade for $5K/mo flat and ∞ usage",
+      "You can leave any month. The work we have already delivered does not transfer.",
     ],
   },
 ];
@@ -284,16 +284,16 @@ export default function Tiers() {
               </p>
             </div>
             <div className="bg-[#F6EFE1] p-6 md:p-8">
-              <div className="[font-family:var(--font-geist-mono)] text-[10px] uppercase tracking-widest text-[#9B2C2C] mb-3">
+              <div className="[font-family:var(--font-geist-mono)] text-[10px] uppercase tracking-widest text-[#B08A3E] mb-3">
                 Tier III · Retainer
               </div>
-              <div className="[font-family:var(--font-fraunces)] text-3xl text-[#9B2C2C] leading-tight mb-3">
-                Lock-in. By design.
+              <div className="[font-family:var(--font-fraunces)] text-3xl text-[#1A1814] leading-tight mb-3">
+                The work stays with us.
               </div>
               <p className="text-sm text-[#1A1814]/75 leading-relaxed">
-                Agents live inside our Orgo workspace. You can leave any month.
-                What we built stays with us. The lock-in is the trade for
-                $5K/mo flat and ∞ usage — no metering, ever.
+                You can leave any month. What we have already built and shipped
+                during the engagement does not transfer out — that is the
+                trade for $5K/mo flat and ∞ usage, no metering ever.
               </p>
             </div>
           </div>
