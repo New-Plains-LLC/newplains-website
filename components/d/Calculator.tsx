@@ -125,15 +125,15 @@ export default function Calculator() {
                 type="range"
                 className="slider-brass"
                 min={10}
-                max={60}
-                step={5}
+                max={30}
+                step={1}
                 value={rate}
                 onChange={(e) => setRate(Number(e.target.value))}
               />
               <div className="flex justify-between [font-family:var(--font-geist-mono)] text-xs text-[#8A929C] mt-2">
                 <span>$10</span>
-                <span>$20</span>
-                <span>$60</span>
+                <span>$20 (default)</span>
+                <span>$30</span>
               </div>
             </div>
 
