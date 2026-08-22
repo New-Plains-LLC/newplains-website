@@ -46,8 +46,8 @@ const engagements = [
     name: "Speed-to-Lead Systems",
     body: "Inbound leads engaged within 60 seconds, 24/7 — by SMS, email, or voice.",
     baseline: "Internal baseline: 20 hrs/wk on first-touch outreach + qualification.",
-    value: "~$26K/yr",
-    note: "MIT / InsideSales.com: <5-min response = 21× more likely to qualify.",
+    metric: { k: "21×", l: "more likely to qualify (MIT / InsideSales.com)" },
+    note: "Sub-60-second response = 391% conversion lift.",
   },
   {
     n: "07",
@@ -69,8 +69,8 @@ const engagements = [
     n: "09",
     name: "Automated Meeting Agendas",
     body: "Agendas drafted from prior meeting notes, CRM context, and stated outcomes.",
-    baseline: "Internal baseline: 30 hrs/wk agenda prep + recap drafting.",
-    value: "~$39K/yr",
+    baseline: "Internal baseline: 2 hrs/wk agenda prep + recap drafting.",
+    value: "~$2.6K/yr",
     note: "Client outcome: scoped per audit.",
   },
   {
@@ -157,17 +157,35 @@ export default function CaseStudies() {
               {e.baseline}
             </p>
             <div className="rule pt-5 mt-auto">
-              <div className="flex items-baseline justify-between">
-                <span className="[font-family:var(--font-fraunces)] text-3xl text-[#1A1814] tabular leading-none">
-                  {e.value}
-                </span>
-                <span className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470]">
-                  @ $25/hr
-                </span>
-              </div>
-              <div className="[font-family:var(--font-geist-mono)] text-xs uppercase tracking-widest text-[#5B6470] mt-2">
-                {e.note}
-              </div>
+              {e.metric ? (
+                <>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="[font-family:var(--font-fraunces)] text-3xl text-[#9B2C2C] tabular leading-none">
+                      {e.metric.k}
+                    </span>
+                    <span className="[font-family:var(--font-geist-mono)] text-[10px] uppercase tracking-widest text-[#B08A3E] text-right leading-tight max-w-[55%]">
+                      {e.metric.l}
+                    </span>
+                  </div>
+                  <div className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470] mt-3 leading-snug">
+                    {e.note}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-baseline justify-between">
+                    <span className="[font-family:var(--font-fraunces)] text-3xl text-[#1A1814] tabular leading-none">
+                      {e.value}
+                    </span>
+                    <span className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470]">
+                      @ $25/hr
+                    </span>
+                  </div>
+                  <div className="[font-family:var(--font-geist-mono)] text-xs uppercase tracking-widest text-[#5B6470] mt-2">
+                    {e.note}
+                  </div>
+                </>
+              )}
             </div>
           </article>
         ))}
@@ -178,14 +196,16 @@ export default function CaseStudies() {
             Σ · 13-engagement baseline
           </div>
           <div className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl text-[#F6EFE1] leading-tight mb-3">
-            280 hrs/wk returned
+            252 hrs/wk returned
           </div>
           <div className="[font-family:var(--font-fraunces)] italic text-2xl text-[#C9A26B] mb-5">
-            ~$364K/yr
+            ~$328K/yr
           </div>
           <p className="text-[#F6EFE1]/75 leading-relaxed text-base">
-            13 engagements × weighted hrs/wk × 52 wk × $25/hr. Pick the four
-            that matter most at audit; the rest activate on retainer.
+            13 engagements × weighted hrs/wk × 52 wk × $25/hr. Speed-to-Lead
+            excluded from $/yr — it pays back in conversion lift, not hours.
+            Pick the four that matter most at audit; the rest activate on
+            retainer.
           </p>
         </div>
       </div>
