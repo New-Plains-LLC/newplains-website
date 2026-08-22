@@ -1,0 +1,123 @@
+import Section from "./Section";
+
+const engagements = [
+  {
+    n: "01",
+    name: "Document Automation",
+    body: "Excel / Word / PowerPoint / PDF generated from raw data.",
+    baseline: "Internal baseline: 8 hrs/wk producing weekly reports across 4 entities.",
+    value: "~$25K/yr",
+    note: "Client outcome: scoped per audit.",
+  },
+  {
+    n: "02",
+    name: "Spreadsheet Automation",
+    body: "Reconciliation, modeling, roll-ups that re-run themselves.",
+    baseline: "Internal baseline: 12 hrs/wk manual reconciliation across 4 chart-of-accounts.",
+    value: "~$38K/yr",
+    note: "Client outcome: scoped per audit.",
+  },
+  {
+    n: "03",
+    name: "RAG over Proprietary Corpus",
+    body: "Your internal knowledge base — manuals, deal jackets, contracts — queryable in plain English.",
+    baseline: "Internal baseline: 6 hrs/wk research/lookup across internal docs.",
+    value: "~$19K/yr",
+    note: "Client outcome: scoped per audit.",
+  },
+  {
+    n: "04",
+    name: "Voice & Call Agents",
+    body: "Inbound calls transcribed, summarized, routed. Outbound follow-ups drafted.",
+    baseline: "Internal baseline: 5 hrs/wk call-summary + follow-up drafting.",
+    value: "~$16K/yr",
+    note: "Client outcome: scoped per audit.",
+  },
+  {
+    n: "05",
+    name: "Multi-Source Data Integration",
+    body: "One source of truth across CRM, accounting, inventory, comms.",
+    baseline: "Internal baseline: 4 hrs/wk cross-system reconciliation + reporting.",
+    value: "~$12K/yr",
+    note: "Client outcome: scoped per audit.",
+  },
+];
+
+export default function CaseStudies() {
+  return (
+    <Section
+      id="engagements"
+      numeral="IV."
+      label="Five Engagements"
+      variant="parchment"
+    >
+      <div className="grid grid-cols-12 gap-6 md:gap-10 mb-16 items-end">
+        <div className="col-span-12 lg:col-span-8">
+          <h2 className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.01em] text-[#1A1814]">
+            Five engagements.
+          </h2>
+        </div>
+        <div className="col-span-12 lg:col-span-4">
+          <p className="text-base text-[#1A1814]/70 leading-relaxed">
+            Built this for our own operations first. Then{" "}
+            <span className="italic text-[#B08A3E]">
+              productized it for clients.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[rgba(26,24,20,0.18)]">
+        {engagements.map((e) => (
+          <article
+            key={e.n}
+            className="bg-[#F6EFE1] p-8 md:p-10 flex flex-col"
+          >
+            <div className="flex items-start justify-between mb-10">
+              <span className="[font-family:var(--font-geist-mono)] text-sm text-[#B08A3E] tabular tracking-widest">
+                {e.n}
+              </span>
+              <span className="eyebrow text-[#5B6470] text-right">
+                Internal baseline
+              </span>
+            </div>
+            <h3 className="[font-family:var(--font-fraunces)] text-3xl md:text-[2rem] text-[#1A1814] leading-tight mb-5">
+              {e.name}
+            </h3>
+            <p className="text-[#1A1814]/70 leading-relaxed mb-6">{e.body}</p>
+            <p className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470] leading-relaxed mb-8">
+              {e.baseline}
+            </p>
+            <div className="rule pt-5 mt-auto">
+              <div className="flex items-baseline justify-between">
+                <span className="[font-family:var(--font-fraunces)] text-3xl text-[#1A1814] tabular leading-none">
+                  {e.value}
+                </span>
+                <span className="[font-family:var(--font-geist-mono)] text-xs text-[#5B6470]">
+                  @ $60/hr
+                </span>
+              </div>
+              <div className="[font-family:var(--font-geist-mono)] text-xs uppercase tracking-widest text-[#5B6470] mt-2">
+                {e.note}
+              </div>
+            </div>
+          </article>
+        ))}
+
+        {/* Σ cell */}
+        <div className="bg-[#1A1814] p-8 md:p-10 flex flex-col justify-center">
+          <div className="eyebrow text-[#C9A26B] mb-4">Σ · Single-operator baseline</div>
+          <div className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl text-[#F6EFE1] leading-tight mb-3">
+            35 hrs/wk returned
+          </div>
+          <div className="[font-family:var(--font-fraunces)] italic text-2xl text-[#C9A26B] mb-5">
+            ~$110K/yr
+          </div>
+          <p className="text-[#F6EFE1]/75 leading-relaxed text-base">
+            Multiply by team size at audit.
+          </p>
+        </div>
+      </div>
+    </Section>
+  );
+}

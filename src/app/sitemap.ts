@@ -99,6 +99,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    // Concept D — Field Notes (unlisted, noindex)
+    {
+      url: `${baseUrl}/d`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
     // Concept index (unlisted, noindex)
     {
       url: `${baseUrl}/compare`,

@@ -1,0 +1,172 @@
+/* Scoped chrome for the /d route group — Field Notes № 01.
+   Palette: parchment #F6EFE1 / ink #1A1814 / brass #B08A3E / crimson #9B2C2C.
+   This file is imported ONLY by src/app/d/layout.tsx. The top-level
+   globals.css is untouched. */
+
+:root {
+  --color-ink: #1a1814;
+  --color-ink-soft: #26221a;
+  --color-parchment: #f6efe1;
+  --color-paper: #fbf6ea;
+  --color-paper-deep: #ebe1c9;
+  --color-brass: #b08a3e;
+  --color-brass-deep: #835b2c;
+  --color-brass-soft: #c9a26b;
+  --color-crimson: #9b2c2c;
+  --color-slate: #5b6470;
+  --color-slate-soft: #8a929c;
+  --color-hairline: rgba(26, 24, 20, 0.18);
+  --color-hairline-soft: rgba(26, 24, 20, 0.08);
+}
+
+/* Hairline rule */
+.rule {
+  border-top: 1px solid var(--color-hairline);
+}
+
+/* Eyebrow / label — color set at call site via arbitrary text color */
+.eyebrow {
+  font-family: var(--font-geist-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Marker (roman numeral + label, financial-document feel) — color at call site */
+.marker {
+  font-family: var(--font-geist-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Number styling — financial reportage */
+.tabular {
+  font-feature-settings: "tnum", "lnum";
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Custom range slider styling */
+input[type="range"].slider-brass {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--color-hairline);
+  outline: none;
+}
+
+input[type="range"].slider-brass::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--color-brass);
+  border: 2px solid var(--color-parchment);
+  box-shadow: 0 0 0 1px var(--color-brass-deep);
+  border-radius: 50%;
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"].slider-brass::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
+}
+
+input[type="range"].slider-brass::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--color-brass);
+  border: 2px solid var(--color-parchment);
+  box-shadow: 0 0 0 1px var(--color-brass-deep);
+  border-radius: 50%;
+  cursor: grab;
+}
+
+/* Bare underline fields */
+.field,
+.field-email,
+.field-area {
+  font-family: var(--font-geist-sans);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-ink);
+  padding: 0.625rem 0;
+  font-size: 1rem;
+  color: var(--color-ink);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.field-area {
+  resize: vertical;
+  min-height: 6rem;
+  line-height: 1.6;
+}
+
+.field::placeholder,
+.field-email::placeholder,
+.field-area::placeholder {
+  color: var(--color-slate-soft);
+}
+
+.field:focus,
+.field-email:focus,
+.field-area:focus {
+  border-bottom-color: var(--color-brass);
+}
+
+/* Reveal animation utility */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: reveal-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes draw-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.draw-rule {
+  transform-origin: left;
+  animation: draw-rule 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+::selection {
+  background: var(--color-brass);
+  color: var(--color-parchment);
+}
+
+/* Thin parchment scrollbar for the /d surface */
+.d-fieldnotes ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.d-fieldnotes ::-webkit-scrollbar-track {
+  background: var(--color-parchment);
+}
+.d-fieldnotes ::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border: 2px solid var(--color-parchment);
+  border-radius: 999px;
+}
+.d-fieldnotes ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brass);
+}
