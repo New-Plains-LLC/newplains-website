@@ -65,13 +65,17 @@
 .divider{animation:dividerBuzz .13s steps(2,end) infinite}
 .divider__labels{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:9;
   display:flex;gap:clamp(24px,4vw,64px);align-items:center;
-  padding:10px 26px;background:rgba(11,8,6,.55);backdrop-filter:blur(8px);
+  padding:10px 26px;background:#161009;
   border:1px solid rgba(239,231,220,.12);border-top:none;border-radius:0 0 14px 14px;
   font:600 clamp(11px,1.4vw,14px)/1 var(--sc-font-display);letter-spacing:.22em}
 .divider__labels span{color:#EFE7DC}
 .divider__labels .win{color:var(--sc-accent);opacity:0;transition:opacity 300ms var(--sc-ease-out)}
 .split.is-resolved .divider__labels .win{opacity:1}
 @media (max-width:860px){
+  .split__col--m::before{content:'';position:absolute;top:0;left:0;right:0;height:46%;pointer-events:none;
+    background:radial-gradient(120% 90% at 30% 0%,rgba(214,255,224,.12),rgba(214,255,224,0) 60%);animation:tubeFlicker 7.3s steps(1,end) infinite}
+  .split__col--a::after{content:'';position:absolute;top:-10%;right:-6%;width:70%;height:80%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(255,246,224,.85),rgba(255,243,214,.28) 55%,rgba(255,243,214,0) 72%);mix-blend-mode:screen;animation:sunBreath 9s ease-in-out infinite}
   .divider__labels{gap:18px;padding:8px 18px;letter-spacing:.14em}
   .split__side--m{width:100%;height:50%;top:0}
   .split__side--a{left:0;width:100%;height:50%;top:50%}
@@ -92,18 +96,32 @@
 .travel-cta:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .travel-cta--win{background:#8F4E14;color:#FFF6EC}
 @media (max-width:640px){.travel-cta{padding:13px 18px;font-size:14px}}
+@media (max-width:860px){.close-inner{padding-bottom:120px}.buckets__head{padding-bottom:100px}
+  .close-stage[data-sc-stage]{height:auto;min-height:100vh}
+  .close-inner{min-height:0}}
 
 /* ============ COPY LAYOUT ============ */
 .split__inner{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
 .split__col{position:relative;display:flex;flex-direction:column;justify-content:center}
-.split__col--m{width:50%;padding-left:clamp(20px,4vw,64px);
+.split__col--m{min-width:0;padding-left:clamp(20px,4vw,64px);
   padding-right:max(20px,calc(50vw - var(--split) + clamp(20px,3vw,48px)))}
-.split__col--a{padding-left:clamp(20px,3vw,48px);padding-right:clamp(20px,4vw,64px)}
+.split__col--a{min-width:0;
+  padding-left:max(clamp(20px,3vw,48px),calc(var(--split) - 50vw + clamp(20px,3vw,48px)));
+  padding-right:clamp(20px,4vw,64px)}
 @media (max-width:860px){
-  .split__inner{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
-  .split__col--m,.split__col--a{width:auto;
-    padding:var(--sc-7) var(--sc-gutter) var(--sc-5)}
-  .split__inner{align-content:center}
+  .split[data-sc-stage]{height:auto;min-height:100vh}
+  .split__inner{position:static;display:block;min-height:100vh}
+  .split__side{display:none}
+  .split__col--m,.split__col--a{width:auto;position:relative;overflow:hidden;
+    min-height:50vh;padding:calc(var(--sc-7) + 34px) var(--sc-gutter) var(--sc-7)}
+  .split__col--m{background:var(--sc-canvas);color:#C9BBA9}
+  .split__col--a{background:var(--lp-canvas);color:#4A4238;
+    --sc-ink:#2D2A26;--sc-ink-soft:#6E655B;--sc-accent:#A45D1B}
+  .divider{position:absolute;left:0;right:0;top:50%;width:auto;height:2px;
+    transform:translateY(-1px);animation:none;background:var(--sc-accent);z-index:5}
+  .m-h1,.a-h1{color:inherit}
+  .split__col--m .m-h1{color:#F4EDE2}
+  .split__col--a .a-h1{color:#2D2A26}
 }
 
 .sc-display{font-family:var(--sc-font-display);font-weight:700;letter-spacing:-.02em}
@@ -247,7 +265,7 @@
 }
 
 /* lock-in tiers: plain lines, honest trade stated */
-.tiers{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:var(--sc-2)}
+.tiers{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:var(--sc-4);padding:18px 22px;background:#FFFFFF;border:1px solid rgba(45,42,38,.14);border-radius:14px;color:#57503F}
 .tier{font:500 14px/1.5 var(--sc-font-text);color:#57503F}
 .tier b{font-family:var(--sc-font-display);font-weight:600;color:#2D2A26}
 
@@ -296,7 +314,7 @@
         <p class="sc-body" style="margin-top:var(--sc-4);max-width:34ch" data-sc-cue="0.08 0.95 0.1 0.05">
           Every lead called back personally. Every invoice keyed in. Every report built by hand, again, because yesterday's report does not repeat itself.
         </p>
-        <figure class="hero-media" data-sc-cue="0.16 0.95 0.1 0.05" style="margin-bottom:0">
+        <figure class="hero-media" data-sc-cue="0 1 0 0" style="margin-bottom:0">
           <img src="assets/01-manual.webp" alt="A desk at night buried under paper invoices" width="1600" height="1000">
           <figcaption>11:40 PM. The paperwork won.</figcaption>
         </figure>
@@ -307,7 +325,7 @@
         <p class="sc-body" style="margin-top:var(--sc-4);max-width:34ch" data-sc-cue="0.08 0.95 0.1 0.05">
           Software that answers, files, and reports while you sleep. You make the decisions. The work is already done when you sit down.
         </p>
-        <figure class="hero-media" data-sc-cue="0.16 0.95 0.1 0.05" style="margin-bottom:0">
+        <figure class="hero-media" data-sc-cue="0 1 0 0" style="margin-bottom:0">
           <img src="assets/02-auto.webp" alt="A tidy desk in daylight with a dashboard on the laptop" width="1600" height="1000">
           <figcaption>8:15 AM. It ran overnight.</figcaption>
         </figure>
