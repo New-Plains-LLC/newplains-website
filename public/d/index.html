@@ -97,7 +97,8 @@
 .travel-cta--win{background:#8F4E14;color:#FFF6EC}
 @media (max-width:640px){.travel-cta{padding:13px 18px;font-size:14px}}
 @media (max-width:860px){.close-inner{padding-bottom:120px}.buckets__head{padding-bottom:100px}
-  .close-stage[data-sc-stage]{height:auto;min-height:100vh}
+  #act-hero,#act-leads,#act-ledger,#act-close{height:auto!important}
+  .split[data-sc-stage],.close-stage[data-sc-stage]{position:static!important;height:auto!important;min-height:0}
   .close-inner{min-height:0}}
 
 /* ============ COPY LAYOUT ============ */
@@ -527,6 +528,24 @@
 <script>
 (function () {
   var mount = document.querySelector('[data-sc-mount]');
+
+  /* Mobile: acts are un-pinned stacked blocks, so cue windows mapped to pin
+     travel fire far from their content. Re-map every cue to entry, staggered. */
+  if (matchMedia('(max-width:860px)').matches) {
+    ['act-hero','act-leads','act-ledger','act-close'].forEach(function (id) {
+      var sec = document.getElementById(id); if (!sec) return;
+      var cues = sec.querySelectorAll('[data-sc-cue]');
+      Array.prototype.forEach.call(cues, function (el, i) {
+        if (i === cues.length - 1) { el.setAttribute('data-sc-cue', '0 1 0.05 0'); return; }
+        var end = Math.min(0.7, 0.28 + i * 0.07);
+        el.setAttribute('data-sc-cue', '0 ' + end.toFixed(2) + ' 0.05 0.04');
+      });
+      sec.querySelectorAll('[data-sc-count-at]').forEach(function (el) {
+        el.setAttribute('data-sc-count-at', '0.02 0.3');
+      });
+    });
+  }
+
   if (window.ScrollCraft) ScrollCraft.mount(mount);
 
   /* ---- signature: the tipping divider + persistent CTA, driven from page scroll ---- */
