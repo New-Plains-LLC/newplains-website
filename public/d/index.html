@@ -534,11 +534,12 @@
   if (matchMedia('(max-width:860px)').matches) {
     ['act-hero','act-leads','act-ledger','act-close'].forEach(function (id) {
       var sec = document.getElementById(id); if (!sec) return;
-      var cues = sec.querySelectorAll('[data-sc-cue]');
-      Array.prototype.forEach.call(cues, function (el, i) {
-        if (i === cues.length - 1) { el.setAttribute('data-sc-cue', '0 1 0.05 0'); return; }
-        var end = Math.min(0.7, 0.28 + i * 0.07);
-        el.setAttribute('data-sc-cue', '0 ' + end.toFixed(2) + ' 0.05 0');
+      /* pin-travel cue windows end in a fade-out; on un-pinned blocks that
+         cuts text off mid-screen. Convert to the flow device: fire once on
+         entry, stay visible. */
+      sec.querySelectorAll('[data-sc-cue]').forEach(function (el) {
+        el.removeAttribute('data-sc-cue');
+        el.setAttribute('data-sc-in', '');
       });
       sec.querySelectorAll('[data-sc-count-at]').forEach(function (el) {
         el.setAttribute('data-sc-count-at', '0.02 0.3');
