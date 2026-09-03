@@ -97,9 +97,9 @@ export default function Hero() {
         {/* Bottom data strip */}
         <div className="mt-20 md:mt-28 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-[rgba(26,24,20,0.18)] pt-8">
           {[
-            { k: "30 hrs/wk", l: "manual work absorbed per automation" },
-            { k: "90 days", l: "typical audit-to-production timeline" },
-            { k: "$39K", l: "annual operator cost absorbed per automation (30 × 52 × $25)" },
+            { k: "30 hrs/wk*", l: "manual work absorbed per automation (average)" },
+            { k: "90 days*", l: "typical audit-to-production timeline" },
+            { k: "$39K*", l: "annual operator cost absorbed per automation (30 × 52 × $25)" },
             { k: "∞", l: "the operator that does the work doesn’t take vacation" },
           ].map((s, i) => (
             <div
@@ -118,8 +118,9 @@ export default function Hero() {
         </div>
 
         <p className="mt-6 [font-family:var(--font-geist-mono)] text-xs text-[#5B6470]">
-          Derived from observable operator baselines at $25/hr fully-loaded. Swap
-          the rate to match your operation.
+          *Averages across the automations we&apos;ve shipped, not a guarantee
+          for any single build. Derived from observable operator baselines at
+          $25/hr fully-loaded. Your numbers get pinned down in the audit.
         </p>
       </div>
     </header>

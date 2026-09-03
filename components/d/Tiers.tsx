@@ -73,7 +73,7 @@ export default function Tiers() {
       </div>
 
       {/* Tier table */}
-      <div className="hidden md:grid grid-cols-12 gap-3 pb-3 border-b border-[rgba(26,24,20,0.18)] eyebrow text-[#5B6470]">
+      <div className="hidden md:grid md:col-span-12 grid-cols-12 gap-3 pb-3 border-b border-[rgba(26,24,20,0.18)] eyebrow text-[#5B6470]">
         <div className="col-span-5">Tier</div>
         <div className="col-span-3">Price</div>
         <div className="col-span-2">Cadence</div>
@@ -84,7 +84,7 @@ export default function Tiers() {
         {tiers.map((t) => (
           <div
             key={t.name}
-            className={`md:grid md:grid-cols-12 md:gap-3 md:items-start md:py-6 border-b border-[rgba(26,24,20,0.18)] min-w-0 ${
+            className={`md:col-span-12 md:grid md:grid-cols-12 md:gap-3 md:items-start md:py-6 border-b border-[rgba(26,24,20,0.18)] min-w-0 ${
               t.primary
                 ? "bg-[#1A1814] text-[#F6EFE1] px-6 py-6 md:px-0 md:py-6 -mx-6 md:mx-0"
                 : "px-0 py-6"

@@ -112,24 +112,25 @@ export default function CaseStudies() {
     <Section
       id="engagements"
       numeral="IV."
-      label="Thirteen Engagements"
+      label="Example Automations"
       variant="parchment"
     >
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-16 items-end">
         <div className="col-span-12 lg:col-span-8">
           <h2 className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.01em] text-[#1A1814]">
-            Thirteen engagements.
+            Thirteen example
             <br />
             <span className="italic text-[#B08A3E] text-3xl md:text-4xl lg:text-5xl">
-              (and counting.)
+              automations.
             </span>
           </h2>
         </div>
         <div className="col-span-12 lg:col-span-4">
           <p className="text-base text-[#1A1814]/70 leading-relaxed">
-            Built this for our own operations first. Then{" "}
+            A sample of what we build, not the whole list. If it&apos;s manual
+            and repetitive, it&apos;s probably automatable —{" "}
             <span className="italic text-[#B08A3E]">
-              productized it for clients.
+              bring it to the audit.
             </span>
           </p>
         </div>
