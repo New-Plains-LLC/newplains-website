@@ -118,7 +118,7 @@ export default function CaseStudies() {
       <div className="grid grid-cols-12 gap-6 md:gap-10 mb-16 items-end">
         <div className="col-span-12 lg:col-span-8">
           <h2 className="[font-family:var(--font-fraunces)] text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.01em] text-[#1A1814]">
-            Twelve engagements.
+            Thirteen engagements.
             <br />
             <span className="italic text-[#B08A3E] text-3xl md:text-4xl lg:text-5xl">
               (and counting.)

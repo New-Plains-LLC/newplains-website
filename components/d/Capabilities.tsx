@@ -17,7 +17,7 @@ const capabilities = [
     n: "03",
     name: "Operate",
     tag: "Keep it running",
-    body: "$5,000/mo retainer + individually-priced solutions. We keep it running, fix it when it breaks, evolve it when the business changes.",
+    body: "The retainer plus the AI employee system. We keep it running, fix it when it breaks, and keep building as the business changes. Terms discussed after the audit.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function Capabilities() {
             <div className="rule pt-5">
               <div className="eyebrow text-[#5B6470]">
                 {c.name === "Audit" && "Fixed price · $999"}
-                {c.name === "Build" && "Quote-based · one-time"}
+                {c.name === "Build" && "Quoted from the audit"}
                 {c.name === "Operate" && "Monthly · optional"}
               </div>
             </div>

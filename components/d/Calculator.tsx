@@ -192,14 +192,14 @@ export default function Calculator() {
               </div>
               {[
                 {
-                  label: "Include $5,000/mo managed retainer",
-                  amount: "$5,000/mo",
+                  label: "Include the managed retainer",
+                  amount: "priced after the audit",
                   checked: includeRetainer,
                   set: setIncludeRetainer,
                 },
                 {
-                  label: "Include individually-priced solutions",
-                  amount: "$TBD · scoped per engagement",
+                  label: "Include individually-scoped solutions",
+                  amount: "quoted per engagement",
                   checked: includeSolutions,
                   set: setIncludeSolutions,
                 },
