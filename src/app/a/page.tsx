@@ -14,17 +14,17 @@ const howItWorks = [
   {
     step: "01",
     title: "Tell us what you need",
-    body: "AI consulting or government contracting — or both. Each side has its own team, its own process, and its own fixed-price offer.",
+    body: "AI consulting or government contracting — or both. Each side has its own process and its own way in.",
   },
   {
     step: "02",
-    title: "Tell us about your engagement",
-    body: "One email with your situation. For AI work we book the 1-hour audit call; for contracting we take your RFQ and respond with a fixed scope.",
+    title: "Send one email",
+    body: "Tell us your situation in a sentence or two. For AI work we book the 1-hour audit call; for contracting we take your RFQ and come back with a fixed scope.",
   },
   {
     step: "03",
     title: "We respond within 1 business day",
-    body: "A real person, a real answer, and a clear next step — not a drip sequence.",
+    body: "A real person, a real answer, and a clear next step — not a drip campaign.",
   },
 ];
 
@@ -32,18 +32,32 @@ export default function ConceptAPage() {
   return (
     <>
       {/* HERO */}
-      <section className="mx-auto max-w-4xl px-6 pb-14 pt-24 text-center md:pt-32">
-        <p className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
+      <section className="mx-auto max-w-4xl px-6 pb-10 pt-14 text-center md:pt-20">
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
           New Plains LLC · Two Ways We Serve
         </p>
-        <h1 className="font-heading text-5xl font-semibold italic leading-[1.05] tracking-tight text-brand-charcoal sm:text-6xl md:text-7xl">
+        <h1 className="font-heading text-4xl font-semibold italic leading-[1.05] tracking-tight text-brand-charcoal sm:text-5xl md:text-6xl">
           Two ways we work. One promise.
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-brand-charcoal/60">
-          New Plains LLC is a small American firm that helps two kinds of clients: businesses
-          that want to use AI to get their time back, and federal, state, and local agencies
-          that need a registered, reliable contractor. Whichever side needs us, we show up.
+        <p className="mx-auto mt-4 max-w-2xl text-base text-brand-charcoal/60 md:text-lg">
+          We help businesses get their time back with AI, and we serve federal,
+          state, and local agencies as a registered contractor. Whichever side
+          needs us, we show up.
         </p>
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={AUDIT_MAILTO}
+            className="inline-flex w-full items-center justify-center rounded-full bg-brand-copper px-7 py-3.5 text-base font-semibold text-brand-cream shadow-lg shadow-brand-copper/25 transition-colors hover:bg-brand-copper-light sm:w-auto"
+          >
+            Book the audit →
+          </a>
+          <a
+            href="#how-it-works"
+            className="inline-flex w-full items-center justify-center rounded-full border border-brand-charcoal/20 px-7 py-3.5 text-base font-semibold text-brand-charcoal transition-colors hover:border-brand-copper hover:text-brand-copper sm:w-auto"
+          >
+            See how it works
+          </a>
+        </div>
       </section>
 
       {/* DOUBLE HERO — PHOTO CARDS */}
@@ -133,12 +147,12 @@ export default function ConceptAPage() {
       {/* CREDIBILITY STRIP */}
       <section className="border-y border-brand-copper/15 bg-white/60 py-8">
         <p className="mx-auto max-w-3xl px-6 text-center font-heading text-xl font-medium tracking-tight text-brand-charcoal md:text-2xl">
-          American-built. American-staffed. Born in Oklahoma.
+          An Oklahoma small business, registered and ready to work.
         </p>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20 md:py-24">
+      <section id="how-it-works" className="py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
             How It Works
@@ -164,8 +178,8 @@ export default function ConceptAPage() {
             Not sure which side fits? Send one email and ask.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-brand-charcoal/70">
-            Tell us what you&apos;re trying to buy. We&apos;ll point you at the right one —
-            info@newplains.dev.
+            Tell us what you&apos;re trying to get done and we&apos;ll point you
+            the right way — info@newplains.dev.
           </p>
           <a
             href="mailto:info@newplains.dev?subject=New%20Plains%20—%20which%20side"
