@@ -32,19 +32,19 @@ export default function ConceptAPage() {
   return (
     <>
       {/* HERO */}
-      <section className="mx-auto max-w-4xl px-6 pb-10 pt-14 text-center md:pt-20">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
+      <section className="mx-auto max-w-5xl px-6 pb-8 pt-6 text-center md:pt-10">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
           New Plains LLC · Two Ways We Serve
         </p>
-        <h1 className="font-heading text-4xl font-semibold italic leading-[1.05] tracking-tight text-brand-charcoal sm:text-5xl md:text-6xl">
+        <h1 className="font-heading text-4xl font-semibold italic leading-[1.05] tracking-tight text-brand-charcoal md:whitespace-nowrap md:text-5xl">
           Two ways we work. One promise.
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-brand-charcoal/60 md:text-lg">
+        <p className="mx-auto mt-3 max-w-2xl text-base text-brand-charcoal/60 md:text-lg">
           We help businesses get their time back with AI, and we serve federal,
           state, and local agencies as a registered contractor. Whichever side
           needs us, we show up.
         </p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href={AUDIT_MAILTO}
             className="inline-flex w-full items-center justify-center rounded-full bg-brand-copper px-7 py-3.5 text-base font-semibold text-brand-cream shadow-lg shadow-brand-copper/25 transition-colors hover:bg-brand-copper-light sm:w-auto"
