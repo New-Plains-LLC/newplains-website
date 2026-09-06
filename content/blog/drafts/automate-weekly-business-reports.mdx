@@ -1,0 +1,158 @@
+---
+title: "How to Automate Weekly Reports Across Excel, Email, CRM, and Accounting Systems"
+date: "2026-09-06"
+excerpt: "A step-by-step guide to automating recurring business reports while preserving source data, validation, exception review, and management accountability."
+author: "Shawn Skaggs"
+tags: ["automated reporting", "Excel automation", "business reporting"]
+draft: true
+---
+
+# How to Automate Weekly Reports Across Excel, Email, CRM, and Accounting Systems
+
+To automate a weekly business report, define the decisions the report supports, identify an authoritative source for every measure, standardize the data, validate it, generate the output, and route exceptions to a person before distribution. The hard part is usually not creating the spreadsheet or presentation. It is making the numbers trustworthy.
+
+## Start with the management decision
+
+Ask what someone should know or do after reading the report.
+
+A report that exists because “we have always sent it on Monday” is not ready to automate. Define the questions it answers, such as:
+
+- Are sales on pace?
+- Which locations need attention?
+- Where are leads or orders stuck?
+- What changed from last week?
+- Which exceptions require a decision?
+
+Remove fields nobody uses. Automation should not preserve reporting clutter merely because the computer can produce it cheaply.
+
+## Inventory every source
+
+Weekly reports often combine:
+
+- CRM exports.
+- Accounting reports.
+- Inventory or operating systems.
+- Shared spreadsheets.
+- Files attached to email.
+- Manually entered commentary.
+- Prior-period targets.
+
+For each measure, document the system of record, field definition, timing, owner, and known limitations.
+
+If two systems disagree, decide which one wins before building the automation.
+
+## Standardize definitions
+
+Many reporting problems are definition problems.
+
+Examples:
+
+- Does “sales” mean orders, invoices, or cash collected?
+- Is a lead counted when created or when qualified?
+- Which timezone determines the week?
+- How are returns, cancellations, and transfers treated?
+- What counts as active inventory?
+
+Write the definitions into the report documentation and calculation logic.
+
+## Separate collection, calculation, and narrative
+
+A dependable reporting workflow has distinct stages.
+
+### Collection
+
+Retrieve source data without changing it. Preserve source references and timestamps.
+
+### Transformation
+
+Normalize dates, names, locations, categories, and formats. Deduplicate records and apply documented calculations.
+
+### Validation
+
+Check totals, required fields, row counts, date ranges, unexpected blanks, large changes, and whether every expected source arrived.
+
+### Presentation
+
+Create the spreadsheet, document, dashboard, presentation, or PDF the audience needs.
+
+### Narrative
+
+AI can summarize changes and draft commentary, but the narrative should be grounded in the validated numbers and should distinguish facts from interpretation.
+
+## Build validation before formatting
+
+The system should stop or flag the report when:
+
+- A source file is missing.
+- The report covers the wrong date range.
+- A required column changed.
+- Totals do not reconcile.
+- A location is missing.
+- A value moves outside a reasonable range.
+- Duplicate records exceed the expected threshold.
+
+A beautiful report built from incomplete data is worse than no report because it looks trustworthy.
+
+## Decide what AI should do
+
+Use fixed calculations for arithmetic and established business rules. Use AI for language-heavy work such as:
+
+- Mapping inconsistent descriptions to approved categories.
+- Summarizing notable changes.
+- Drafting location commentary from structured results.
+- Explaining exceptions in plain English.
+- Producing different formats for different audiences.
+
+Do not ask an AI model to calculate a number that a spreadsheet formula or query can calculate deterministically.
+
+## Preserve human commentary
+
+Managers often know why a number changed before the systems do. Give them a structured way to add context, approve the report, or correct an interpretation.
+
+The automation should reduce assembly work while preserving accountable management judgment.
+
+## Example weekly sequence
+
+1. Run after every source system completes its weekly update.
+2. Retrieve the approved reports or data.
+3. Store an untouched source copy.
+4. Normalize and combine the records.
+5. Apply documented calculations.
+6. Run validation checks.
+7. Create an exception report.
+8. Generate the management report.
+9. Draft a summary of changes and open questions.
+10. Send it to the report owner for review.
+11. Distribute the approved version.
+12. Archive the report, inputs, and validation log.
+
+## Measure the improvement
+
+Record the baseline before launch:
+
+- Total preparation hours.
+- Calendar time from period end to distribution.
+- Number of manual files and handoffs.
+- Corrections after distribution.
+- Missing or late submissions.
+- Time managers spend finding answers after receiving the report.
+
+After launch, measure the same items plus automation failures, exception-review time, and recurring operating cost.
+
+## Common failure modes
+
+- Automating an undefined metric.
+- Reading from a convenient spreadsheet instead of the source of truth.
+- Overwriting source files.
+- Ignoring a missing location or department.
+- Using AI for deterministic calculations.
+- Distributing without an accountable owner.
+- Hiding validation warnings inside a technical log.
+- Failing when a column name or export format changes.
+
+## Start with one report
+
+Choose a recurring report whose assembly consumes real time and whose audience can define what “correct” means. Build the collection and validation layers first. Add presentation and narrative after the numbers are dependable.
+
+New Plains builds spreadsheet, document, presentation, and PDF workflows from business data. [Use the $999 audit to map one recurring report](/e).
+

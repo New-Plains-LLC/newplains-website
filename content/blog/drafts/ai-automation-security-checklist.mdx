@@ -1,0 +1,183 @@
+---
+title: "AI Automation Security Checklist for Small Businesses"
+date: "2026-09-06"
+excerpt: "A practical checklist for controlling data, credentials, permissions, human approvals, monitoring, vendors, and offboarding in business AI systems."
+author: "Shawn Skaggs"
+tags: ["AI security", "AI automation", "small business cybersecurity"]
+draft: true
+---
+
+# AI Automation Security Checklist for Small Businesses
+
+A secure AI automation limits what the system can access, what it can do, and what happens when it is wrong. Small businesses should treat agents and automations like employees with system access: give them the minimum permissions required, monitor their actions, and remove access when the relationship ends.
+
+Security does not begin with the model. It begins with the workflow.
+
+## 1. Classify the workflow and its consequences
+
+Document the decisions and actions involved before granting access.
+
+Ask:
+
+- What data enters the workflow?
+- What systems can it read?
+- What systems can it change?
+- Can it communicate externally?
+- Can it create a financial, contractual, personnel, safety, or customer commitment?
+- Can an incorrect action be reversed?
+
+The stronger the consequence, the stronger the review and access controls should be.
+
+## 2. Minimize data access
+
+An inbox agent does not automatically need access to every inbox. A reporting automation does not need permission to edit the source accounting system if reading approved reports is sufficient.
+
+Use the narrowest practical access:
+
+- Specific folders instead of an entire drive.
+- Read-only permission when editing is unnecessary.
+- A service account rather than an employee’s personal account.
+- Selected CRM objects instead of full administrative control.
+- Sanitized examples during development.
+
+Review access periodically. Permissions tend to accumulate unless somebody removes them.
+
+## 3. Protect credentials
+
+API keys, passwords, OAuth tokens, certificates, and webhook secrets should be stored in an appropriate secret-management system, not inside prompts, source files, spreadsheets, chat messages, or workflow descriptions.
+
+The operating plan should identify:
+
+- Who owns each account.
+- Where the credential is stored.
+- What permission it grants.
+- When it expires.
+- How it is rotated.
+- What breaks when it is revoked.
+
+Never allow an AI system to reveal or transmit credentials in its output.
+
+## 4. Understand where data goes
+
+Map every vendor that receives, stores, or processes information. This may include the model provider, automation platform, hosting service, document processor, messaging service, database, and monitoring platform.
+
+For each vendor, review the applicable terms and configuration for:
+
+- Data retention.
+- Model training or product improvement.
+- Data location.
+- Encryption.
+- Subprocessors.
+- Administrative access.
+- Deletion and export.
+
+Do not make a blanket claim that “the AI does not keep data” without verifying the exact product, plan, API, and settings being used.
+
+## 5. Define human approval points
+
+Require approval before consequential actions such as:
+
+- Sending sensitive or unusual external messages.
+- Issuing refunds or approving payments.
+- Changing bank, payroll, or vendor information.
+- Extending credit or making pricing exceptions.
+- Creating contractual commitments.
+- Making employment decisions.
+- Deleting records.
+
+Approval should happen in a system where the reviewer can see the source information, proposed action, and reason for escalation.
+
+## 6. Defend against untrusted instructions
+
+Agents that read emails, documents, websites, or customer messages will encounter untrusted content. Treat that content as data, not as authority to change the system’s rules.
+
+Controls may include:
+
+- Limiting available tools.
+- Separating read and write operations.
+- Requiring approval for external actions.
+- Validating destinations and file types.
+- Restricting which domains or systems can be contacted.
+- Preventing content from requesting secrets or broader access.
+
+The system should follow the business’s approved workflow even when an email or document tells it to do something else.
+
+## 7. Log actions and decisions
+
+Keep enough information to answer:
+
+- What triggered the workflow?
+- What information did it use?
+- What action did it propose or complete?
+- Which model or rule produced the result?
+- Did a person approve it?
+- What error occurred?
+- Can the action be traced to the source record?
+
+Logs should be useful without unnecessarily duplicating sensitive information.
+
+## 8. Test failure cases
+
+Normal examples are not enough. Test:
+
+- Missing fields.
+- Conflicting instructions.
+- Duplicate submissions.
+- Expired credentials.
+- Unavailable systems.
+- Unusual file formats.
+- Very long or malicious content.
+- Low-confidence AI output.
+- A request outside the approved workflow.
+
+Define the safe failure behavior. In many cases, the correct action is to stop, preserve the evidence, and ask a person.
+
+## 9. Monitor the production system
+
+An automation can fail loudly, fail silently, or continue running with degraded results.
+
+Monitor for:
+
+- Failed executions.
+- Unusual volume.
+- Changes in exception rate.
+- Missing expected outputs.
+- Cost spikes.
+- Repeated retries.
+- New or changed data formats.
+- Unauthorized or unexpected destinations.
+
+Assign a person or provider to own those alerts.
+
+## 10. Prepare an offboarding plan
+
+When an employee, consultant, or vendor relationship ends:
+
+- Revoke credentials and sessions.
+- Transfer ownership of accounts.
+- Export source, configuration, prompts, data, and documentation.
+- Remove unused integrations and webhooks.
+- Verify scheduled jobs are stopped or reassigned.
+- Confirm backups and retention requirements.
+
+The business should be able to operate or shut down the system without depending on one individual’s account.
+
+## A pre-launch checklist
+
+| Control | Ready? |
+|---|---|
+| Workflow owner identified | ☐ |
+| Data and systems mapped | ☐ |
+| Minimum permissions configured | ☐ |
+| Credentials stored securely | ☐ |
+| Vendor data practices reviewed | ☐ |
+| Human approvals defined | ☐ |
+| Failure cases tested | ☐ |
+| Logs and alerts working | ☐ |
+| Incident owner assigned | ☐ |
+| Offboarding documented | ☐ |
+
+The National Institute of Standards and Technology provides a broader framework for managing AI risk through its [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework). A small business does not need to turn a first automation into a compliance program, but it should use a disciplined process proportional to the risk.
+
+The New Plains audit considers systems, access, human review, and failure modes while mapping one workflow. [Start with the $999 audit](/e).
+
