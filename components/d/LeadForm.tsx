@@ -55,9 +55,9 @@ export default function LeadForm() {
               </span>
             </h2>
             <p className="text-lg text-[#1A1814]/75 leading-relaxed max-w-xl mb-8">
-              Tell us about one workflow that should be running itself. We’ll
-              scope the diagnostic and send back the written findings — with
-              the time and cost math laid out on the page.
+              Tell us where your team is losing time. We’ll assess several
+              workflows, prioritize the strongest opportunities, and send back
+              written findings with the time and cost math laid out clearly.
             </p>
             <div className="space-y-3 [font-family:var(--font-geist-mono)] text-xs text-[#5B6470] uppercase tracking-widest">
               <div className="flex items-center gap-3">
@@ -137,7 +137,7 @@ export default function LeadForm() {
                 </div>
                 <div>
                   <label className="eyebrow text-[#5B6470] block mb-2">
-                    One workflow you wish ran itself
+                    Workflows you want to improve or automate
                   </label>
                   <textarea
                     required

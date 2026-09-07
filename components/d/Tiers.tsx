@@ -9,8 +9,8 @@ const tiers = [
     delivery: "7 days",
     primary: true,
     bullets: [
-      "7-day diagnostic on one workflow that eats your team's week",
-      "Written findings, recommended architecture, and a build estimate with real numbers",
+      "7-day assessment of several workflows that consume your team’s time",
+      "Prioritized opportunities, plus a practical plan and build estimate for at least one high-value, easy-to-execute workflow",
       "No lock-in. The audit is yours whether or not we ever work together again. Build it with us, your team, or someone else entirely.",
     ],
   },
