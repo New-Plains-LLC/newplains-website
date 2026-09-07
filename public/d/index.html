@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual vs Automated — New Plains AI Consulting</title>
+<meta name="description" content="The same business, run two ways. Scroll the comparison: manual work vs automated work, hour by hour, dollar by dollar. Then book a $999 AI audit.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+@font-face{font-family:'Archivo';src:url('assets/fonts/archivo-600.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Archivo';src:url('assets/fonts/archivo-700.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Geist';src:url('assets/fonts/geist-400.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Geist';src:url('assets/fonts/geist-500.woff2') format('woff2');font-weight:500;font-display:swap}
+
+:root{
+  --sc-canvas:#0B0806; --sc-surface:#161009;
+  --sc-ink:#EFE7DC;     --sc-ink-soft:#A08D7A;
+  --sc-accent:#D98E4F;  --sc-accent-ink:#171008;
+  --sc-font-display:'Archivo',system-ui,sans-serif;
+  --sc-font-text:'Geist',system-ui,sans-serif;
+  /* light-side companions: one hue, two lightnesses (two-stop license) */
+  --lp-canvas:#FAF8F5; --lp-ink:#2D2A26; --lp-soft:#6E655B; --lp-accent:#A45D1B;
+  --split:50%;
+}
+
+/* ============ SPLIT STAGE ============ */
+.split{position:relative;min-height:100vh}
+.split[data-sc-stage]{height:100vh;min-height:0}
+.close-stage[data-sc-stage]{min-height:0}
+.split__side{position:absolute;inset:0;overflow:hidden}
+.split__side--m{left:0;width:var(--split);background:var(--sc-canvas)}
+.split__side--a{left:var(--split);right:0;background:var(--lp-canvas);
+  --sc-ink:var(--lp-ink);--sc-ink-soft:var(--lp-soft);--sc-accent:var(--lp-accent)}
+
+/* scrim behind all left copy: the tube is weak, type must hold */
+.split__side--m::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,4,3,.88) 0%,rgba(6,4,3,.6) 46%,rgba(6,4,3,.84) 100%)}
+
+/* signature: fluorescent flicker */
+.tube{position:absolute;top:0;left:0;right:14%;height:46%;pointer-events:none;z-index:2;
+  background:radial-gradient(120% 90% at 30% 0%,rgba(214,255,224,.15),rgba(214,255,224,0) 60%)}
+.tube::before{content:'';position:absolute;top:0;left:8%;width:52%;height:2px;
+  background:rgba(224,255,231,.85);box-shadow:0 0 18px 4px rgba(206,255,216,.5),0 0 60px 18px rgba(190,255,205,.16)}
+.tube--full{right:0}
+.tube--full::before{left:22%;width:56%}
+@keyframes tubeFlicker{0%,100%{opacity:.9}3%{opacity:.2}4%{opacity:.75}9%{opacity:.85}10%{opacity:.15}11%{opacity:.8}47%{opacity:.85}48%{opacity:.25}49%{opacity:.8}82%{opacity:.75}83%{opacity:.2}84%{opacity:.85}}
+@keyframes tubeBuzz{0%,100%{transform:translateY(0)}50%{transform:translateY(.5px)}}
+.tube{animation:tubeFlicker 7.3s steps(1,end) infinite}
+.tube::before{animation:tubeFlicker 7.3s steps(1,end) infinite,tubeBuzz .13s steps(2,end) infinite}
+.tube--full{animation-duration:11.7s}
+.tube--full::before{animation-duration:11.7s}
+
+/* signature: sunlight breath */
+.sun{position:absolute;top:-10%;right:-6%;width:72%;height:82%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,246,224,.85),rgba(255,243,214,.28) 55%,rgba(255,243,214,0) 72%);
+  mix-blend-mode:screen}
+@keyframes sunBreath{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.05)}}
+.sun{animation:sunBreath 9s ease-in-out infinite}
+
+/* divider: the chrome of this grammar */
+.divider{position:absolute;top:0;bottom:0;left:var(--split);width:2px;z-index:8;
+  background:var(--sc-accent);transform:translateX(-1px)}
+@keyframes dividerBuzz{0%,100%{transform:translateX(-1px)}50%{transform:translateX(-.5px)}}
+.divider{animation:dividerBuzz .13s steps(2,end) infinite}
+.divider__labels{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:9;
+  display:flex;gap:clamp(24px,4vw,64px);align-items:center;
+  padding:10px 26px;background:#161009;
+  border:1px solid rgba(239,231,220,.12);border-top:none;border-radius:0 0 14px 14px;
+  font:600 clamp(11px,1.4vw,14px)/1 var(--sc-font-display);letter-spacing:.22em}
+.divider__labels span{color:#EFE7DC}
+.divider__labels .win{color:var(--sc-accent);opacity:0;transition:opacity 300ms var(--sc-ease-out)}
+.split.is-resolved .divider__labels .win{opacity:1}
+@media (max-width:860px){
+  .split__col--m::before{content:'';position:absolute;top:0;left:0;right:0;height:46%;pointer-events:none;
+    background:radial-gradient(120% 90% at 30% 0%,rgba(214,255,224,.12),rgba(214,255,224,0) 60%);animation:tubeFlicker 7.3s steps(1,end) infinite}
+  .split__col--a::after{content:'';position:absolute;top:-10%;right:-6%;width:70%;height:80%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(255,246,224,.85),rgba(255,243,214,.28) 55%,rgba(255,243,214,0) 72%);mix-blend-mode:screen;animation:sunBreath 9s ease-in-out infinite}
+  .divider__labels{gap:18px;padding:8px 18px;letter-spacing:.14em}
+  .split__side--m{width:100%;height:50%;top:0}
+  .split__side--a{left:0;width:100%;height:50%;top:50%}
+  .divider{left:0;right:0;top:50%;width:auto;height:2px;transform:translateY(-1px)}
+}
+
+/* signature: persistent CTA */
+.travel-cta{position:fixed;right:clamp(16px,3vw,40px);bottom:clamp(16px,3vw,36px);z-index:60;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 26px;border-radius:999px;background:#D98E4F;color:#171008;
+  font:600 16px/1 var(--sc-font-display);text-decoration:none;
+  box-shadow:0 14px 34px -8px rgba(0,0,0,.5);
+  transition:transform 160ms var(--sc-ease-out),background-color 160ms var(--sc-ease-out)}
+.travel-cta::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;
+  animation:ctaPulse 1.8s ease-in-out infinite}
+@keyframes ctaPulse{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+.travel-cta:hover,.travel-cta:focus-visible{transform:translateY(-2px);background:#E89D5F;outline:none}
+.travel-cta:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.travel-cta--win{background:#8F4E14;color:#FFF6EC}
+@media (max-width:640px){.travel-cta{padding:13px 18px;font-size:14px}}
+@media (max-width:860px){.close-inner{padding-bottom:120px}.buckets__head{padding-bottom:100px}
+  #act-hero,#act-leads,#act-ledger,#act-close{height:auto!important}
+  .split[data-sc-stage],.close-stage[data-sc-stage]{position:static!important;height:auto!important;min-height:0}
+  .close-inner{min-height:0}}
+
+/* ============ COPY LAYOUT ============ */
+.split__inner{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+.split__col{position:relative;display:flex;flex-direction:column;justify-content:center}
+.split__col--m{min-width:0;padding-left:clamp(20px,4vw,64px);
+  padding-right:max(20px,calc(50vw - var(--split) + clamp(20px,3vw,48px)))}
+.split__col--a{min-width:0;
+  padding-left:max(clamp(20px,3vw,48px),calc(var(--split) - 50vw + clamp(20px,3vw,48px)));
+  padding-right:clamp(20px,4vw,64px)}
+@media (max-width:860px){
+  .split[data-sc-stage]{height:auto;min-height:100vh}
+  .split__inner{position:static;display:block;min-height:100vh}
+  .split__side{display:none}
+  .split__col--m,.split__col--a{width:auto;position:relative;overflow:hidden;
+    min-height:50vh;padding:calc(var(--sc-7) + 34px) var(--sc-gutter) var(--sc-7)}
+  .split__col--m{background:var(--sc-canvas);color:#C9BBA9}
+  .split__col--a{background:var(--lp-canvas);color:#4A4238;
+    --sc-ink:#2D2A26;--sc-ink-soft:#6E655B;--sc-accent:#A45D1B}
+  .divider{position:absolute;left:0;right:0;top:50%;width:auto;height:2px;
+    transform:translateY(-1px);animation:none;background:var(--sc-accent);z-index:5}
+  .m-h1,.a-h1{color:inherit}
+  .split__col--m .m-h1{color:#F4EDE2}
+  .split__col--a .a-h1{color:#2D2A26}
+}
+
+.sc-display{font-family:var(--sc-font-display);font-weight:700;letter-spacing:-.02em}
+.m-h1{color:#F4EDE2;line-height:.98;font-size:clamp(2.4rem,4.4vw,4.2rem);text-wrap:balance}
+.a-h1{color:var(--lp-ink);line-height:.98;font-size:clamp(2.4rem,4.4vw,4.2rem);text-wrap:balance}
+.h-m{font-size:clamp(1.4rem,2.4vw,2.1rem);line-height:1.06;color:#EFE6D8;text-wrap:balance}
+.h-a{font-size:clamp(1.4rem,2.4vw,2.1rem);line-height:1.06;color:var(--lp-ink);text-wrap:balance}
+.side-tag{font:600 12px/1 var(--sc-font-display);letter-spacing:.24em;text-transform:uppercase;margin-bottom:var(--sc-5)}
+.side-tag--m{color:#8C7A66}
+.side-tag--a{color:#8F4E14}
+.split .sc-body{font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.6}
+.split__col--m .sc-body{color:#C9BBA9}
+.split__col--a .sc-body{color:#4A4238}
+.split__col--m .sc-lede{color:#D8CCB9;font-size:clamp(1.05rem,1.35vw,1.2rem)}
+.split__col--a .sc-lede{color:#332C24;font-size:clamp(1.05rem,1.35vw,1.2rem)}
+@media (max-width:860px){
+  .split__col--m .sc-body,.split__col--a .sc-body{font-size:.95rem}
+  .m-h1,.a-h1{font-size:clamp(1.8rem,7vw,2.5rem)}
+  .h-m,.h-a{font-size:clamp(1.15rem,4.6vw,1.5rem)}
+}
+
+/* hero media */
+.hero-media{margin-top:var(--sc-6);border-radius:14px;overflow:hidden;position:relative;
+  aspect-ratio:16/10;background:var(--sc-surface)}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block;
+  opacity:.8;filter:saturate(.72) brightness(.82)}
+.split__col--a .hero-media img{opacity:.97;filter:none}
+.split__col--a .hero-media{background:#F6F1E8}
+.hero-media figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 16px;
+  font:500 12px/1.4 var(--sc-font-text);letter-spacing:.04em}
+.split__col--m .hero-media figcaption{color:#D8CCB9;background:#0D0906;border-top:1px solid rgba(239,231,220,.08)}
+.split__col--a .hero-media figcaption{color:#3B342B;background:#F6F1E8;border-top:1px solid rgba(45,42,38,.08)}
+@media (max-width:860px){.hero-media{aspect-ratio:16/9;margin-top:var(--sc-4)}}
+
+/* focal stat */
+.stat-line{display:flex;align-items:baseline;gap:14px;margin-top:var(--sc-5)}
+.stat-line__num{font:700 clamp(2.4rem,4vw,3.6rem)/1 var(--sc-font-display);letter-spacing:-.02em;color:var(--lp-accent);font-variant-numeric:tabular-nums}
+.stat-line__lbl{font:500 12.5px/1.4 var(--sc-font-text);letter-spacing:.06em;text-transform:uppercase;color:var(--lp-soft);max-width:24ch}
+.footnote{font:400 12.5px/1.55 var(--sc-font-text);color:#A08D7A;margin-top:var(--sc-4)}
+.footnote a{color:#A98F6F}
+@media (max-width:860px){.footnote{font-size:11px}}
+
+/* ============ BUCKETS FLOW ============ */
+.buckets{background:#F3EFE8;border-top:1px solid rgba(45,42,38,.14);border-bottom:1px solid rgba(45,42,38,.14)}
+.buckets__head{max-width:72ch;margin:0 auto;padding:var(--sc-10) var(--sc-gutter) 0}
+.buckets__head .sc-display{font-size:clamp(1.7rem,2.8vw,2.5rem);letter-spacing:-.015em;color:#2D2A26;line-height:1.05}
+.buckets__head p{margin-top:var(--sc-3);color:#57503F;font-size:1.02rem}
+.bucket-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--sc-gutter);
+  max-width:1200px;margin:0 auto;padding:var(--sc-8) var(--sc-gutter);
+  border-bottom:1px solid rgba(45,42,38,.12)}
+.bucket-row:last-of-type{border-bottom:none}
+.bucket-row h3{font-family:var(--sc-font-display);font-weight:600;letter-spacing:-.01em;
+  font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.12;margin-bottom:var(--sc-2);color:#2D2A26}
+.bucket-row .sc-body{font-size:.98rem;color:#57503F;max-width:36ch}
+@media (max-width:860px){
+  .bucket-row{grid-template-columns:1fr;gap:var(--sc-2);padding:var(--sc-6) var(--sc-gutter)}
+  .bucket-row .sc-body{max-width:60ch}
+}
+
+/* ============ LEDGER ============ */
+.ledger-rows{margin-top:var(--sc-5)}
+.ledger-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:13px 0;border-bottom:1px solid rgba(74,66,56,.16)}
+.split__col--m .ledger-row{border-bottom-color:rgba(239,231,220,.12)}
+.ledger-row__label{font:500 15px/1.35 var(--sc-font-text)}
+.split__col--m .ledger-row__label{color:#C9BBA9}
+.split__col--a .ledger-row__label{color:#4A4238}
+.ledger-row__label small{display:block;font-size:12px;opacity:.72}
+.ledger-row__val{font:600 17px/1 var(--sc-font-display);white-space:nowrap;font-variant-numeric:tabular-nums}
+.split__col--m .ledger-row__val{color:#D8CCB9}
+.split__col--a .ledger-row__val{color:#2D2A26}
+@media (max-width:860px){
+  .ledger-row{padding:10px 0}
+  .ledger-row__label{font-size:13.5px}
+  .ledger-row__label small{font-size:11px}
+  .ledger-row__val{font-size:15px}
+}
+
+/* ink sits ON the cued container so its computed color is the reader's ink */
+.split__col--m .ledger-row,.split__col--m .ledger-total{color:#C9BBA9}
+.split__col--a .ledger-row,.split__col--a .ledger-total,.split__col--a .stat-line{color:#4A4238}
+#act-close>div>div>header,.tiers,#act-close div[data-sc-cue]{color:#57503F}
+.rung{color:#57503F}
+.split__col--m figure[data-sc-cue]{color:#B3A28C}
+.split__col--a figure[data-sc-cue]{color:#5A5148}
+.split__col--a .footnote,.split__col--a div[data-sc-cue]{color:#6E655B}
+.split__col--m div[data-sc-cue],.split__col--m p[data-sc-cue]{color:#C9BBA9}
+
+/* the peak: pop vs sink */
+.ledger-total{margin-top:var(--sc-5);padding-top:var(--sc-4);border-top:2px solid currentColor}
+.ledger-total__lbl{font:600 12px/1 var(--sc-font-display);letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.split__col--m .ledger-total__lbl{color:#C9BBA9}
+.split__col--a .ledger-total__lbl{color:#4A4238}
+.ledger-total__num{display:block;margin-top:10px;font:700 clamp(2.6rem,4.6vw,4.2rem)/1 var(--sc-font-display);
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.split__col--m .ledger-total__num{color:#B9AA93}
+.split__col--a .ledger-total__num{color:var(--lp-accent)}
+.split__col--m .ledger-total{border-top-color:rgba(185,170,147,.4)}
+.split__col--a .ledger-total{border-top-color:rgba(164,93,27,.45)}
+
+@keyframes totalPop{
+  0%{transform:scale(.6);opacity:0}
+  55%{transform:scale(1.13);opacity:1}
+  72%{transform:scale(.97)}
+  86%{transform:scale(1.03)}
+  100%{transform:scale(1)}
+}
+@keyframes totalSink{
+  0%{transform:translateY(-16px);opacity:0}
+  60%{transform:translateY(3px);opacity:1}
+  78%{transform:translateY(-1.5px)}
+  100%{transform:translateY(2.5px);opacity:.82}
+}
+.peak-hit-a .split__col--a .ledger-total__num{animation:totalPop 900ms var(--sc-ease-out) both}
+.peak-hit-m .split__col--m .ledger-total__num{animation:totalSink 1100ms ease-in both;filter:saturate(.8)}
+
+/* ============ LADDER CLOSE ============ */
+.close-stage{position:relative;min-height:100vh;overflow:hidden;background:var(--lp-canvas)}
+.close-stage__sun{position:absolute;top:-16%;left:38%;width:70%;height:90%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,246,224,.9),rgba(255,243,214,.3) 55%,rgba(255,243,214,0) 72%);
+  mix-blend-mode:screen;animation:sunBreath 9s ease-in-out infinite}
+.close-inner{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;gap:var(--sc-7);max-width:1160px;margin:0 auto;
+  padding:var(--sc-9) var(--sc-gutter)}
+.close-inner .sc-display{font-size:clamp(2rem,3.6vw,3.2rem);letter-spacing:-.02em;line-height:1.02;color:#2D2A26;text-wrap:balance}
+.close-inner>header>p{margin-top:var(--sc-3);max-width:56ch;color:#57503F;font-size:1.05rem}
+.ladder{display:grid;gap:12px}
+.rung{display:grid;grid-template-columns:7.5rem 1fr auto;gap:18px;align-items:baseline;
+  padding:18px 22px;border:1px solid rgba(45,42,38,.16);border-radius:16px;background:#FFFFFF;
+  transition:transform 180ms var(--sc-ease-out),border-color 180ms var(--sc-ease-out)}
+.rung:hover,.rung:focus-within{transform:translateY(-2px);border-color:rgba(164,93,27,.5)}
+.rung__n{font:600 11.5px/1.5 var(--sc-font-display);letter-spacing:.18em;text-transform:uppercase;color:var(--lp-accent)}
+.rung__n b{display:block;font-size:15px;letter-spacing:-.01em;text-transform:none;color:#2D2A26}
+.rung__d{font-size:.95rem;color:#57503F;line-height:1.5}
+.rung__p{font:600 15px/1.5 var(--sc-font-display);color:#2D2A26;white-space:nowrap;text-align:right}
+.rung__p small{display:block;font:500 11.5px/1.4 var(--sc-font-text);color:#8A8072}
+.rung--audit{border-color:rgba(164,93,27,.55);background:#FFFDF9;box-shadow:0 10px 26px -14px rgba(164,93,27,.4)}
+@media (max-width:760px){
+  .rung{grid-template-columns:1fr;gap:6px;padding:16px 18px}
+  .rung__p{text-align:left}
+}
+
+/* lock-in tiers: plain lines, honest trade stated */
+.tiers{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:var(--sc-4);padding:18px 22px;background:#FFFFFF;border:1px solid rgba(45,42,38,.14);border-radius:14px;color:#57503F}
+.tier{font:500 14px/1.5 var(--sc-font-text);color:#57503F}
+.tier b{font-family:var(--sc-font-display);font-weight:600;color:#2D2A26}
+
+/* footer plate */
+.plate{position:relative;z-index:2;background:#2D2A26;color:#EFE7DC}
+.plate__inner{max-width:1160px;margin:0 auto;padding:var(--sc-7) var(--sc-gutter);
+  display:flex;flex-wrap:wrap;gap:16px 40px;align-items:baseline;justify-content:space-between}
+.plate a{color:#D98E4F}
+.plate small{color:#B5A895;font-size:12.5px}
+
+@media (prefers-reduced-motion:reduce){
+  .tube,.tube::before,.sun,.divider,.travel-cta::before,
+  .close-stage__sun{animation:none!important}
+  .peak-hit-a .split__col--a .ledger-total__num,
+  .peak-hit-m .split__col--m .ledger-total__num{animation:none!important;opacity:1;transform:none}
+  .travel-cta{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="travel-cta" id="travelCta" href="mailto:info@newplains.dev?subject=AI%20Audit&amp;body=Hi%20New%20Plains%2C%20I%27d%20like%20to%20book%20a%201-hour%20AI%20audit%20call%20(%24999).%20Here%27s%20a%20bit%20about%20my%20business%3A">
+  Book your AI audit now
+</a>
+
+<main data-sc-mount>
+
+  <!-- ============ ACT 1 · RECOGNITION ============ -->
+  <section data-sc-act="pin" data-sc-span="2.4" id="act-hero">
+    <div class="split" data-sc-stage>
+    <div class="split__side split__side--m" aria-hidden="true">
+      <div class="tube"></div>
+      <div class="sc-grain"></div>
+    </div>
+    <div class="split__side split__side--a" aria-hidden="true">
+      <img src="assets/02-auto.webp" alt="" loading="eager" width="1600" height="900"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.36">
+      <div class="sun"></div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="divider__labels" aria-hidden="true"><span>MANUAL</span><span>AUTOMATED</span></div>
+
+    <div class="split__inner">
+      <div class="split__col split__col--m">
+        <p class="side-tag side-tag--m" data-sc-cue="0 0.9 0 0.05">The way it has always been done</p>
+        <h1 class="sc-display m-h1" data-sc-cue="0 0.95 0 0.05" data-sc-kinetic="lines">You, doing it all by hand.</h1>
+        <p class="sc-body" style="margin-top:var(--sc-4);max-width:34ch" data-sc-cue="0.08 0.95 0.1 0.05">
+          Every lead called back personally. Every invoice keyed in. Every report built by hand, again, because yesterday's report does not repeat itself.
+        </p>
+        <figure class="hero-media" data-sc-cue="0 1 0 0" style="margin-bottom:0">
+          <img src="assets/01-manual.webp" alt="A desk at night buried under paper invoices" width="1600" height="1000">
+          <figcaption>11:40 PM. The paperwork won.</figcaption>
+        </figure>
+      </div>
+      <div class="split__col split__col--a">
+        <p class="side-tag side-tag--a" data-sc-cue="0 0.9 0 0.05">The way it runs with New Plains</p>
+        <h1 class="sc-display a-h1" data-sc-cue="0 0.95 0 0.05" data-sc-kinetic="lines">You, running the machine.</h1>
+        <p class="sc-body" style="margin-top:var(--sc-4);max-width:34ch" data-sc-cue="0.08 0.95 0.1 0.05">
+          Software that answers, files, and reports while you sleep. You make the decisions. The work is already done when you sit down.
+        </p>
+        <figure class="hero-media" data-sc-cue="0 1 0 0" style="margin-bottom:0">
+          <img src="assets/02-auto.webp" alt="A tidy desk in daylight with a dashboard on the laptop" width="1600" height="1000">
+          <figcaption>8:15 AM. It ran overnight.</figcaption>
+        </figure>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ ACT 2 · TENSION: THE LEAD ============ -->
+  <section data-sc-act="pin" data-sc-span="3" id="act-leads">
+    <div class="split" data-sc-stage style="--split:54%">
+    <div class="split__side split__side--m" aria-hidden="true">
+      <div class="tube tube--full"></div>
+      <img src="assets/03-manual.webp" alt="" loading="lazy" width="1600" height="900"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;filter:saturate(.7)">
+      <div class="sc-grain"></div>
+    </div>
+    <div class="split__side split__side--a" aria-hidden="true">
+      <div class="sun"></div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="divider__labels" aria-hidden="true"><span>MANUAL</span><span>AUTOMATED</span></div>
+
+    <div class="split__inner">
+      <div class="split__col split__col--m">
+        <p class="side-tag side-tag--m" data-sc-cue="0 0.9 0 0.05">A new lead comes in, 4:47 PM</p>
+        <h2 class="sc-display h-m" data-sc-cue="0 0.95 0 0.05" data-sc-kinetic="lines">You'll call them back. When you can.</h2>
+        <p class="sc-lede" style="margin-top:var(--sc-4)" data-sc-cue="0.1 0.62 0.12 0.05">The lead sits in an inbox. You're on the other line, in a meeting, driving. Tomorrow is realistic.</p>
+        <p class="sc-lede" style="margin-top:var(--sc-4)" data-sc-cue="0.36 0.8 0.12 0.05">By tomorrow they've already talked to whoever answered first.</p>
+        <figure class="hero-media" data-sc-cue="0.6 0.95 0.08 0.05" style="margin-bottom:0">
+          <img src="assets/03-manual.webp" alt="An overflowing tray of handwritten lead slips under a dying fluorescent tube" width="1600" height="1000">
+          <figcaption>The tray where leads go to age.</figcaption>
+        </figure>
+      </div>
+      <div class="split__col split__col--a">
+        <p class="side-tag side-tag--a" data-sc-cue="0 0.9 0 0.05">The same lead, same minute</p>
+        <h2 class="sc-display h-a" data-sc-cue="0 0.95 0 0.05" data-sc-kinetic="lines">It's answered before you know it exists.</h2>
+        <p class="sc-lede" style="margin-top:var(--sc-4)" data-sc-cue="0.1 0.62 0.12 0.05">The system replies in seconds, qualifies, books the appointment, and hands you a summary.</p>
+        <p class="sc-lede" style="margin-top:var(--sc-4)" data-sc-cue="0.36 0.8 0.12 0.05">You walk into the conversation already ahead.</p>
+        <figure data-sc-reveal="up" data-sc-reveal-at="0.5 0.9" style="margin:var(--sc-6) 0 0">
+          <img src="assets/04-auto.webp" alt="A phone on a stand showing an instant reply notification" width="1600" height="1000" loading="lazy"
+               style="width:100%;height:auto;border-radius:14px;display:block">
+        </figure>
+        <div class="stat-line" data-sc-cue="0.66 0.99 0.08 0.05">
+          <span class="stat-line__num" data-sc-count="5 21" data-sc-count-at="0.66 0.9">5</span>
+          <span class="stat-line__lbl">times more likely to convert when a lead is answered in under 5 minutes (Lead Response Management study)</span>
+        </div>
+        <p class="footnote">Sources: Lead Response Management (InsideSales/XANT); Drift, <i>The State of Lead Response Time in B2B</i>. In most B2B studies fewer than 1 in 5 companies answers that fast. That gap is the whole opportunity.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ FLOW · SUBSTANCE: THREE BUCKETS ============ -->
+  <section class="buckets">
+    <div class="buckets__head">
+      <header data-sc-in>
+        <h2 class="sc-display">Every fix rolls up into one of three buckets.</h2>
+        <p>If a build doesn't move one of these numbers, it doesn't get pitched. Here is the same three-bucket lens on both sides of the line.</p>
+      </header>
+    </div>
+    <div class="bucket-row" data-sc-in>
+      <div>
+        <h3>Get more customers</h3>
+        <p class="sc-body">Manual: leads wait, follow-up depends on memory, quotes go out next week. Automated: instant response, qualification, and follow-up that never sleeps, on every channel you sell on.</p>
+      </div>
+      <div>
+        <h3>What it's worth</h3>
+        <p class="sc-body">Speed is the cheapest competitive edge there is. Answering first wins deals at the same price your competitors charge.</p>
+      </div>
+    </div>
+    <div class="bucket-row" data-sc-in>
+      <div>
+        <h3>Make each customer worth more</h3>
+        <p class="sc-body">Manual: onboarding drags for weeks, churn surprises you. Automated: customers get live in days, and the system flags a customer who's about to leave before they do.</p>
+      </div>
+      <div>
+        <h3>What it's worth</h3>
+        <p class="sc-body">Retention compounds. A customer saved this month is revenue every month after.</p>
+      </div>
+    </div>
+    <div class="bucket-row" data-sc-in>
+      <div>
+        <h3>Cut costs</h3>
+        <p class="sc-body">Manual: invoice coding, data rekeying, dispatch, weekly reports. Hours of skilled people doing work a machine does without errors. Automated: the same outcomes, none of the labor.</p>
+      </div>
+      <div>
+        <h3>What it's worth</h3>
+        <p class="sc-body">This is the easiest bucket to baseline and the easiest win to attribute. Real clients report ranges like 10 to 20 hours a week recovered on workflow automation alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACT 3 · RESOLUTION: THE LEDGER (PEAK) ============ -->
+  <section data-sc-act="pin" data-sc-span="3.6" id="act-ledger">
+    <div class="split" data-sc-stage style="--split:56%">
+    <div class="split__side split__side--m" aria-hidden="true">
+      <div class="tube tube--full"></div>
+      <img src="assets/05-manual.webp" alt="" loading="lazy" width="1600" height="900"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;filter:saturate(.7)">
+      <div class="sc-grain"></div>
+    </div>
+    <div class="split__side split__side--a" aria-hidden="true">
+      <div class="sun"></div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="divider__labels" aria-hidden="true"><span>MANUAL</span><span>AUTOMATED</span></div>
+
+    <div class="split__inner">
+      <div class="split__col split__col--m">
+        <p class="side-tag side-tag--m" data-sc-cue="0 1 0 0">One month of doing it by hand</p>
+        <h2 class="sc-display h-m" data-sc-cue="0 1 0 0" data-sc-kinetic="lines">The invoice for the way it's always been done.</h2>
+        <div class="ledger-rows" role="list">
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Lead follow-up, 25 hrs<small>chasing, quoting, re-calling</small></span><span class="ledger-row__val">$625</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Data entry &amp; rekeying, 18 hrs<small>the same numbers, three systems</small></span><span class="ledger-row__val">$396</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Reporting &amp; reconciling, 12 hrs<small>every week, from scratch</small></span><span class="ledger-row__val">$336</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Scheduling &amp; dispatch, 10 hrs<small>calls, texts, calendars</small></span><span class="ledger-row__val">$220</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Leads lost to slow response<small>priced at one job a month</small></span><span class="ledger-row__val">$1,500</span></div>
+        </div>
+        <div class="ledger-total" data-sc-cue="0 1 0 0">
+          <span class="ledger-total__lbl">The monthly cost of manual</span>
+          <b class="ledger-total__num" data-sc-count="0 3,077" data-sc-count-at="0.64 0.92">$0</b>
+        </div>
+        <p class="footnote" data-sc-cue="0 1 0 0">A worked example at prevailing wage rates ($22 to $25/hr, BLS), not a client's books. We put real numbers on <i>your</i> version of this page in the audit.</p>
+      </div>
+      <div class="split__col split__col--a">
+        <p class="side-tag side-tag--a" data-sc-cue="0 1 0 0">The same month, automated</p>
+        <h2 class="sc-display h-a" data-sc-cue="0 1 0 0" data-sc-kinetic="lines">Same work. A fraction of the cost. None of the losses.</h2>
+        <div class="ledger-rows" role="list">
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Lead follow-up, 25 hrs &rarr; 3<small>instant response, you close</small></span><span class="ledger-row__val">$75</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Data entry &amp; rekeying, 18 hrs &rarr; 0<small>systems talk to each other</small></span><span class="ledger-row__val">$0</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Reporting &amp; reconciling, 12 hrs &rarr; 1<small>dashboards build themselves</small></span><span class="ledger-row__val">$28</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Scheduling &amp; dispatch, 10 hrs &rarr; 1<small>the calendar runs itself</small></span><span class="ledger-row__val">$22</span></div>
+          <div class="ledger-row" role="listitem" data-sc-cue="0 1 0 0"><span class="ledger-row__label">Leads lost to slow response<small>answered in seconds, every time</small></span><span class="ledger-row__val">$0</span></div>
+        </div>
+        <div class="ledger-total" data-sc-cue="0 1 0 0">
+          <span class="ledger-total__lbl">The monthly cost of automated</span>
+          <b class="ledger-total__num" data-sc-count="0 125" data-sc-count-at="0.64 0.9">$0</b>
+        </div>
+        <p class="footnote" data-sc-cue="0 1 0 0">$3,077 against $125 is the argument in one line. Even with a build and a retainer priced in, the manual column loses by month two.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ ACT 4 · COMMITMENT: THE LADDER ============ -->
+  <section data-sc-act="pin" data-sc-span="2.2" id="act-close">
+    <div class="close-stage" data-sc-stage>
+    <div class="close-stage__sun" aria-hidden="true"></div>
+    <div class="close-inner">
+      <header data-sc-cue="0 1 0 0">
+        <h2 class="sc-display">The manual side lost. Here's how you switch.</h2>
+        <p>One fixed step at a time. Start small, see it pay, move up only when the numbers say so.</p>
+      </header>
+      <div class="ladder">
+        <div class="rung" data-sc-cue="0 1 0 0">
+          <span class="rung__n">Step 01<b>AI Onboarding</b></span>
+          <span class="rung__d">Setup plus a working walkthrough. No SOW, no contract. Get something real running in a day.</span>
+          <span class="rung__p">$150&ndash;$500<small>1 hour</small></span>
+        </div>
+        <div class="rung rung--audit" data-sc-cue="0 1 0 0">
+          <span class="rung__n">Step 02<b>The Audit</b></span>
+          <span class="rung__d">A 1-hour call. We map the three biggest leaks in your business and put a dollar figure on each, like the ledger above but with your numbers.</span>
+          <span class="rung__p">$999<small>1 hour</small></span>
+        </div>
+        <div class="rung" data-sc-cue="0 1 0 0">
+          <span class="rung__n">Step 03<b>Build Project</b></span>
+          <span class="rung__d">One focused automation, end to end, on the tools you already use. Anchored to the manual workflow it replaces.</span>
+          <span class="rung__p">$5,000&ndash;$10,000<small>14&ndash;21 days</small></span>
+        </div>
+        <div class="rung" data-sc-cue="0 1 0 0">
+          <span class="rung__n">Step 04<b>Monthly Retainer</b></span>
+          <span class="rung__d">Continuous builds. The audit pipeline refills itself; we keep shipping what earns.</span>
+          <span class="rung__p">$3,000&ndash;$10,000/mo<small>ongoing</small></span>
+        </div>
+      </div>
+      <div data-sc-cue="0 1 0 0">
+        <div class="tiers">
+          <span class="tier"><b>Tier I:</b> No lock-in.</span>
+          <span class="tier"><b>Tier II:</b> Keys handed over.</span>
+          <span class="tier"><b>Tier III:</b> The work stays with us.</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="plate">
+  <div class="plate__inner">
+    <b class="sc-display" style="font-size:1.05rem">New Plains LLC</b>
+    <span><a href="mailto:info@newplains.dev?subject=AI%20Audit">info@newplains.dev</a></span>
+    <small>AI consulting, workflow automation, and agent builds. Oklahoma City and remote.</small>
+  </div>
+</footer>
+
+<script src="scrollcraft.js"></script>
+<script>
+(function () {
+  var mount = document.querySelector('[data-sc-mount]');
+
+  /* Mobile: acts are un-pinned stacked blocks, so cue windows mapped to pin
+     travel fire far from their content. Re-map every cue to entry, staggered. */
+  if (matchMedia('(max-width:860px)').matches) {
+    ['act-hero','act-leads','act-ledger','act-close'].forEach(function (id) {
+      var sec = document.getElementById(id); if (!sec) return;
+      /* pin-travel cue windows end in a fade-out; on un-pinned blocks that
+         cuts text off mid-screen. Convert to the flow device: fire once on
+         entry, stay visible. */
+      sec.querySelectorAll('[data-sc-cue]').forEach(function (el) {
+        el.removeAttribute('data-sc-cue');
+        el.setAttribute('data-sc-in', '');
+      });
+      sec.querySelectorAll('[data-sc-count-at]').forEach(function (el) {
+        el.setAttribute('data-sc-count-at', '0.02 0.3');
+      });
+    });
+  }
+
+  if (window.ScrollCraft) ScrollCraft.mount(mount);
+
+  /* ---- signature: the tipping divider + persistent CTA, driven from page scroll ---- */
+  var hero = document.getElementById('act-hero');
+  var leads = document.getElementById('act-leads');
+  var ledger = document.getElementById('act-ledger');
+  var closeEl = document.getElementById('act-close');
+  var cta = document.getElementById('travelCta');
+  var last = -1;
+
+  function prog(el) {
+    var r = el.getBoundingClientRect();
+    var total = r.height - innerHeight;
+    if (total <= 0) return r.top < 0 ? 1 : 0;
+    return Math.min(1, Math.max(0, -r.top / total));
+  }
+  function pageProg() {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    return max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+  }
+
+  function frame() {
+    var p2 = prog(leads), p3 = prog(ledger), p4 = prog(closeEl), pp = pageProg();
+
+    /* divider position: 50 -> 54 -> 56 -> 100 (collapse) */
+    var split;
+    if (p4 > 0.55) split = 56 + 44 * Math.min(1, (p4 - 0.55) / 0.4);
+    else if (p3 > 0.85) split = 54 + 2 * Math.min(1, (p3 - 0.85) / 0.15);
+    else if (p2 > 0.6) split = 50 + 4 * Math.min(1, (p2 - 0.6) / 0.4);
+    else split = 50;
+    document.documentElement.style.setProperty('--split', split.toFixed(2) + '%');
+
+    /* peak: pop vs sink on the ledger totals */
+    var peakState = p3 > 0.9 ? 2 : (p3 > 0.72 ? 1 : 0);
+    if (peakState !== last) {
+      last = peakState;
+      if (peakState >= 1) ledger.classList.add('peak-hit-m');
+      if (peakState === 2) ledger.classList.add('peak-hit-a');
+    }
+
+    /* CTA: copper over dark regions, deep copper + win styling once the argument resolves */
+    var resolved = pp > 0.72;
+    cta.classList.toggle('travel-cta--win', resolved);
+    var s = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--split'));
+    cta.style.background = '';
+    if (!resolved) {
+      /* keep the pill legible over whichever ground it floats on */
+      var overLight = s > 78;
+      cta.style.background = overLight ? '#A45D1B' : '#D98E4F';
+      cta.style.color = overLight ? '#FFF6EC' : '#171008';
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
