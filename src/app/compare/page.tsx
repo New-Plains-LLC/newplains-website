@@ -51,6 +51,16 @@ const concepts = [
     line: "Brutalist editorial showroom on warm gray. Oversized condensed type, flat surfaces, mint + voltage accents, and a block-tower hero: 12 labeled tasks that stack themselves into a 2×2 tower.",
     routes: ["/f"],
   },
+  {
+    slug: "/g",
+    tag: "Concept G",
+    name: "The Editorial",
+    accent: "#cccc25",
+    bg: "#f0f7f6",
+    fg: "#17150e",
+    line: "Ink-on-cream magazine spread. Serif display at 144px, white/mint alternating bands, pill buttons, one rationed chartreuse CTA. GlossGenius-inspired.",
+    routes: ["/g"],
+  },
 ];
 
 export default function ComparePage() {
@@ -61,14 +71,14 @@ export default function ComparePage() {
           Concept Index · Unlisted
         </p>
         <h1 className="font-heading mt-4 max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">
-          Four redesigns. One business. Pick a direction.
+          Five redesigns. One business. Pick a direction.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-brand-charcoal/70">
           Each concept is a complete visual world with its own voice, routes, and CTA. Open each
           one, then decide what ships.
         </p>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {concepts.map((c) => (
             <Link
               key={c.slug}
