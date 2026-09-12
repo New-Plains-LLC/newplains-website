@@ -18,7 +18,7 @@ const CASES = [
     after: "4 hrs/wk review only.",
     metric: "$22K",
     metricLabel: "/ YR RECOVERED",
-    stack: "GMAIL → VISION OCR → N8N → QUICKBOOKS",
+    stack: "Receipts coded overnight. Books current by Monday.",
   },
   {
     tag: "SALES OPS",
@@ -28,7 +28,7 @@ const CASES = [
     after: "98% auto-labeled. Triage under 15 min/day.",
     metric: "$18K",
     metricLabel: "/ YR RECOVERED",
-    stack: "INBOX → AI SCORING → CRM → TELEGRAM",
+    stack: "Every lead labeled and routed before you open your inbox.",
   },
   {
     tag: "REVENUE",
@@ -36,9 +36,9 @@ const CASES = [
     title: "DEAL FLOW ROUTING",
     before: "New leads sat unseen in an inbox 4–6 hours.",
     after: "Scored and routed in under 90 seconds.",
-    metric: "3×",
-    metricLabel: "RESPONSE CAPTURE",
-    stack: "WEBHOOK → AGENT REVIEW → ALERT",
+    metric: "90 SEC",
+    metricLabel: "LEAD RESPONSE — WAS 4–6 HOURS",
+    stack: "You get a text the moment a real buyer raises their hand.",
   },
 ];
 
@@ -106,7 +106,7 @@ const SERVICES = [
     title: "AI TEAM SETUP",
     promise:
       "A small group of specialized AI agents on a private server, each tuned to a different job (ops, finance, sales, admin). They share memory, learn your business, and act without prompting.",
-    saves: "~ONE FTE OF ADMIN TIME",
+    saves: "~$40K/YR IN ADMIN SALARY",
   },
   {
     title: "CUSTOM AGENTS",
@@ -162,7 +162,7 @@ export default function ConceptDPage() {
       {/* HERO — split: massive condensed headline left, black proof block right */}
       <section className="mx-auto max-w-[1200px] px-6 pb-20 pt-10 md:pt-16">
         <p className="mb-8 [font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#444444]">
-          AI CONSULTING / SMALL BUSINESS / OKLAHOMA, USA
+          AI CONSULTING / OWNER-OPERATORS / OKLAHOMA, USA
         </p>
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <h1 className="[font-family:var(--font-cond-d)] text-[clamp(64px,12vw,130px)] font-bold uppercase leading-[0.9] tracking-[-0.03em] text-black">
@@ -172,7 +172,7 @@ export default function ConceptDPage() {
             <div className="order-first lg:order-none">
               <BlockTower />
               <p className="mt-4 text-center [font-family:var(--font-mono-d)] text-xs leading-[1.6] tracking-[-0.03em] text-[#979797]">
-                EVERY BLOCK A TASK THAT NOW RUNS ITSELF
+                EMAIL, INVOICES, FOLLOW-UPS — THE JOBS THAT NOW RUN THEMSELVES
               </p>
             </div>
             <p className="max-w-md text-[16px] leading-[1.25] text-[#444444]">
@@ -181,6 +181,20 @@ export default function ConceptDPage() {
               everything routes through a human — and that human is you. We
               map it, price it, and ship the systems that fix it.
             </p>
+            {/* Who you're hiring + risk reversal + next step */}
+            <div className="rounded-3xl bg-white p-6">
+              <p className="text-sm leading-[1.5] text-black">
+                I&apos;m Shawn Skaggs. I run businesses in Oklahoma —
+                equipment, real estate, dealerships — and I built these
+                systems for my own companies first. I work with
+                owner-operators I can drive to: contractors, shops, clinics,
+                restaurants, dealerships.
+              </p>
+              <p className="mt-4 text-sm font-medium leading-[1.5] text-black">
+                If the audit doesn&apos;t find at least $999 a year in
+                recoverable time or cost, you don&apos;t pay for it.
+              </p>
+            </div>
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href={AUDIT_MAILTO}
@@ -195,6 +209,10 @@ export default function ConceptDPage() {
                 See the work
               </Link>
             </div>
+            <p className="[font-family:var(--font-mono-d)] text-xs leading-[1.6] tracking-[-0.03em] text-[#979797]">
+              YOU EMAIL → I REPLY WITHIN A DAY WITH TWO TIME SLOTS → 45-MIN
+              CALL. $999 INVOICED AFTER THE SESSION.
+            </p>
           </div>
         </div>
 
