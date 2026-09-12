@@ -188,7 +188,7 @@ export default function ConceptDPage() {
                 equipment, real estate, dealerships — and I built these
                 systems for my own companies first. I work with
                 owner-operators I can drive to: contractors, shops, clinics,
-                restaurants, dealerships.
+                dealerships.
               </p>
               <p className="mt-4 text-sm font-medium leading-[1.5] text-black">
                 If the audit doesn&apos;t find at least $999 a year in
