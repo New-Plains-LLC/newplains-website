@@ -38,9 +38,9 @@ const AUDIT_MAILTO =
 
 const NAV_LINKS = [
   { href: "/f", label: "Work" },
-  { href: "/f#paths", label: "Paths" },
+  { href: "/f#buckets", label: "Buckets" },
+  { href: "/f#services", label: "Services" },
   { href: "/f#audit", label: "The Audit" },
-  { href: "/f#govcon", label: "GovCon" },
   { href: "/compare", label: "Concepts" },
 ];
 
@@ -89,7 +89,7 @@ export default function ConceptDLayout({
       <footer className="mt-20 bg-black">
         <div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-4 px-6 py-10 sm:flex-row sm:items-center">
           <p className="[font-family:var(--font-mono-d)] text-xs leading-relaxed tracking-[-0.03em] text-[#979797]">
-            NEW PLAINS LLC · OKLAHOMA · SAM.GOV ACTIVE
+            NEW PLAINS AI · AI CONSULTING · OKLAHOMA, USA
             <br />
             AI SYSTEMS THAT SHIP AND STICK
           </p>

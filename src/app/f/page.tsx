@@ -42,34 +42,6 @@ const CASES = [
   },
 ];
 
-/* Four paths — from the VSL Beat 4 offer ladder */
-const PATHS = [
-  {
-    num: "01",
-    name: "DO IT YOURSELF",
-    body: "We hand you the plan — what to set up, in what order, with mainstream tools — and you run with it. Yours forever.",
-    meta: "POST-AUDIT",
-  },
-  {
-    num: "02",
-    name: "AI CONCIERGE",
-    body: "Two working calls with me every month, plus direct messaging. We build every system together, on the calls. You stay in control.",
-    meta: "ONGOING",
-  },
-  {
-    num: "03",
-    name: "SCOPED PROJECT",
-    body: "One defined build. Receipts, lead routing, reporting — set up, tested, handed over, done.",
-    meta: "FIXED SCOPE",
-  },
-  {
-    num: "04",
-    name: "MANAGED AGENTS",
-    body: "We build and run everything — unlimited agents, unlimited automations — and you get one weekly report.",
-    meta: "FULL SERVICE",
-  },
-];
-
 const PROCESS = [
   {
     step: "01",
@@ -88,11 +60,104 @@ const PROCESS = [
   },
 ];
 
-const GOVCON = [
-  { k: "ENTITY", v: "New Plains LLC · Oklahoma · SAM.gov Active" },
-  { k: "NAICS", v: "561210 · 722310 · 561720 · 561730 · 561790 · 541512" },
-  { k: "SET-ASIDES", v: "HUBZone-eligible · 8(a) under review" },
-  { k: "RESPONSE", v: "Fixed-scope RFQ reply within 48 hrs" },
+/* Three Buckets — from /a/ai */
+const BUCKETS = [
+  {
+    name: "GET MORE CUSTOMERS",
+    description:
+      "Net-new leads, booked appointments, conversions from any channel. The machine does the chasing, qualifying, and following up.",
+    examples: [
+      "AI lead-intake that filters and qualifies in real time",
+      "Automated follow-up that never sleeps",
+      "Speed-to-lead: first response in seconds, not hours",
+    ],
+  },
+  {
+    name: "MAKE EACH CUSTOMER WORTH MORE",
+    description:
+      "Keep who you have. Sell them more. Get them profitable faster. AOV, LTV, retention, repeat-purchase, upsell.",
+    examples: [
+      "Onboarding flows that get customers live in days, not weeks",
+      "Retention and churn alerts that trigger before the customer leaves",
+      "Upsell and renewal sequences that run themselves",
+    ],
+  },
+  {
+    name: "CUT COSTS",
+    description:
+      "Take hours off recurring work. Same outcome, less labor, less rework, less waste. Easy to baseline, easy to attribute.",
+    examples: [
+      "Operations, dispatch, and ticket triage",
+      "Reporting dashboards that build themselves",
+      "Invoice coding, data rekeying, weekly reports — gone",
+    ],
+  },
+];
+
+/* Services — from /a/ai */
+const SERVICES = [
+  {
+    title: "WORKFLOW AUTOMATION",
+    promise:
+      "We replace the manual stuff — invoice coding, lead routing, data rekeying, weekly reports — with software that runs while you sleep.",
+    saves: "~10–20 HRS/WK",
+  },
+  {
+    title: "AI TEAM SETUP",
+    promise:
+      "A small group of specialized AI agents on a private server, each tuned to a different job (ops, finance, sales, admin). They share memory, learn your business, and act without prompting.",
+    saves: "~ONE FTE OF ADMIN TIME",
+  },
+  {
+    title: "CUSTOM AGENTS",
+    promise:
+      "Built for one job. Sales-call summarizer. Contract red-liner. RFP drafter. Field-tech dispatcher. You name it, we build it.",
+    saves: "~50% OF ONE ROLE",
+  },
+  {
+    title: "DOC & SPREADSHEET AUTOMATION",
+    promise:
+      "Your agents can read, analyze, and create Excel workbooks, Word docs, PowerPoint decks, and PDFs from raw data — on demand, in your formatting.",
+    saves: "~6 HRS/WK OF REPORTING",
+  },
+  {
+    title: "AI TRAINING",
+    promise:
+      "4-hour on-site workshop (OK + surrounding) or 60-min Zoom cohort for distributed teams. Hands-on: build your first 3 automations live.",
+    saves: null,
+  },
+];
+
+/* Offer ladder — from /a/ai rungs */
+const LADDER = [
+  {
+    num: "01",
+    name: "AI ONBOARDING",
+    price: "$150–$500",
+    meta: "1 HOUR",
+    body: "Setup + walkthrough. No SOW, no contract — get something working in a day.",
+  },
+  {
+    num: "02",
+    name: "WORKFLOW AUDIT",
+    price: "$1,500–$3,000",
+    meta: "5–7 DAYS",
+    body: "A 10–40 page deck mapping your workflows to the three buckets and finding the highest-ROI build.",
+  },
+  {
+    num: "03",
+    name: "BUILD PROJECT",
+    price: "$5,000–$10,000",
+    meta: "14–21 DAYS",
+    body: "One focused automation, end to end, built on the tools you already use. Anchored to the manual workflow it replaces.",
+  },
+  {
+    num: "04",
+    name: "MONTHLY RETAINER",
+    price: "$3,000–$10,000/MO",
+    meta: "ONGOING",
+    body: "Continuous builds. The audit pipeline refills itself; we keep shipping what earns.",
+  },
 ];
 
 export default function ConceptDPage() {
@@ -249,98 +314,106 @@ export default function ConceptDPage() {
         </div>
       </section>
 
-      {/* PATHS — four ways to work together */}
-      <section id="paths" className="bg-black px-6 pb-20">
+      {/* LADDER — the four rungs (black section) */}
+      <section id="ladder" className="bg-black px-6 pb-20">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-4 border-t border-[#2f2f2f] pt-20">
             <h2 className="[font-family:var(--font-cond-d)] text-[clamp(48px,8vw,80px)] font-bold uppercase leading-[0.9] tracking-[-0.03em] text-white">
-              Four paths
+              The ladder
             </h2>
             <p className="[font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#979797]">
-              THE AUDIT TELLS US WHICH ONE FITS
+              START ANYWHERE · EACH RUNG EARNS THE NEXT
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
-            {PATHS.map((p) => (
+            {LADDER.map((r) => (
               <article
-                key={p.num}
+                key={r.num}
                 className="flex flex-col justify-between gap-8 rounded-3xl bg-[#0d0d0d] p-8 ring-1 ring-[#2f2f2f]"
               >
                 <div>
                   <div className="mb-6 flex items-center justify-between">
                     <span className="[font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#979797]">
-                      {p.num}
+                      {r.num}
                     </span>
                     <span className="rounded-full bg-[#2f2f2f] px-4 py-1 [font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#d1ffca]">
-                      {p.meta}
+                      {r.meta}
                     </span>
                   </div>
                   <h3 className="[font-family:var(--font-sans-d)] text-[28px] font-medium uppercase leading-[1.1] tracking-[-0.84px] text-white">
-                    {p.name}
+                    {r.name}
                   </h3>
                   <p className="mt-4 max-w-md text-sm leading-[1.3] text-[#979797]">
-                    {p.body}
+                    {r.body}
                   </p>
                 </div>
+                <p className="[font-family:var(--font-cond-d)] text-4xl font-bold uppercase leading-none tracking-[-0.02em] text-[#d1ffca]">
+                  {r.price}
+                </p>
               </article>
             ))}
           </div>
-          <p className="mt-8 text-sm leading-[1.3] text-[#979797]">
-            No pressure to pick on day one. The audit tells us which one fits.
-          </p>
         </div>
       </section>
 
-      {/* GOVCON — warm canvas section, mono spec table */}
-      <section id="govcon" className="mx-auto max-w-[1200px] px-6 py-20">
+      {/* BUCKETS — every build rolls up into one of three */}
+      <section id="buckets" className="mx-auto max-w-[1200px] px-6 py-20">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <h2 className="[font-family:var(--font-cond-d)] text-[clamp(48px,8vw,80px)] font-bold uppercase leading-[0.9] tracking-[-0.03em] text-black">
-            The other half
+            Three buckets
           </h2>
           <p className="[font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#979797]">
-            REGISTERED · ACTIVE · READY
+            IF IT DOESN&apos;T MOVE ONE, WE DON&apos;T PITCH IT
           </p>
         </div>
-        <div className="grid gap-6 lg:grid-cols-5">
-          <div className="rounded-3xl bg-white p-8 lg:col-span-3">
-            <p className="text-base leading-[1.25] text-[#444444]">
-              New Plains LLC is also a registered federal contractor. Same
-              crew, same discipline: fixed scope, delivered on time. Property
-              services, facilities support, and AI systems for government
-              buyers.
-            </p>
-            <dl className="mt-8 divide-y divide-[#e5e5e5]">
-              {GOVCON.map((g) => (
-                <div key={g.k} className="grid gap-2 py-4 sm:grid-cols-8">
-                  <dt className="[font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#979797] sm:col-span-2">
-                    {g.k}
-                  </dt>
-                  <dd className="text-sm font-medium text-black sm:col-span-6">
-                    {g.v}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div className="flex flex-col justify-between gap-8 rounded-3xl bg-[#d1ffca] p-8 lg:col-span-2">
-            <div>
-              <span className="rounded-full bg-black px-4 py-1 [font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#d1ffca]">
-                RFQ
+        <div className="grid gap-6 md:grid-cols-3">
+          {BUCKETS.map((b, i) => (
+            <article key={b.name} className="flex flex-col gap-5 rounded-3xl bg-white p-6">
+              <span className="w-fit rounded-full bg-[#d1ffca] px-4 py-1 [font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-black">
+                0{i + 1}
               </span>
-              <p className="mt-6 [font-family:var(--font-sans-d)] text-[28px] font-medium uppercase leading-[1.1] tracking-[-0.84px] text-black">
-                Send us your RFQ
-              </p>
-              <p className="mt-4 text-sm leading-[1.3] text-black/70">
-                Fixed-scope bid back within 48 hours. Every time.
+              <h3 className="[font-family:var(--font-sans-d)] text-[22px] font-medium uppercase leading-[1.1] tracking-[-0.6px] text-black">
+                {b.name}
+              </h3>
+              <p className="text-sm leading-[1.3] text-[#444444]">{b.description}</p>
+              <ul className="mt-auto space-y-2 border-t border-[#e5e5e5] pt-4">
+                {b.examples.map((ex) => (
+                  <li key={ex} className="flex items-start gap-2 text-sm text-[#444444]">
+                    <span className="text-black">—</span>
+                    <span>{ex}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* SERVICES — what we build */}
+      <section id="services" className="mx-auto max-w-[1200px] px-6 pb-20">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
+          <h2 className="[font-family:var(--font-cond-d)] text-[clamp(48px,8vw,80px)] font-bold uppercase leading-[0.9] tracking-[-0.03em] text-black">
+            What we build
+          </h2>
+          <p className="[font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#979797]">
+            FIXED SCOPE · FIXED PRICE · SHIPPED WORKING
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-3xl bg-white">
+          {SERVICES.map((s, i) => (
+            <div
+              key={s.title}
+              className={`grid gap-4 px-8 py-8 sm:grid-cols-12 ${i > 0 ? "border-t border-[#e5e5e5]" : ""}`}
+            >
+              <h3 className="sm:col-span-4 [font-family:var(--font-sans-d)] text-xl font-medium uppercase leading-[1.1] tracking-[-0.6px] text-black">
+                {s.title}
+              </h3>
+              <p className="sm:col-span-5 text-sm leading-[1.3] text-[#444444]">{s.promise}</p>
+              <p className="sm:col-span-3 text-right [font-family:var(--font-mono-d)] text-xs leading-[1.6] tracking-[-0.03em] text-[#979797]">
+                {s.saves ? <span className="rounded-full bg-[#d1ffca] px-3 py-1 text-black">SAVES {s.saves}</span> : ""}
               </p>
             </div>
-            <a
-              href="mailto:info@newplains.dev?subject=RFQ"
-              className="inline-block w-fit rounded-lg bg-black px-6 py-3.5 text-base font-medium text-white transition-colors hover:bg-[#2f2f2f]"
-            >
-              Submit RFQ
-            </a>
-          </div>
+          ))}
         </div>
       </section>
 
