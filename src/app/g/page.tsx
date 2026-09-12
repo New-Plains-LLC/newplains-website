@@ -138,7 +138,7 @@ export default function ConceptGPage() {
         <div className="relative">
           <div
             aria-hidden
-            className="absolute -left-10 -top-10 h-[340px] w-[70%] rounded-[24px] bg-gradient-to-b from-[#cccc25] to-[#cacd78] opacity-40"
+            className="absolute -left-10 -top-8 h-[300px] w-[55%] rounded-[24px] bg-gradient-to-b from-[#cccc25] to-[#cacd78] opacity-20"
           />
           <div className="relative">
             <p className="mb-6 text-[14px] font-medium tracking-[0.063em] text-[#17150e]">
