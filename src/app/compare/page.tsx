@@ -41,6 +41,16 @@ const concepts = [
       "Documentation-first terminal spec sheet for technical buyers. No marketing — just the stack, the metrics, and the matrix.",
     routes: ["/c", "/c/ai-stack", "/c/govcon"],
   },
+  {
+    slug: "/f",
+    tag: "Concept F",
+    name: "The Showroom",
+    accent: "#d1ffca",
+    bg: "#e5e5e5",
+    fg: "#000000",
+    line: "Brutalist editorial showroom on warm gray. Oversized condensed type, flat surfaces, mint + voltage accents, and a block-tower hero: 12 labeled tasks that stack themselves into a 2×2 tower.",
+    routes: ["/f"],
+  },
 ];
 
 export default function ComparePage() {
@@ -51,14 +61,14 @@ export default function ComparePage() {
           Concept Index · Unlisted
         </p>
         <h1 className="font-heading mt-4 max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">
-          Three redesigns. One business. Pick a direction.
+          Four redesigns. One business. Pick a direction.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-brand-charcoal/70">
           Each concept is a complete visual world with its own voice, routes, and CTA. Open each
           one, then decide what ships.
         </p>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-3">
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {concepts.map((c) => (
             <Link
               key={c.slug}
