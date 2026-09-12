@@ -128,31 +128,31 @@ const SERVICES = [
   },
 ];
 
-/* Offer ladder — from /a/ai rungs */
+/* Offer ladder — VSL four paths */
 const LADDER = [
   {
     num: "01",
-    name: "AI ONBOARDING",
-    meta: "1 HOUR",
-    body: "Setup + walkthrough. No SOW, no contract — get something working in a day.",
+    name: "AI AUDIT",
+    meta: "$999",
+    body: "A 45-minute working session. We map where your hours go, find the tasks a computer should be doing, and put real dollar numbers on it. Within four days: a written plan with quick wins, exact tools, and the order to do them in.",
   },
   {
     num: "02",
-    name: "WORKFLOW AUDIT",
-    meta: "5–7 DAYS",
-    body: "A 10–40 page deck mapping your workflows to the three buckets and finding the highest-ROI build.",
+    name: "AI CONCIERGE",
+    meta: "MONTHLY",
+    body: "Two working calls with Shawn every month, plus direct messaging. We build every system together, on the calls. You stay in control.",
   },
   {
     num: "03",
-    name: "BUILD PROJECT",
-    meta: "14–21 DAYS",
-    body: "One focused automation, end to end, built on the tools you already use. Anchored to the manual workflow it replaces.",
+    name: "SCOPED PROJECT",
+    meta: "FIXED SCOPE",
+    body: "One defined build. Receipts, lead routing, reporting — set up, tested, handed over, done.",
   },
   {
     num: "04",
-    name: "MONTHLY RETAINER",
-    meta: "ONGOING",
-    body: "Continuous builds. The audit pipeline refills itself; we keep shipping what earns.",
+    name: "MANAGED AGENTS",
+    meta: "FULL SERVICE",
+    body: "We build and run everything — unlimited agents, unlimited automations — and you get one weekly report.",
   },
 ];
 
