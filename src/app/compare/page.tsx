@@ -41,6 +41,16 @@ const concepts = [
       "Documentation-first terminal spec sheet for technical buyers. No marketing — just the stack, the metrics, and the matrix.",
     routes: ["/c", "/c/ai-stack", "/c/govcon"],
   },
+  {
+    slug: "/d",
+    tag: "Concept D",
+    name: "The Showroom",
+    accent: "#d1ffca",
+    bg: "#e5e5e5",
+    fg: "#000000",
+    line: "Brutalist editorial showroom on warm gray. Oversized condensed type, flat surfaces, mint + voltage accents. The $999 audit and the four-path offer ladder, museum-style.",
+    routes: ["/d"],
+  },
 ];
 
 export default function ComparePage() {
