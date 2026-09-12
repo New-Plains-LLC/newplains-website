@@ -133,28 +133,24 @@ const LADDER = [
   {
     num: "01",
     name: "AI ONBOARDING",
-    price: "$150–$500",
     meta: "1 HOUR",
     body: "Setup + walkthrough. No SOW, no contract — get something working in a day.",
   },
   {
     num: "02",
     name: "WORKFLOW AUDIT",
-    price: "$1,500–$3,000",
     meta: "5–7 DAYS",
     body: "A 10–40 page deck mapping your workflows to the three buckets and finding the highest-ROI build.",
   },
   {
     num: "03",
     name: "BUILD PROJECT",
-    price: "$5,000–$10,000",
     meta: "14–21 DAYS",
     body: "One focused automation, end to end, built on the tools you already use. Anchored to the manual workflow it replaces.",
   },
   {
     num: "04",
     name: "MONTHLY RETAINER",
-    price: "$3,000–$10,000/MO",
     meta: "ONGOING",
     body: "Continuous builds. The audit pipeline refills itself; we keep shipping what earns.",
   },
@@ -347,9 +343,6 @@ export default function ConceptDPage() {
                     {r.body}
                   </p>
                 </div>
-                <p className="[font-family:var(--font-cond-d)] text-4xl font-bold uppercase leading-none tracking-[-0.02em] text-[#d1ffca]">
-                  {r.price}
-                </p>
               </article>
             ))}
           </div>
