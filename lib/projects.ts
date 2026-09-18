@@ -40,6 +40,56 @@ export const projects: Project[] = [
     color: "#C4A265",
   },
   {
+    id: "folio",
+    name: "Folio",
+    tagline: "Self-Hosted Knowledge Workspace",
+    description:
+      "A self-hosted knowledge workspace that pulls your meeting notes out of silos and into one searchable, filterable place. Folio syncs with the Notion API, imports your archives, and turns scattered notes into decisions you can actually find again — private infrastructure, zero vendor lock-in.",
+    url: "https://folio.newplains.cloud",
+    image: "/projects/folio.png",
+    color: "#9CAF88",
+  },
+  {
+    id: "ravenscan",
+    name: "RavenScan",
+    tagline: "Open-Source Linux Scanning",
+    description:
+      "An open-source Linux desktop app and USB driver for Raven Compact Scanners (Avision AD215). Built with GTK4/libadwaita when the vendor's cloud died, it talks direct USB — no cloud, no account, no telemetry. Includes OCR via Tesseract and runs natively across an Omarchy fleet.",
+    url: "https://github.com/dsskaggs-ai/ravenscan-app",
+    image: "/projects/ravenscan.png",
+    color: "#B87333",
+  },
+  {
+    id: "omarchy-tooling",
+    name: "Omarchy Tooling",
+    tagline: "Open-Source Desktop Plugins",
+    description:
+      "A pair of open-source Omarchy desktop plugins: agent-approvals puts a flashing bar light on any pending AI-agent approval across Hermes, Claude Code, and Codex, while tailscale-health surfaces fleet connectivity right in the status bar. One-command install, MIT-licensed.",
+    url: "https://github.com/dsskaggs-ai/omarchy-agent-approvals",
+    image: "/projects/omarchy-tooling.png",
+    color: "#7A8B5C",
+  },
+  {
+    id: "meetily-linux",
+    name: "Meetily Linux",
+    tagline: "Native Meeting Capture",
+    description:
+      "A native Linux port of the Meetily meeting-capture stack, built as both a binary and a .deb package with a wired Folio connector. Local-first transcription and summarization that feeds straight into your knowledge workspace — no cloud round-trip required.",
+    url: "",
+    image: "/projects/meetily-linux.png",
+    color: "#C4825A",
+  },
+  {
+    id: "speed-to-lead",
+    name: "Speed-to-Lead Engine",
+    tagline: "Sub-Second Lead Response",
+    description:
+      "An n8n-driven automation that moves a new prospect from form-fill to a personal email in their inbox and a Telegram alert in Shawn's pocket in under a second. Speed-to-lead is the highest-ROI automation in consulting — this one runs it on self-hosted infrastructure.",
+    url: "",
+    image: "/projects/speed-to-lead.png",
+    color: "#2D2A26",
+  },
+  {
     id: "compass",
     name: "Compass",
     tagline: "Intelligence Terminal",
