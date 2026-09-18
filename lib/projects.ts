@@ -45,7 +45,7 @@ export const projects: Project[] = [
     tagline: "Self-Hosted Knowledge Workspace",
     description:
       "A self-hosted knowledge workspace that pulls your meeting notes out of silos and into one searchable, filterable place. Folio syncs with the Notion API, imports your archives, and turns scattered notes into decisions you can actually find again — private infrastructure, zero vendor lock-in.",
-    url: "https://folio.newplains.cloud",
+    url: "https://github.com/dsskaggs-ai/folio",
     image: "/projects/folio.png",
     color: "#9CAF88",
   },
