@@ -101,6 +101,27 @@ input[type="range"].slider-brass::-moz-range-thumb {
   transition: border-color 0.2s;
 }
 
+.field:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-brass, #b87333);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .draw-rule {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .field-area {
   resize: vertical;
   min-height: 6rem;
