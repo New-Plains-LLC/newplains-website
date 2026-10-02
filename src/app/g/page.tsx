@@ -114,7 +114,7 @@ const LADDER = [
     num: "02",
     name: "AI Concierge",
     meta: "Monthly",
-    body: "Two working calls with Shawn every month, plus direct messaging. We build every system together, on the calls. You stay in control.",
+    body: "A forward-deployed AI engineer on retainer. Two working calls with Shawn every month, plus direct messaging — and each month we re-engineer one workflow, eliminating the exceptions and extra steps.",
   },
   {
     num: "03",
@@ -126,7 +126,13 @@ const LADDER = [
     num: "04",
     name: "Managed Agents",
     meta: "Full service",
-    body: "We build and run everything — unlimited agents, unlimited automations — and you get one weekly report.",
+    body: "We build and run everything — unlimited agents, unlimited automations — and every month we map and redesign your costliest workflows. One weekly report.",
+  },
+  {
+    num: "05",
+    name: "Onsite FDE",
+    meta: "Medium & large teams",
+    body: "A forward-deployed engineer physically inside your business. Department-level process re-engineering, baselined KPIs, measured results. We come to you.",
   },
 ];
 

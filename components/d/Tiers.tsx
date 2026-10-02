@@ -37,11 +37,25 @@ const tiers = [
     delivery: "ongoing",
     primary: false,
     bullets: [
+      "Forward-Deployed Engineering: every month we re-engineer one workflow — interviews, process mapping, exception and handoff elimination — not just maintenance",
       "Unlimited inference. No per-call, per-query, or per-seat metering. Ever.",
       "Unlimited automations. We build as many as the operation needs.",
       "Our team on retainer, keeping it running and building what comes next.",
-      "Monthly AI concierge calls.",
       "Terms get discussed after the audit, once we've both seen the same numbers.",
+    ],
+  },
+  {
+    n: "IV.",
+    name: "Onsite FDE — Embedded",
+    price: "Scoped to the operation",
+    cadence: "monthly · medium & large teams",
+    delivery: "ongoing",
+    primary: false,
+    bullets: [
+      "A forward-deployed engineer physically inside your business on a set cadence",
+      "Department-level process re-engineering: map how the work actually happens, sort every step (eliminate, plain code, agent, human), rebuild inside your systems of record",
+      "Baselined KPIs before we build. Measured before-and-after numbers after.",
+      "For operations with multiple teams, systems, and sites",
     ],
   },
 ];
@@ -61,7 +75,7 @@ export default function Tiers() {
             One diagnostic. One project.
             <br />
             <span className="italic text-[#B08A3E]">
-              One optional retainer.
+              One optional retainer. Or we come onsite.
             </span>
           </h2>
         </div>
