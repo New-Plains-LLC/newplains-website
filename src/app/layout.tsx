@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import Analytics from "@/../components/Analytics";
+import MailtoTracker from "@/../components/MailtoTracker";
 import Footer from "@/../components/Footer";
 import "./globals.css";
 
@@ -59,6 +60,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <Analytics />
+        <MailtoTracker />
         {/* Herm.Chat widget */}
         <Script
           src="https://herm-chat-1413c.web.app/widget-loader.js"
