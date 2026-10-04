@@ -37,7 +37,7 @@ const tiers = [
     delivery: "ongoing",
     primary: false,
     bullets: [
-      "Forward-Deployed Engineering: every month we re-engineer one workflow — interviews, process mapping, exception and handoff elimination — not just maintenance",
+      "AI Engineering on Retainer: every month we rebuild one workflow — interviews, process mapping, exception and handoff elimination — not just maintenance",
       "Unlimited inference. No per-call, per-query, or per-seat metering. Ever.",
       "Unlimited automations. We build as many as the operation needs.",
       "Our team on retainer, keeping it running and building what comes next.",
@@ -46,15 +46,15 @@ const tiers = [
   },
   {
     n: "IV.",
-    name: "Onsite FDE — Embedded",
+    name: "Onsite Team — Embedded",
     price: "Scoped to the operation",
     cadence: "monthly · medium & large teams",
     delivery: "ongoing",
     primary: false,
     bullets: [
-      "A forward-deployed engineer physically inside your business on a set cadence",
-      "Department-level process re-engineering: map how the work actually happens, sort every step (eliminate, plain code, agent, human), rebuild inside your systems of record",
-      "Baselined KPIs before we build. Measured before-and-after numbers after.",
+      "One of our engineers, physically inside your business on a set cadence",
+      "Department-level workflow rebuilds: map how the work actually happens, sort every step (eliminate, plain code, agent, human), rebuild inside your systems of record",
+      "Baselined numbers before we build. Measured before-and-after numbers after.",
       "For operations with multiple teams, systems, and sites",
     ],
   },

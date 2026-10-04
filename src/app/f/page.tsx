@@ -192,7 +192,9 @@ export default function ConceptDPage() {
               </p>
               <p className="mt-4 text-sm font-medium leading-[1.5] text-black">
                 If the audit doesn&apos;t find at least $999 a year in
-                recoverable time or cost, you don&apos;t pay for it.
+                recoverable time or cost, you don&apos;t pay for it. And you
+                approve everything before it goes live — nothing reaches your
+                customers without your sign-off.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-4">
