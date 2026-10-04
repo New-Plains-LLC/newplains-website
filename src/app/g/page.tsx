@@ -114,7 +114,7 @@ const LADDER = [
     num: "02",
     name: "AI Concierge",
     meta: "Monthly",
-    body: "A forward-deployed AI engineer on retainer. Two working calls with Shawn every month, plus direct messaging — and each month we re-engineer one workflow, eliminating the exceptions and extra steps.",
+    body: "An AI engineer on your side, month after month. Two working calls with Shawn, direct messaging in between, and every month one broken workflow gets rebuilt — fewer steps, fewer exceptions, hours back.",
   },
   {
     num: "03",
@@ -130,9 +130,9 @@ const LADDER = [
   },
   {
     num: "05",
-    name: "Onsite FDE",
+    name: "Onsite Team",
     meta: "Medium & large teams",
-    body: "A forward-deployed engineer physically inside your business. Department-level process re-engineering, baselined KPIs, measured results. We come to you.",
+    body: "One of us, physically in your business, rebuilding how a whole department runs — with before-and-after numbers to prove it. We come to you.",
   },
 ];
 
@@ -144,41 +144,41 @@ export default function ConceptGPage() {
         <div className="relative">
           <div
             aria-hidden
-            className="absolute -left-10 -top-8 h-[300px] w-[55%] rounded-[24px] bg-gradient-to-b from-[#cccc25] to-[#cacd78] opacity-20"
+            className="absolute -left-10 -top-8 h-[300px] w-[55%] rounded-[24px] bg-gradient-to-b from-[#B87333] to-[#C4825A] opacity-20"
           />
           <div className="relative">
-            <p className="mb-6 text-[14px] font-medium tracking-[0.063em] text-[#17150e]">
+            <p className="mb-6 text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
               AI CONSULTING / OWNER-OPERATORS / OKLAHOMA, USA
             </p>
-            <h1 className="max-w-[16ch] font-[family-name:var(--font-classic-g)] text-[clamp(64px,10vw,144px)] leading-[0.85] tracking-[-0.03em] text-[#17150e]">
+            <h1 className="max-w-[16ch] font-[family-name:var(--font-classic-g)] text-[clamp(64px,10vw,144px)] leading-[0.85] tracking-[-0.03em] text-brand-charcoal">
               We find the ten hours your week is losing.
             </h1>
           </div>
         </div>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
-          <p className="max-w-md text-[16px] leading-[1.5] text-[#17150e]">
+          <p className="max-w-md text-[16px] leading-[1.5] text-brand-charcoal">
             Quotes that go out late. Follow-ups that never happen. Invoices
-            that wait until Friday night. You built a business where everything
-            routes through a human — and that human is you. We map it, price
-            it, and ship the systems that fix it.
+            that wait until Friday night. Everything routes through you, and
+            the day has a limit. We find what a computer should be doing
+            instead, put a dollar figure on it, and ship the fix.
           </p>
           <div className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href={AUDIT_MAILTO}
-                className="rounded-[1440px] bg-[#cccc25] px-8 py-3 text-[16px] font-medium text-[#17150e] transition-colors hover:bg-[#cacd78]"
+                className="rounded-[1440px] bg-[#B87333] px-8 py-3 text-[16px] font-medium text-brand-charcoal transition-colors hover:bg-[#C4825A]"
               >
                 Book the $999 Audit
               </a>
               <Link
                 href="#work"
-                className="rounded-[1440px] border-[1.5px] border-[#17150e] px-8 py-3 text-[16px] font-medium text-[#17150e] transition-colors hover:bg-[#f0f7f6]"
+                className="rounded-[1440px] border-[1.5px] border-[#2D2A26] px-8 py-3 text-[16px] font-medium text-brand-charcoal transition-colors hover:bg-brand-cream"
               >
                 See the work
               </Link>
             </div>
-            <p className="text-[14px] font-medium leading-[1.4] text-[#949494]">
+            <p className="text-[14px] font-medium leading-[1.4] text-brand-charcoal">
               You email → I reply within a day with two time slots → 45-min
               call. $999 invoiced after the session.
             </p>
@@ -187,29 +187,31 @@ export default function ConceptGPage() {
       </section>
 
       {/* WHO — mint band, Shawn intro card */}
-      <section className="bg-[#f0f7f6] px-6 py-20">
+      <section className="bg-brand-cream px-6 py-20">
         <div className="mx-auto max-w-[1200px]">
           <div className="grid gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
-              <span className="inline-block rounded-[8px] border-[1.5px] border-[#17150e] px-3 py-1.5 text-[14px] font-medium tracking-[0.063em] text-[#17150e]">
+              <span className="inline-block rounded-[8px] border-[1.5px] border-[#2D2A26] px-3 py-1.5 text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
                 WHO YOU&apos;RE HIRING
               </span>
-              <h2 className="mt-6 font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,96px)] leading-[0.95] tracking-[-0.03em] text-[#17150e]">
+              <h2 className="mt-6 font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,96px)] leading-[0.95] tracking-[-0.03em] text-brand-charcoal">
                 I&apos;m Shawn. I built these systems for my own companies
                 first.
               </h2>
             </div>
             <div className="lg:col-span-3">
-              <p className="text-[22px] leading-[1.2] tracking-[-0.44px] text-[#17150e]">
+              <p className="text-[22px] leading-[1.2] tracking-[-0.44px] text-brand-charcoal">
                 I run businesses in Oklahoma — equipment, real estate,
                 dealerships. Every system on this page ran in my companies
                 before it ever shipped to a client. I work with
                 owner-operators I can drive to: contractors, shops, clinics,
                 dealerships.
               </p>
-              <p className="mt-6 text-[16px] leading-[1.5] text-[#17150e]">
+              <p className="mt-6 text-[16px] leading-[1.5] text-brand-charcoal">
                 If the audit doesn&apos;t find at least $999 a year in
-                recoverable time or cost, you don&apos;t pay for it.
+                recoverable time or cost, you don&apos;t pay for it. And you
+                approve everything before it goes live — nothing reaches your
+                customers without your sign-off.
               </p>
             </div>
           </div>
@@ -225,49 +227,49 @@ export default function ConceptGPage() {
             { m: "$999", l: "Fixed price. Fixed scope. Fixed deliverable." },
           ].map((s) => (
             <div key={s.m}>
-              <p className="font-[family-name:var(--font-classic-g)] text-[clamp(64px,8vw,96px)] leading-[0.95] tracking-[-0.03em] text-[#17150e]">
+              <p className="font-[family-name:var(--font-classic-g)] text-[clamp(64px,8vw,96px)] leading-[0.95] tracking-[-0.03em] text-brand-charcoal">
                 {s.m}
               </p>
-              <p className="mt-3 text-[16px] font-medium text-[#17150e]">{s.l}</p>
+              <p className="mt-3 text-[16px] font-medium text-brand-charcoal">{s.l}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* WORK — mint band, case cards */}
-      <section id="work" className="bg-[#f0f7f6] px-6 py-20">
+      <section id="work" className="bg-brand-cream px-6 py-20">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-[#17150e]">
+            <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-brand-charcoal">
               The work
             </h2>
-            <p className="text-[14px] font-medium tracking-[0.063em] text-[#949494]">
+            <p className="text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
               3 PIPELINES · ALL RUNNING IN PRODUCTION
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {CASES.map((c) => (
               <article key={c.tag} className="rounded-[16px] bg-white p-6">
-                <span className="inline-block rounded-[8px] bg-[#f0f7f6] px-3 py-1.5 text-[14px] font-medium text-[#17150e]">
+                <span className="inline-block rounded-[8px] bg-brand-cream px-3 py-1.5 text-[14px] font-medium text-brand-charcoal">
                   {c.tag}
                 </span>
-                <h3 className="mt-4 text-[22px] font-medium leading-[1.1] tracking-[-0.44px] text-[#17150e]">
+                <h3 className="mt-4 text-[22px] font-medium leading-[1.1] tracking-[-0.44px] text-brand-charcoal">
                   {c.title}
                 </h3>
-                <p className="mt-3 text-[16px] leading-[1.5] text-[#949494]">
+                <p className="mt-3 text-[16px] leading-[1.5] text-brand-charcoal">
                   Before — {c.before}
                 </p>
-                <p className="mt-2 text-[16px] leading-[1.5] text-[#17150e]">
+                <p className="mt-2 text-[16px] leading-[1.5] text-brand-charcoal">
                   After — {c.after}
                 </p>
-                <div className="mt-6 border-t-[1.5px] border-[#17150e] pt-5">
-                  <p className="font-[family-name:var(--font-classic-g)] text-[clamp(48px,6vw,64px)] leading-[0.95] tracking-[-0.03em] text-[#17150e]">
+                <div className="mt-6 border-t-[1.5px] border-[#2D2A26] pt-5">
+                  <p className="font-[family-name:var(--font-classic-g)] text-[clamp(48px,6vw,64px)] leading-[0.95] tracking-[-0.03em] text-brand-charcoal">
                     {c.metric}
                   </p>
-                  <p className="mt-1 text-[14px] font-medium text-[#17150e]">
+                  <p className="mt-1 text-[14px] font-medium text-brand-charcoal">
                     {c.metricLabel}
                   </p>
-                  <p className="mt-3 text-[14px] leading-[1.4] text-[#949494]">
+                  <p className="mt-3 text-[14px] leading-[1.4] text-brand-charcoal">
                     {c.note}
                   </p>
                 </div>
@@ -280,29 +282,29 @@ export default function ConceptGPage() {
       {/* BUCKETS — white band */}
       <section id="buckets" className="mx-auto max-w-[1200px] px-6 py-20">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-[#17150e]">
+          <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-brand-charcoal">
             Three buckets
           </h2>
-          <p className="text-[14px] font-medium tracking-[0.063em] text-[#949494]">
+          <p className="text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
             IF IT DOESN&apos;T MOVE ONE, WE DON&apos;T PITCH IT
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {BUCKETS.map((b, i) => (
-            <article key={b.name} className="rounded-[8px] bg-[#f0f7f6] p-6">
-              <span className="inline-block rounded-[8px] border-[1.5px] border-[#17150e] px-3 py-1 text-[14px] font-medium text-[#17150e]">
+            <article key={b.name} className="rounded-[8px] bg-brand-cream p-6">
+              <span className="inline-block rounded-[8px] border-[1.5px] border-[#2D2A26] px-3 py-1 text-[14px] font-medium text-brand-charcoal">
                 0{i + 1}
               </span>
-              <h3 className="mt-4 text-[22px] font-medium leading-[1.1] tracking-[-0.44px] text-[#17150e]">
+              <h3 className="mt-4 text-[22px] font-medium leading-[1.1] tracking-[-0.44px] text-brand-charcoal">
                 {b.name}
               </h3>
-              <p className="mt-3 text-[16px] leading-[1.5] text-[#17150e]/80">
+              <p className="mt-3 text-[16px] leading-[1.5] text-brand-charcoal/80">
                 {b.description}
               </p>
-              <ul className="mt-5 space-y-2 border-t-[1.5px] border-[#17150e]/20 pt-4">
+              <ul className="mt-5 space-y-2 border-t-[1.5px] border-[#2D2A26]/20 pt-4">
                 {b.examples.map((ex) => (
-                  <li key={ex} className="flex items-start gap-2 text-[16px] text-[#17150e]">
-                    <span className="text-[#cccc25]">+</span>
+                  <li key={ex} className="flex items-start gap-2 text-[16px] text-brand-charcoal">
+                    <span className="text-[#B87333]">+</span>
                     <span>{ex}</span>
                   </li>
                 ))}
@@ -313,26 +315,30 @@ export default function ConceptGPage() {
       </section>
 
       {/* AUDIT — ink card on mint band */}
-      <section id="audit" className="bg-[#f0f7f6] px-6 py-20">
+      <section id="audit" className="bg-brand-cream px-6 py-20">
         <div className="mx-auto max-w-[1200px]">
-          <div className="rounded-[24px] bg-[#17150e] p-8 md:p-16">
+          <div className="rounded-[24px] bg-[#2D2A26] p-8 md:p-16">
             <div className="grid gap-12 lg:grid-cols-2">
               <div>
-                <p className="mb-6 text-[14px] font-medium tracking-[0.063em] text-[#cccc25]">
+                <p className="mb-6 text-[14px] font-medium tracking-[0.063em] text-[#B87333]">
                   THE OFFER
                 </p>
                 <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-white">
                   The $999 AI audit
                 </h2>
-                <p className="mt-6 max-w-md text-[16px] leading-[1.5] text-[#f0f7f6]/80">
+                <p className="mt-6 max-w-md text-[16px] leading-[1.5] text-brand-cream/80">
                   A 45-minute working session. We map where your hours go, find
                   the tasks a computer should be doing, and put real dollar
                   numbers on it. Within four days you get a written plan: quick
                   wins, exact tools, the order to do them in.
                 </p>
+                <p className="mt-4 max-w-md text-[14px] leading-[1.5] text-brand-cream/60">
+                  The audit is step one. Most owners continue on a monthly plan
+                  — but the audit stands on its own.
+                </p>
                 <a
                   href={AUDIT_MAILTO}
-                  className="mt-8 inline-block rounded-[1440px] bg-[#cccc25] px-8 py-3 text-[16px] font-medium text-[#17150e] transition-colors hover:bg-[#cacd78]"
+                  className="mt-8 inline-block rounded-[1440px] bg-[#B87333] px-8 py-3 text-[16px] font-medium text-brand-charcoal transition-colors hover:bg-[#C4825A]"
                 >
                   Book the Audit
                 </a>
@@ -357,12 +363,12 @@ export default function ConceptGPage() {
                 ].map((p) => (
                   <div key={p.s} className="border-t-[1.5px] border-white/20 py-6">
                     <div className="flex items-center gap-3">
-                      <span className="text-[14px] font-medium text-[#cccc25]">{p.s}</span>
+                      <span className="text-[14px] font-medium text-[#B87333]">{p.s}</span>
                       <span className="text-[22px] font-medium tracking-[-0.44px] text-white">
                         {p.l}
                       </span>
                     </div>
-                    <p className="mt-2 text-[16px] leading-[1.5] text-[#f0f7f6]/70">{p.b}</p>
+                    <p className="mt-2 text-[16px] leading-[1.5] text-brand-cream/70">{p.b}</p>
                   </div>
                 ))}
               </div>
@@ -374,26 +380,26 @@ export default function ConceptGPage() {
       {/* LADDER — white band */}
       <section id="ladder" className="mx-auto max-w-[1200px] px-6 py-20">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-[#17150e]">
+          <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-brand-charcoal">
             The ladder
           </h2>
-          <p className="text-[14px] font-medium tracking-[0.063em] text-[#949494]">
+          <p className="text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
             START ANYWHERE · EACH RUNG EARNS THE NEXT
           </p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {LADDER.map((r) => (
-            <article key={r.num} className="rounded-[16px] bg-[#f0f7f6] p-8">
+            <article key={r.num} className="rounded-[16px] bg-brand-cream p-8">
               <div className="mb-4 flex items-center justify-between">
-                <span className="text-[14px] font-medium text-[#949494]">{r.num}</span>
-                <span className="rounded-[8px] border-[1.5px] border-[#17150e] px-3 py-1 text-[14px] font-medium text-[#17150e]">
+                <span className="text-[14px] font-medium text-brand-charcoal">{r.num}</span>
+                <span className="rounded-[8px] border-[1.5px] border-[#2D2A26] px-3 py-1 text-[14px] font-medium text-brand-charcoal">
                   {r.meta}
                 </span>
               </div>
-              <h3 className="text-[32px] font-medium leading-[1.1] tracking-[-0.64px] text-[#17150e]">
+              <h3 className="text-[32px] font-medium leading-[1.1] tracking-[-0.64px] text-brand-charcoal">
                 {r.name}
               </h3>
-              <p className="mt-3 text-[16px] leading-[1.5] text-[#17150e]/80">{r.body}</p>
+              <p className="mt-3 text-[16px] leading-[1.5] text-brand-charcoal/80">{r.body}</p>
             </article>
           ))}
         </div>
@@ -402,28 +408,28 @@ export default function ConceptGPage() {
       {/* SERVICES — white band continues, table rows */}
       <section id="services" className="mx-auto max-w-[1200px] px-6 pb-20">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-[#17150e]">
+          <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-brand-charcoal">
             What we build
           </h2>
-          <p className="text-[14px] font-medium tracking-[0.063em] text-[#949494]">
+          <p className="text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
             FIXED SCOPE · SHIPPED WORKING
           </p>
         </div>
-        <div className="overflow-hidden rounded-[16px] bg-[#f0f7f6]">
+        <div className="overflow-hidden rounded-[16px] bg-brand-cream">
           {SERVICES.map((s, i) => (
             <div
               key={s.title}
-              className={`grid gap-4 px-8 py-8 sm:grid-cols-12 ${i > 0 ? "border-t-[1.5px] border-[#17150e]/10" : ""}`}
+              className={`grid gap-4 px-8 py-8 sm:grid-cols-12 ${i > 0 ? "border-t-[1.5px] border-[#2D2A26]/10" : ""}`}
             >
-              <h3 className="sm:col-span-4 text-[22px] font-medium leading-[1.1] tracking-[-0.44px] text-[#17150e]">
+              <h3 className="sm:col-span-4 text-[22px] font-medium leading-[1.1] tracking-[-0.44px] text-brand-charcoal">
                 {s.title}
               </h3>
-              <p className="sm:col-span-5 text-[16px] leading-[1.5] text-[#17150e]/80">
+              <p className="sm:col-span-5 text-[16px] leading-[1.5] text-brand-charcoal/80">
                 {s.promise}
               </p>
               <p className="sm:col-span-3 text-right">
                 {s.saves ? (
-                  <span className="inline-block rounded-[8px] bg-[#cccc25] px-3 py-1.5 text-[14px] font-medium text-[#17150e]">
+                  <span className="inline-block rounded-[8px] bg-[#B87333] px-3 py-1.5 text-[14px] font-medium text-brand-charcoal">
                     Saves {s.saves}
                   </span>
                 ) : (
@@ -436,26 +442,26 @@ export default function ConceptGPage() {
       </section>
 
       {/* CTA — mint band final */}
-      <section className="bg-[#f0f7f6] px-6 py-20">
+      <section className="bg-brand-cream px-6 py-20">
         <div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div>
-            <p className="mb-4 text-[14px] font-medium tracking-[0.063em] text-[#949494]">
+            <p className="mb-4 text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
               NEXT STEP
             </p>
-            <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-[#17150e]">
+            <h2 className="font-[family-name:var(--font-classic-g)] text-[clamp(40px,6vw,72px)] leading-[0.97] tracking-[-0.03em] text-brand-charcoal">
               Ten hours. One audit.
             </h2>
           </div>
           <div className="flex flex-col gap-3">
             <a
               href={AUDIT_MAILTO}
-              className="rounded-[1440px] bg-[#17150e] px-8 py-4 text-[16px] font-medium text-[#f0f7f6] transition-colors hover:bg-[#272b30]"
+              className="rounded-[1440px] bg-[#2D2A26] px-8 py-4 text-[16px] font-medium text-brand-cream transition-colors hover:bg-[#4A443C]"
             >
               Book the $999 Audit
             </a>
-            <p className="text-[14px] font-medium text-[#949494]">
+            <p className="text-[14px] font-medium text-brand-charcoal">
               REPLY WITHIN 1 BUSINESS DAY ·{" "}
-              <span className="bg-[#cccc25] px-1 text-[#17150e]">INFO@NEWPLAINS.DEV</span>
+              <span className="bg-[#B87333] px-1 text-brand-charcoal">INFO@NEWPLAINS.DEV</span>
             </p>
           </div>
         </div>

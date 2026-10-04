@@ -37,11 +37,11 @@ export default function ConceptGLayout({
 }) {
   return (
     <div
-      className={`${display.variable} ${body.variable} min-h-screen bg-white text-[#17150e] antialiased`}
+      className={`${display.variable} ${body.variable} min-h-screen bg-white text-brand-charcoal antialiased`}
     >
       {/* Announcement bar — ink strip */}
-      <div className="bg-[#17150e] px-6 py-3 text-center">
-        <p className="text-[14px] font-medium text-[#f0f7f6]">
+      <div className="bg-[#2D2A26] px-6 py-3 text-center">
+        <p className="text-[14px] font-medium text-brand-cream">
           If the audit doesn&apos;t find $999 a year in recoverable time, you
           don&apos;t pay for it.
         </p>
@@ -51,10 +51,10 @@ export default function ConceptGLayout({
       <header className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5">
         <Link
           href="/g"
-          className="text-[22px] font-medium tracking-[-0.44px] text-[#17150e]"
+          className="text-[22px] font-medium tracking-[-0.44px] text-brand-charcoal"
         >
           New Plains
-          <span className="ml-2 text-[14px] font-medium text-[#949494]">
+          <span className="ml-2 text-[14px] font-medium text-brand-charcoal">
             AI Consulting
           </span>
         </Link>
@@ -63,7 +63,7 @@ export default function ConceptGLayout({
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-full px-2 py-1 text-[16px] font-medium text-[#17150e] transition-colors hover:text-[#949494]"
+              className="rounded-full px-2 py-1 text-[16px] font-medium text-brand-charcoal transition-colors hover:text-brand-charcoal"
             >
               {l.label}
             </Link>
@@ -71,7 +71,7 @@ export default function ConceptGLayout({
         </nav>
         <a
           href={AUDIT_MAILTO}
-          className="rounded-[1440px] bg-[#17150e] px-6 py-3 text-[16px] font-medium text-[#f0f7f6] transition-colors hover:bg-[#272b30]"
+          className="rounded-[1440px] bg-[#2D2A26] px-6 py-3 text-[16px] font-medium text-brand-cream transition-colors hover:bg-[#4A443C]"
         >
           Book the Audit
         </a>
@@ -80,18 +80,18 @@ export default function ConceptGLayout({
       <main>{children}</main>
 
       {/* Footer */}
-      <footer className="bg-[#17150e] px-6 py-12">
+      <footer className="bg-[#2D2A26] px-6 py-12">
         <div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <p className="text-[14px] font-medium leading-[1.4] text-[#949494]">
+          <p className="text-[14px] font-medium leading-[1.4] text-brand-charcoal">
             NEW PLAINS AI · AI CONSULTING · OKLAHOMA, USA
             <br />
             AI SYSTEMS THAT SHIP AND STICK
           </p>
-          <div className="flex items-center gap-6 text-[14px] font-medium text-[#f0f7f6]">
-            <Link href="/compare" className="transition-colors hover:text-[#cccc25]">
+          <div className="flex items-center gap-6 text-[14px] font-medium text-brand-cream">
+            <Link href="/compare" className="transition-colors hover:text-[#B87333]">
               Concepts
             </Link>
-            <a href={AUDIT_MAILTO} className="transition-colors hover:text-[#cccc25]">
+            <a href={AUDIT_MAILTO} className="transition-colors hover:text-[#B87333]">
               info@newplains.dev
             </a>
           </div>
