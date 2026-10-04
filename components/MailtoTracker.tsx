@@ -48,6 +48,16 @@ export default function MailtoTracker() {
         mailto_subject: subject,
         page_path: pathname,
       });
+      // Fire straight at GA4 too: the GTM container has no forwarding tag
+      // configured for this event, so gtag is the reliable path.
+      const w = window as unknown as {
+        gtag?: (...args: unknown[]) => void;
+      };
+      w.gtag?.("event", "contact_email_click", {
+        mailto_target: href,
+        mailto_subject: subject,
+        page_path: pathname,
+      });
     };
 
     // Click-level listener (delegated) so it covers every current and future

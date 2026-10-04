@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import Analytics from "@/../components/Analytics";
 import MailtoTracker from "@/../components/MailtoTracker";
@@ -71,6 +71,7 @@ export default function RootLayout({
         />
       </body>
       <GoogleTagManager gtmId="GTM-TP57JWGF" />
+      <GoogleAnalytics gaId="G-3Q065LK24X" />
     </html>
   );
 }
