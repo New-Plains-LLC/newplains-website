@@ -14,6 +14,10 @@ const principles = [
     d: "Every system ships with documentation and a handoff session.",
   },
   {
+    t: "You approve everything.",
+    d: "Nothing goes live without your sign-off, and nothing reaches your customers without your approval.",
+  },
+  {
     t: "No lock-in.",
     d: "Source, credentials, data — all yours. We hand over. You keep it.",
   },
@@ -48,14 +52,14 @@ export default function Principles() {
               wrong, but because nobody ran it like an operating function.
             </p>
             <p>
-              Four rules govern every engagement. The same discipline we hold
+              Five rules govern every engagement. The same discipline we hold
               our own operations to.
             </p>
           </div>
         </div>
 
         <div className="col-span-12 lg:col-span-5 lg:pl-6 lg:border-l border-[rgba(26,24,20,0.18)]">
-          <div className="eyebrow text-[#5B6470] mb-6">The four rules</div>
+          <div className="eyebrow text-[#5B6470] mb-6">The five rules</div>
           <ol className="space-y-0">
             {principles.map((row, i) => (
               <li

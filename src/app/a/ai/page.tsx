@@ -93,7 +93,7 @@ const services = [
   {
     title: "$999 Audit Call",
     promise:
-      "1-hour video call. We map the 3 biggest leaks in your business and put a dollar figure on each. Anything after that gets bid out as a separate engagement.",
+      "1-hour video call. We find the 3 biggest leaks in your business and put a dollar figure on each. The audit stands on its own — most owners continue on a monthly plan, but there's no obligation.",
     saves: null as string | null,
     cta: { label: "Book the call", href: AUDIT_MAILTO },
   },
