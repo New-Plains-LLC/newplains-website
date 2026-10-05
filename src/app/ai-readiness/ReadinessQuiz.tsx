@@ -448,24 +448,24 @@ export default function ReadinessQuiz() {
               Want your real numbers instead of ranges?
             </h3>
             <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-brand-charcoal/70">
-              Book a free 30-minute AI business consulting call. We&apos;ll map
-              one of your actual workflows and put dollar figures on what
-              it&apos;s costing you — you approve everything before anything
-              goes live.
+              The 45-minute AI Audit maps where your hours actually go, puts
+              dollar figures on what a computer should be doing, and delivers
+              a written plan within four days. $999 — and you approve
+              everything before anything goes live.
             </p>
             <a
               href={`mailto:info@newplains.dev?subject=${encodeURIComponent(
                 "AI Readiness follow-up — scored " + score
               )}&body=${encodeURIComponent(
-                `Hi New Plains,\n\nI just scored ${score}/100 (${band.name}) on your AI Readiness assessment. My weakest area was ${weakest.name}. I'd like to book the free 30-minute workflow assessment.\n\n`
+                `Hi New Plains,\n\nI just scored ${score}/100 (${band.name}) on your AI Readiness assessment. My weakest area was ${weakest.name}. I'd like to book the 45-minute AI Audit.\n\n`
               )}`}
               onClick={() => track("readiness_cta_click", { band: band.name })}
               className="mt-4 inline-block rounded-full bg-brand-copper px-8 py-3 font-semibold text-brand-cream transition hover:bg-brand-copper-light"
             >
-              Book the free assessment
+              Book the AI Audit
             </a>
             <p className="mt-4 text-xs text-brand-charcoal/50">
-              Get one real AI workflow with the math each Sunday:{" "}
+              Not ready? Get one real AI workflow with the math each Sunday:{" "}
               <a
                 href="https://morefromless.substack.com?utm_source=readiness-quiz&utm_medium=results-page&utm_campaign=lead-magnet"
                 className="underline hover:text-brand-copper"
