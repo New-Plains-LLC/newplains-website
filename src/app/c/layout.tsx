@@ -12,7 +12,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "newplains.dev — delivery stack",
   description:
-    "An AI consulting + GovCon delivery stack. Spec: every component below is real and runs in production.",
+    "An AI business consulting + GovCon delivery stack. Spec: every component below is real and runs in production.",
   robots: { index: false },
 };
 

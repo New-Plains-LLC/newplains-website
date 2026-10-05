@@ -4,13 +4,13 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "delivery-stack — newplains.dev",
   description:
-    "An AI consulting + GovCon delivery stack. Spec: every component below is real and runs in production.",
+    "An AI business consulting + GovCon delivery stack. Spec: every component below is real and runs in production.",
 };
 
 const SCOPE_MAILTO = "mailto:info@newplains.dev?subject=Scope";
 
 const heroTerminal = `$ ./newplains --status
-An AI consulting + GovCon delivery stack.
+An AI business consulting + GovCon delivery stack.
 Spec: every component below is real and runs in production.
 v0.18.2 · last deploy: today
 
@@ -97,7 +97,7 @@ export default function ConceptCPage() {
       <section className="mx-auto max-w-5xl px-6 pb-16 pt-14 md:pt-20">
         <h1 className="text-2xl font-bold leading-snug tracking-tight text-[#4ADE80] md:text-5xl md:leading-[1.1]">
           <span className="text-[#F59E0B]">$ </span>
-          An AI consulting + GovCon delivery stack.
+          An AI business consulting + GovCon delivery stack.
         </h1>
         <p className="mt-3 text-sm text-[#4ADE80]/60">
           Spec: every component below is real and runs in production.

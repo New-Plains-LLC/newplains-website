@@ -14,7 +14,7 @@ const howItWorks = [
   {
     step: "01",
     title: "Tell us what you need",
-    body: "AI consulting or government contracting — or both. Each side has its own process and its own way in.",
+    body: "AI business consulting or government contracting — or both. Each side has its own process and its own way in.",
   },
   {
     step: "02",

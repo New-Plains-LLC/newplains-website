@@ -14,7 +14,7 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "New Plains AI — AI Consulting for Owner-Operators",
+  title: "New Plains AI — AI Business Consulting for Owner-Operators",
   description:
     "We find the ten hours a week your business is losing to manual work — and ship the systems that get them back. $999 AI Audit, Oklahoma.",
 };
@@ -55,7 +55,7 @@ export default function ConceptGLayout({
         >
           New Plains
           <span className="ml-2 text-[14px] font-medium text-brand-charcoal">
-            AI Consulting
+            AI Business Consulting
           </span>
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
@@ -83,7 +83,7 @@ export default function ConceptGLayout({
       <footer className="bg-[#2D2A26] px-6 py-12">
         <div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <p className="text-[14px] font-medium leading-[1.4] text-brand-charcoal">
-            NEW PLAINS AI · AI CONSULTING · OKLAHOMA, USA
+            NEW PLAINS AI · AI BUSINESS CONSULTING · OKLAHOMA, USA
             <br />
             AI SYSTEMS THAT SHIP AND STICK
           </p>

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "New Plains | AI that gets to work",
   description:
-    "AI consulting, automations and managed agents for small businesses. Start with a $999 audit.",
+    "AI business consulting, automations and managed agents for small businesses. Start with a $999 audit.",
   robots: { index: false },
 };
 

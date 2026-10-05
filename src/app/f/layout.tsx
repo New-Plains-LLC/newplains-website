@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Anton, Inter, JetBrains_Mono } from "next/font/google";
 
 /* Concept D — "The Showroom" (brutalist editorial on warm gray)
-   Design system: Hermes Drive/AI Consulting Tools/Website inspiration/
+   Design system: Hermes Drive/AI Business Consulting Tools/Website inspiration/
    AI for business website inspiration (DESIGN.md, tokens.json) */
 
 const anton = Anton({
@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "New Plains AI — AI Consulting for Small Business",
+  title: "New Plains AI — AI Business Consulting for Small Business",
   description:
     "We find the ten hours a week your business is losing to manual work — and ship the systems that get them back. $999 AI Audit. Working systems, not decks.",
   robots: { index: false },
@@ -59,7 +59,7 @@ export default function ConceptDLayout({
         >
           New Plains
           <span className="ml-2 hidden align-middle [font-family:var(--font-mono-d)] text-[10px] font-medium uppercase tracking-[-0.03em] text-[#979797] sm:inline-block">
-            AI CONSULTING
+            AI BUSINESS CONSULTING
           </span>
         </Link>
 
@@ -89,7 +89,7 @@ export default function ConceptDLayout({
       <footer className="mt-20 bg-black">
         <div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-4 px-6 py-10 sm:flex-row sm:items-center">
           <p className="[font-family:var(--font-mono-d)] text-xs leading-relaxed tracking-[-0.03em] text-[#979797]">
-            NEW PLAINS AI · AI CONSULTING · OKLAHOMA, USA
+            NEW PLAINS AI · AI BUSINESS CONSULTING · OKLAHOMA, USA
             <br />
             AI SYSTEMS THAT SHIP AND STICK
           </p>

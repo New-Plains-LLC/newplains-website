@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "AI Consulting — New Plains LLC",
+  title: "AI Business Consulting — New Plains LLC",
   description:
     "The $999 1-hour AI audit call, workflow automation, AI team setup, custom agents, document & spreadsheet automation, and AI training — on-site or on the web. Fixed-scope engagements from a 1-hour onboarding to a monthly retainer. info@newplains.dev",
   robots: { index: false },
@@ -140,7 +140,7 @@ export default function AiPage() {
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 md:pt-32">
         <p className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-brand-copper">
-          AI Consulting · Fixed Price
+          AI Business Consulting · Fixed Price
         </p>
         <h1 className="font-heading max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight text-brand-charcoal sm:text-6xl md:text-7xl">
           AI that pays for itself.

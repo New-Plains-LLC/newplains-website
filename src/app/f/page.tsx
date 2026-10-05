@@ -162,7 +162,7 @@ export default function ConceptDPage() {
       {/* HERO — split: massive condensed headline left, black proof block right */}
       <section className="mx-auto max-w-[1200px] px-6 pb-20 pt-10 md:pt-16">
         <p className="mb-8 [font-family:var(--font-mono-d)] text-xs tracking-[-0.03em] text-[#444444]">
-          AI CONSULTING / OWNER-OPERATORS / OKLAHOMA, USA
+          AI BUSINESS CONSULTING / OWNER-OPERATORS / OKLAHOMA, USA
         </p>
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <h1 className="[font-family:var(--font-cond-d)] text-[clamp(64px,12vw,130px)] font-bold uppercase leading-[0.9] tracking-[-0.03em] text-black">

@@ -148,7 +148,7 @@ export default function ConceptGPage() {
           />
           <div className="relative">
             <p className="mb-6 text-[14px] font-medium tracking-[0.063em] text-brand-charcoal">
-              AI CONSULTING / OWNER-OPERATORS / OKLAHOMA, USA
+              AI BUSINESS CONSULTING / OWNER-OPERATORS / OKLAHOMA, USA
             </p>
             <h1 className="max-w-[16ch] font-[family-name:var(--font-classic-g)] text-[clamp(64px,10vw,144px)] leading-[0.85] tracking-[-0.03em] text-brand-charcoal">
               We find the ten hours your week is losing.

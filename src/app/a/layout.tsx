@@ -5,7 +5,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "New Plains LLC — Two Ways We Work. One Promise.",
   description:
-    "AI consulting — the $999 1-hour audit call, workflow automation, custom agents, and AI training. Or government contracting with an embedded RFQ form. info@newplains.dev",
+    "AI business consulting — the $999 1-hour audit call, workflow automation, custom agents, and AI training. Or government contracting with an embedded RFQ form. info@newplains.dev",
   robots: { index: false },
 };
 
@@ -36,7 +36,7 @@ export default function ConceptALayout({
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
             <Link href="/a/ai" className="transition-colors hover:text-brand-copper">
-              AI Consulting
+              AI Business Consulting
             </Link>
             <Link href="/a/govcon" className="transition-colors hover:text-brand-copper">
               GovCon
