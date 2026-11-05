@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      ...["b", "c", "d", "e", "f", "g", "compare"].map((route) => ({
+        source: `/${route}/:path*`, destination: "/a/ai", permanent: true,
+      })),
+    ];
+  },
   reactCompiler: true,
   images: {
     remotePatterns: [
