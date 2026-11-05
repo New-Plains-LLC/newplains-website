@@ -168,7 +168,7 @@ export const consultingToolExamples = [
     label: "Business operations assistant",
     title: "Turn company knowledge into completed work.",
     description:
-      "Connect company knowledge with actions in Microsoft 365. Create documents, handle bookkeeping tasks, and analyze business information in the tools your team already uses.",
+      "An internal assistant hosted on company servers, with company-controlled data and access. Connect company knowledge with actions in Microsoft 365, create documents, handle bookkeeping tasks, and analyze business information in the tools your team already uses.",
     upcoming:
       "Coming next: a shared company knowledge layer and memory of each user’s role, working preferences, and active projects, so the assistant can carry relevant context from one task to the next.",
   },
