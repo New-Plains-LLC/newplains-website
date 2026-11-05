@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
 
 export const metadata: Metadata = {
@@ -35,7 +36,21 @@ export default function AiPage() {
     <section className={styles.statement}><p className={styles.eyebrow}>The business comes first</p><h2>A promising experiment is only the beginning.</h2><p>When tools multiply but work still gets stuck between people, the next step is an operating decision. What should change? Who approves it? How will the team know it is working?</p><p>Shawn brings more than 20 years of business and operational experience across dealership operations, finance, and B2B sales. That perspective shapes the questions we ask before we build.</p></section>
     <section className={styles.section}><p className={styles.eyebrow}>Three outcomes worth building for</p><h2>Start with the work.<br />Measure what changes.</h2><p>Representative workflows to explore together—not promised results.</p><div className={styles.rows}>{outcomes.map(([n,label,title,body])=><article key={n}><small>{n} / {label}</small><h3>{title}</h3><p>{body}</p></article>)}</div></section>
     <section id="approach" className={styles.dark}><div className={styles.section}><p className={styles.eyebrow}>From first question to everyday use</p><h2>Built with your people.<br />Designed for the real world.</h2><div className={styles.steps}>{steps.map(([title,body],i)=><article key={title}><small>0{i+1}</small><h3>{title}</h3><p>{body}</p></article>)}</div><p className={styles.trust}>Clear scope. Human approval. Deliberate data access. A person to handle the exceptions.</p></div></section>
-    <section className={styles.section}><p className={styles.eyebrow}>Work you can inspect</p><h2>Practical systems.<br />Visible thinking.</h2><div className={styles.proof}><div><small>New Plains project / Folio</small><h3>Make scattered knowledge usable.</h3><p>Folio brings meeting notes and archives into a searchable, self-hosted workspace with a Notion integration. It demonstrates the kind of focused integration we build around everyday work.</p><p>This is a New Plains portfolio project, not a client ROI case study. No quantified business outcome is claimed here.</p><a href="https://github.com/dsskaggs-ai/folio">Inspect the project ↗</a></div><div className={styles.diagram} aria-label="Illustrative knowledge workflow"><span>Meeting notes + archives</span><b>↓</b><span>Sync · organize · search</span><b>↓</b><span>Knowledge your team can find</span><small>Illustrative workflow</small></div></div></section>
+    <section className={styles.section}>
+      <p className={styles.eyebrow}>Examples of what we can build</p>
+      <h2>Practical tools.<br />Built around your work.</h2>
+      <p>From following up with a prospect to finding a decision from last quarter, the right tool gives your team a clear next step.</p>
+      <div className={styles.examples}>
+        {consultingToolExamples.map((example) => (
+          <article key={example.title}>
+            <small>{example.label}</small>
+            <h3>{example.title}</h3>
+            <p>{example.description}</p>
+            {example.url && <a href={example.url}>{example.linkLabel} ↗</a>}
+          </article>
+        ))}
+      </div>
+    </section>
     <section className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p></div><a className={styles.button} href={inquiry("AI Audit — $999")}>Ask about the $999 audit ↗</a></section>
     <section className={styles.section}><p className={styles.eyebrow}>Your next move</p><h2>Bring a business problem.<br />Let’s make it concrete.</h2><p>Email your team size, current tools, the workflow that needs attention, and what a better outcome would look like. We’ll review the fit and discuss scope and next steps before an engagement is agreed.</p><div className={styles.actions}><Link className={styles.button} href="/a/ai/workshop">Explore the workshop ↗</Link><a className={styles.button} href={inquiry("Custom AI system inquiry")}>Discuss a custom project ↗</a></div></section>
   </div>;
