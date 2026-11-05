@@ -38,9 +38,6 @@ export default function ConceptALayout({
             <Link href="/a/ai" className="transition-colors hover:text-brand-copper">
               AI Business Consulting
             </Link>
-            <Link href="/a/govcon" className="transition-colors hover:text-brand-copper">
-              GovCon
-            </Link>
             <Link
               href="/a/ai#approach"
               className="text-brand-copper transition-colors hover:text-brand-copper-light"
