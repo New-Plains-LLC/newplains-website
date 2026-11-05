@@ -165,9 +165,17 @@ export const consultingToolExamples = [
     linkLabel: "Try Virtual Offsite",
   },
   {
-    label: "Leadership knowledge assistant",
-    title: "Put company knowledge within reach.",
+    label: "Business operations assistant",
+    title: "Turn company knowledge into completed work.",
     description:
-      "Build a searchable workspace around your company’s goals, operating procedures, and decision records. Help leaders find relevant guidance and give their teams a shared reference for everyday work.",
+      "Connect company knowledge with actions in Microsoft 365. Create documents, handle bookkeeping tasks, and analyze business information in the tools your team already uses.",
+    upcoming:
+      "Coming next: a shared company knowledge layer and memory of each user’s role, working preferences, and active projects, so the assistant can carry relevant context from one task to the next.",
+  },
+  {
+    label: "Warranty workflow assistant",
+    title: "Bring the repair story and claim together.",
+    description:
+      "Analyze work orders against manufacturer warranty documentation, help technicians write clear narratives of warranty work, and organize supporting information for claims. Give service teams a structured draft to review and prepare for submission.",
   },
 ];

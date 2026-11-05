@@ -46,6 +46,7 @@ export default function AiPage() {
             <small>{example.label}</small>
             <h3>{example.title}</h3>
             <p>{example.description}</p>
+            {example.upcoming && <p>{example.upcoming}</p>}
             {example.url && <a href={example.url}>{example.linkLabel} ↗</a>}
           </article>
         ))}
