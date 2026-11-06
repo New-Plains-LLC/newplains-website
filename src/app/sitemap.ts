@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    // Concept A — AI business consulting (unlisted, noindex)
+    // Concept A: AI business consulting (unlisted, noindex)
     {
       url: `${baseUrl}/a/ai`,
       lastModified: new Date(),

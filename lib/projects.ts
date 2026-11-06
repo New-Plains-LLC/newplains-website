@@ -24,7 +24,7 @@ export const projects: Project[] = [
     name: "PillBuddy.AI",
     tagline: "Your Personal Medication Assistant",
     description:
-      "An AI-powered medication management tool that helps users understand their prescriptions, track dosages, and get reliable answers about drug interactions — all in plain language.",
+      "An AI-powered medication management tool that helps users understand their prescriptions, track dosages, and get reliable answers about drug interactions, all in plain language.",
     url: "https://pillbuddy.ai",
     image: "/projects/pillbuddy.png",
     color: "#7A8B5C",
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     name: "Folio",
     tagline: "Self-Hosted Knowledge Workspace",
     description:
-      "A self-hosted knowledge workspace that pulls your meeting notes out of silos and into one searchable, filterable place. Folio syncs with the Notion API, imports your archives, and turns scattered notes into decisions you can actually find again — private infrastructure, zero vendor lock-in.",
+      "A self-hosted knowledge workspace that pulls your meeting notes out of silos and into one searchable, filterable place. Folio syncs with the Notion API, imports your archives, and turns scattered notes into decisions you can actually find again. Private infrastructure, zero vendor lock-in.",
     url: "https://github.com/dsskaggs-ai/folio",
     image: "/projects/folio.png",
     color: "#9CAF88",
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     name: "RavenScan",
     tagline: "Open-Source Linux Scanning",
     description:
-      "An open-source Linux desktop app and USB driver for Raven Compact Scanners (Avision AD215). Built with GTK4/libadwaita when the vendor's cloud died, it talks direct USB — no cloud, no account, no telemetry. Includes OCR via Tesseract and runs natively across an Omarchy fleet.",
+      "An open-source Linux desktop app and USB driver for Raven Compact Scanners (Avision AD215). Built with GTK4/libadwaita when the vendor's cloud died, it talks direct USB: no cloud, no account, no telemetry. Includes OCR via Tesseract and runs natively across an Omarchy fleet.",
     url: "https://github.com/dsskaggs-ai/ravenscan-app",
     image: "/projects/ravenscan.png",
     color: "#B87333",
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     name: "Meetily Linux",
     tagline: "Native Meeting Capture",
     description:
-      "A native Linux port of the Meetily meeting-capture stack, built as both a binary and a .deb package with a wired Folio connector. Local-first transcription and summarization that feeds straight into your knowledge workspace — no cloud round-trip required.",
+      "A native Linux port of the Meetily meeting-capture stack, built as both a binary and a .deb package with a wired Folio connector. Local-first transcription and summarization that feeds straight into your knowledge workspace, no cloud round-trip required.",
     url: "",
     image: "/projects/meetily-linux.png",
     color: "#C4825A",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     name: "Speed-to-Lead Engine",
     tagline: "Sub-Second Lead Response",
     description:
-      "An n8n-driven automation that moves a new prospect from form-fill to a personal email in their inbox and a Telegram alert in Shawn's pocket in under a second. Speed-to-lead is the highest-ROI automation in consulting — this one runs it on self-hosted infrastructure.",
+      "An n8n-driven automation that moves a new prospect from form-fill to a personal email in their inbox and a Telegram alert in Shawn's pocket in under a second. Speed-to-lead is the highest-ROI automation in consulting, and this one runs it on self-hosted infrastructure.",
     url: "",
     image: "/projects/speed-to-lead.png",
     color: "#2D2A26",

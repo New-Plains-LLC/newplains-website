@@ -32,7 +32,7 @@ export default function TermsPage() {
         <div>
           <h2 className="text-xl font-semibold mb-2">3. Intellectual Property</h2>
           <p>
-            All content on this Site — including text, graphics, logos, images, and software — is the
+            All content on this Site (including text, graphics, logos, images, and software) is the
             property of New Plains LLC or its licensors and is protected by United States and international
             copyright laws. Our brand names and logos are trademarks of New Plains LLC.
           </p>

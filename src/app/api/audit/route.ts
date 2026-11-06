@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Placeholder — log to server output.
+  // Placeholder: log to server output.
   // Wire to your inbox / CRM as the next step.
   console.log("[audit]", {
     ts: new Date().toISOString(),
