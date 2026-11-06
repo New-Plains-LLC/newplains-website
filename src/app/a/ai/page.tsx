@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
+import DirectEmailNote, { mailto } from "./DirectEmailNote";
 
 export const metadata: Metadata = {
   title: "AI Business Consulting for Established Businesses — New Plains",
   description: "Align your leadership team, choose practical AI opportunities, and build systems around the way your business works. Workshops, custom implementation, and the $999 AI Audit.",
   robots: { index: false },
 };
-const inquiry = (subject: string) => `mailto:info@newplains.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n")}`;
+const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
 const outcomes = [
   ["01", "Revenue", "Give good opportunities a clear next step.", "Route incoming leads, prepare follow-up drafts, and bring overdue opportunities to the right person. Measure response time and follow-through."],
   ["02", "Customer experience", "Keep the handoff from becoming the holdup.", "Organize service requests, surface relevant history, and draft consistent updates for staff review. Measure handoff delays and rework."],
@@ -53,7 +54,7 @@ export default function AiPage() {
         ))}
       </div>
     </section>
-    <section className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p></div><a className={styles.button} href={inquiry("AI Audit — $999")}>Ask about the $999 audit ↗</a></section>
-    <section className={styles.section}><p className={styles.eyebrow}>Your next move</p><h2>Bring a business problem.<br />Let’s make it concrete.</h2><p>Email your team size, current tools, the workflow that needs attention, and what a better outcome would look like. We’ll review the fit and discuss scope and next steps before an engagement is agreed.</p><div className={styles.actions}><Link className={styles.button} href="/a/ai/workshop">Explore the workshop ↗</Link><a className={styles.button} href={inquiry("Custom AI system inquiry")}>Discuss a custom project ↗</a><a className={styles.button} href={inquiry("AI Concierge inquiry")}>Ask about AI concierge ↗</a></div></section>
+    <section className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p><DirectEmailNote /></div><a className={styles.button} href={inquiry("AI Audit — $999")}>Ask about the $999 audit ↗</a></section>
+    <section className={styles.section}><p className={styles.eyebrow}>Your next move</p><h2>Bring a business problem.<br />Let’s make it concrete.</h2><p>Email your team size, current tools, the workflow that needs attention, and what a better outcome would look like. We’ll review the fit and discuss scope and next steps before an engagement is agreed.</p><div className={styles.actions}><Link className={styles.button} href="/a/ai/workshop">Explore the workshop ↗</Link><a className={styles.button} href={inquiry("Custom AI system inquiry")}>Discuss a custom project ↗</a><a className={styles.button} href={inquiry("AI Concierge inquiry")}>Ask about AI concierge ↗</a></div><DirectEmailNote /></section>
   </div>;
 }
