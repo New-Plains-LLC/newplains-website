@@ -38,10 +38,11 @@ export default function AiPage() {
       </div>
       <div className={styles.horizonPhoto}>
         <Image src={HORIZON_PHOTO} alt="Storm clouds building over open Oklahoma prairie" fill priority sizes="100vw" />
+        <a className={styles.photoCredit} href="https://unsplash.com/photos/nqu5L_xc6bc">Photo: Raychel Sanner / Unsplash</a>
       </div>
     </section>
     <section className={styles.hero}>
-      <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br /> An operator’s perspective.<br /><a href="https://unsplash.com/photos/nqu5L_xc6bc">Photo: Raychel Sanner, Unsplash</a></span></div>
+      <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br /> An operator’s perspective.</span></div>
       <div className={styles.paths}>
         <Link href="/a/ai/workshop"><small>01 / Find your direction</small><strong>Start with a leadership workshop <span>→</span></strong><p>Align the team. Prioritize opportunities. Build practical AI capability.</p></Link>
         <a href={inquiry("Custom AI system inquiry")}><small>02 / Put a defined workflow to work</small><strong>Build a custom AI system <span>↗</span></strong><p>Bring us the process, the bottleneck, and the outcome you need.</p></a>
