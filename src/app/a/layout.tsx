@@ -54,16 +54,6 @@ export default function ConceptALayout({
         </div>
       </header>
       <main>{children}</main>
-      <footer className="border-t border-brand-copper/15 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-brand-charcoal/60 sm:flex-row">
-          <p>© {new Date().getFullYear()} New Plains LLC · Oklahoma</p>
-          <div className="flex items-center gap-6">
-            <Link href="/a/ai#approach" className="transition-colors hover:text-brand-copper">
-              Our approach
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
