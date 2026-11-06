@@ -32,7 +32,7 @@ const steps = [
 export default function AiPage() {
   return <div className={styles.page}>
     <section className={styles.horizon}>
-      <div className={styles.horizonText}>
+      <div className={`${styles.horizonText} ${styles.withWindmill}`}>
         <p className={styles.horizonEyebrow}>New Plains / AI business consulting</p>
         <h1>Better business.<br />Less busywork.<br /><span>AI with a purpose.</span></h1>
         <HorizonWindmill />
