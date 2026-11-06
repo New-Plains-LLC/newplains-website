@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
-import DirectEmailNote, { CONTACT_EMAIL } from "./DirectEmailNote";
+import DirectEmailNote, { mailto } from "./DirectEmailNote";
 
 export const metadata: Metadata = {
   title: "AI Business Consulting for Established Businesses — New Plains",
   description: "Align your leadership team, choose practical AI opportunities, and build systems around the way your business works. Workshops, custom implementation, and the $999 AI Audit.",
   robots: { index: false },
 };
-const inquiry = (subject: string) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n")}`;
+const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
 const outcomes = [
   ["01", "Revenue", "Give good opportunities a clear next step.", "Route incoming leads, prepare follow-up drafts, and bring overdue opportunities to the right person. Measure response time and follow-through."],
   ["02", "Customer experience", "Keep the handoff from becoming the holdup.", "Organize service requests, surface relevant history, and draft consistent updates for staff review. Measure handoff delays and rework."],
