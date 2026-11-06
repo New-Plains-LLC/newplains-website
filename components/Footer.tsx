@@ -20,6 +20,12 @@ export default function Footer() {
           >
             Terms &amp; Conditions
           </Link>
+          <a
+            href="https://morefromless.substack.com/"
+            className="text-gray-400 hover:text-[#C4A265] transition-colors"
+          >
+            Substack ↗
+          </a>
         </div>
       </div>
     </footer>
