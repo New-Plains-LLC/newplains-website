@@ -29,6 +29,15 @@ export default function BlogPage() {
           <p className="mt-3 text-lg text-brand-charcoal/60">
             Updates, insights, and stories from the New Plains studio.
           </p>
+          <p className="mt-2 text-brand-charcoal/70">
+            More writing from Shawn on{" "}
+            <a
+              href="https://morefromless.substack.com/"
+              className="font-medium text-brand-copper underline underline-offset-4 hover:text-brand-charcoal"
+            >
+              Substack ↗
+            </a>
+          </p>
         </header>
 
         {posts.length === 0 ? (
