@@ -4,6 +4,7 @@ import Image from "next/image";
 import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
 import DirectEmailNote, { mailto } from "./DirectEmailNote";
+import HorizonPhoto from "./HorizonPhoto";
 
 export const metadata: Metadata = {
   title: "AI Business Consulting for Established Businesses | New Plains",
@@ -11,8 +12,6 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
-// Raychel Sanner, "Severe thunderstorm over rural Oklahoma" (Unsplash License).
-const HORIZON_PHOTO = "https://images.unsplash.com/photo-1702432665495-38902d6e5633";
 // Tools with a shareable screenshot lead the section; the rest read as rows.
 const featured = consultingToolExamples.filter((e) => e.image);
 const listed = consultingToolExamples.filter((e) => !e.image);
@@ -36,10 +35,7 @@ export default function AiPage() {
         <p className={styles.horizonEyebrow}>New Plains / AI business consulting</p>
         <h1>Better business.<br />Less busywork.<br /><span>AI with a purpose.</span></h1>
       </div>
-      <div className={styles.horizonPhoto}>
-        <Image src={HORIZON_PHOTO} alt="Storm clouds building over open Oklahoma prairie" fill priority sizes="100vw" />
-        <a className={styles.photoCredit} href="https://unsplash.com/photos/nqu5L_xc6bc">Photo: Raychel Sanner / Unsplash</a>
-      </div>
+      <HorizonPhoto priority />
     </section>
     <section className={styles.hero}>
       <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br /> An operator’s perspective.</span></div>
@@ -80,7 +76,8 @@ export default function AiPage() {
         ))}
       </div>
     </section>
-    <section className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p><DirectEmailNote /></div><a className={styles.button} href={inquiry("AI Audit: $999")}>Ask about the $999 audit ↗</a></section>
+    <section className={styles.wheat}><div className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p><DirectEmailNote /></div><a className={styles.button} href={inquiry("AI Audit: $999")}>Ask about the $999 audit ↗</a></div></section>
     <section className={styles.section}><p className={styles.eyebrow}>Your next move</p><h2>Bring a business problem.<br />Let’s make it concrete.</h2><p>Email your team size, current tools, the workflow that needs attention, and what a better outcome would look like. We’ll review the fit and discuss scope and next steps before an engagement is agreed.</p><div className={styles.actions}><Link className={styles.button} href="/a/ai/workshop">Explore the workshop →</Link><a className={styles.button} href={inquiry("Custom AI system inquiry")}>Discuss a custom project ↗</a><a className={styles.button} href={inquiry("AI Concierge inquiry")}>Ask about AI concierge ↗</a></div><DirectEmailNote /></section>
+    <HorizonPhoto decorative className={styles.horizonClose} />
   </div>;
 }
