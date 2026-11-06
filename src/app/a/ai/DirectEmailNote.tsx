@@ -2,10 +2,12 @@ import styles from "./services.module.css";
 
 export const CONTACT_EMAIL = "info@newplains.dev";
 
-// Single builder for every mailto CTA on the /a/ai pages.
+// Single builder for every mailto CTA on the /a/ai pages. Body line breaks
+// are sent as CRLF (%0D%0A) per RFC 6068; Outlook desktop can collapse a bare
+// %0A into one line.
 export const mailto = (subject: string, body?: string) =>
   `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}${
-    body ? `&body=${encodeURIComponent(body)}` : ""
+    body ? `&body=${encodeURIComponent(body.replace(/\r?\n/g, "\r\n"))}` : ""
   }`;
 
 // Visible fallback for mailto-only CTAs: webmail users with no mail handler
