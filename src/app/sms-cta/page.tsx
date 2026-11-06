@@ -23,7 +23,7 @@ export default function SmsCtaPage() {
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold mb-2">Call to Action — How to Opt In</h2>
+          <h2 className="text-xl font-semibold mb-2">Call to Action: How to Opt In</h2>
           <p className="mb-3">
             To subscribe to SMS messages from New Plains LLC, reply{" "}
             <strong className="text-[#B87333]">START</strong> to a message thread initiated by

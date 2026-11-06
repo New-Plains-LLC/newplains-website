@@ -3,11 +3,11 @@ import { getAllPosts } from "@/../lib/blog";
 import PostCard from "@/../components/blog/PostCard";
 
 export const metadata: Metadata = {
-  title: "Blog — New Plains LLC",
+  title: "Blog | New Plains LLC",
   description:
-    "Updates, insights, and stories from New Plains LLC — an AI innovation studio building practical tools for everyday workflows.",
+    "Updates, insights, and stories from New Plains LLC, an AI innovation studio building practical tools for everyday workflows.",
   openGraph: {
-    title: "Blog — New Plains LLC",
+    title: "Blog | New Plains LLC",
     description:
       "Updates, insights, and stories from New Plains LLC.",
     url: "https://newplains.dev/blog",

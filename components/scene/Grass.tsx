@@ -134,7 +134,7 @@ export default function Grass({ count = 60000, spread = 40 }: GrassProps) {
 
             vec3 pos = position;
 
-            // Wind — stronger at tips
+            // Wind: stronger at tips
             float instanceId = float(gl_InstanceID);
             float windPhase = uTime * 1.5 + instanceId * 0.1;
             float windNoise = noise(instanceId * 0.1 + uTime * 0.5);

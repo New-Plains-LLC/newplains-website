@@ -24,7 +24,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.frontmatter.title} — New Plains LLC`,
+    title: `${post.frontmatter.title} | New Plains LLC`,
     description: post.frontmatter.excerpt,
     openGraph: {
       title: post.frontmatter.title,
