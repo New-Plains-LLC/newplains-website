@@ -30,7 +30,7 @@ export default function ConceptALayout({
                 New Plains <span className="text-brand-copper">LLC</span>
               </span>
               <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">
-                Concept A · Two Ways
+                Business first. Built to work.
               </span>
             </span>
           </Link>
@@ -38,14 +38,11 @@ export default function ConceptALayout({
             <Link href="/a/ai" className="transition-colors hover:text-brand-copper">
               AI Business Consulting
             </Link>
-            <Link href="/a/govcon" className="transition-colors hover:text-brand-copper">
-              GovCon
-            </Link>
             <Link
-              href="/compare"
+              href="/a/ai#approach"
               className="text-brand-copper transition-colors hover:text-brand-copper-light"
             >
-              Concept Index
+              Our approach
             </Link>
           </nav>
           <Link
@@ -61,11 +58,8 @@ export default function ConceptALayout({
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-brand-charcoal/60 sm:flex-row">
           <p>© {new Date().getFullYear()} New Plains LLC · Oklahoma</p>
           <div className="flex items-center gap-6">
-            <Link href="/compare" className="transition-colors hover:text-brand-copper">
-              Compare concepts
-            </Link>
-            <Link href="/" className="transition-colors hover:text-brand-copper">
-              Main site
+            <Link href="/a/ai#approach" className="transition-colors hover:text-brand-copper">
+              Our approach
             </Link>
           </div>
         </div>

@@ -140,3 +140,42 @@ export const projects: Project[] = [
     color: "#2D2A26",
   },
 ];
+
+export const consultingToolExamples = [
+  {
+    label: "Folio / Knowledge workspace",
+    title: "Find the knowledge your team already has.",
+    description:
+      "Bring meeting notes and archives into one searchable workspace. Folio connects with Notion so your team can find past decisions and useful context when the work calls for them.",
+    url: "https://github.com/dsskaggs-ai/folio",
+    linkLabel: "Explore Folio",
+  },
+  {
+    label: "Speed-to-Lead Engine / Lead follow-up",
+    title: "Give every new inquiry a next step.",
+    description:
+      "Connect a lead form to a personal follow-up email and an immediate team alert. Help your people respond while the inquiry is fresh and keep new opportunities moving.",
+  },
+  {
+    label: "Virtual Offsite / Collaborative meetings",
+    title: "Turn meeting time into shared decisions.",
+    description:
+      "Give your team one shared space for agendas, notes, ideas, votes, and actions. Run planning sessions and recurring meetings with a record of decisions and open work to carry into the next session.",
+    url: "https://www.virtualoffsite.com/demo",
+    linkLabel: "Try Virtual Offsite",
+  },
+  {
+    label: "Business operations assistant",
+    title: "Turn company knowledge into completed work.",
+    description:
+      "An internal assistant hosted on company servers, with company-controlled data and access. Connect company knowledge with actions in Microsoft 365, create documents, handle bookkeeping tasks, and analyze business information in the tools your team already uses.",
+    upcoming:
+      "Coming next: a shared company knowledge layer and memory of each user’s role, working preferences, and active projects, so the assistant can carry relevant context from one task to the next.",
+  },
+  {
+    label: "Warranty workflow assistant",
+    title: "Bring the repair story and claim together.",
+    description:
+      "Analyze work orders against manufacturer warranty documentation, help technicians write clear narratives of warranty work, and organize supporting information for claims. Give service teams a structured draft to review and prepare for submission.",
+  },
+];
