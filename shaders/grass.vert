@@ -27,7 +27,7 @@ void main() {
 
   vec3 pos = position;
 
-  // Wind displacement — stronger at the tip (higher y)
+  // Wind displacement: stronger at the tip (higher y)
   float windPhase = uTime * 1.5 + aOffset * 6.2831;
   float windNoise = noise(aOffset * 10.0 + uTime * 0.5);
   float windAmount = pos.y * pos.y * uWindStrength;

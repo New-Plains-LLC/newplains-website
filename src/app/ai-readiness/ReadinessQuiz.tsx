@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 
 /* ============================================================
-   AI Readiness Score — 12 questions, 4 dimensions, weighted.
+   AI Readiness Score: 12 questions, 4 dimensions, weighted.
    Scoring constants live here; results email + PDF print share
    the same numbers (see /tmp spec mirrored in lead-magnet docs).
    ============================================================ */
@@ -22,10 +22,10 @@ const QUESTIONS: Question[] = [
   // Process & Data
   {
     id: "q1", dim: "Process & Data",
-    text: "Could a new employee follow your core workflow — from job to invoice — using only written documentation?",
+    text: "Could a new employee follow your core workflow, from job to invoice, using only written documentation?",
     choices: [
       { label: "Yes, it's written and current", points: 0 },
-      { label: "Partially — some tribal knowledge", points: 1 },
+      { label: "Partially, some tribal knowledge", points: 1 },
       { label: "It exists but it's outdated", points: 2 },
       { label: "It lives in people's heads", points: 3 },
     ],
@@ -75,8 +75,8 @@ const QUESTIONS: Question[] = [
     id: "q6", dim: "Tools & Stack",
     text: "Do your systems connect to each other or to automation tools?",
     choices: [
-      { label: "Yes — we already run some integrations", points: 0 },
-      { label: "Probably — we've never checked", points: 1 },
+      { label: "Yes, we already run some integrations", points: 0 },
+      { label: "Probably, we've never checked", points: 1 },
       { label: "Some, but locked down or limited", points: 2 },
       { label: "No idea, or none", points: 3 },
     ],
@@ -86,7 +86,7 @@ const QUESTIONS: Question[] = [
     text: "Who maintains your current software?",
     choices: [
       { label: "A named person or vendor owns each system", points: 0 },
-      { label: "Whoever set it up — and they're still around", points: 1 },
+      { label: "Whoever set it up, and they're still around", points: 1 },
       { label: "It evolved. Nobody owns it", points: 2 },
       { label: "We avoid touching it", points: 3 },
     ],
@@ -119,7 +119,7 @@ const QUESTIONS: Question[] = [
       { label: "A named ops or office lead with time for it", points: 0 },
       { label: "An owner or manager with some bandwidth", points: 1 },
       { label: "Everyone is fully loaded", points: 2 },
-      { label: "No one — that's why nothing changes", points: 3 },
+      { label: "No one, which is why nothing changes", points: 3 },
     ],
   },
   // Risk & Governance
@@ -137,7 +137,7 @@ const QUESTIONS: Question[] = [
     id: "q12", dim: "Risk & Governance",
     text: "If a tool showed clear ROI at $200–800/month, could you get budget approval?",
     choices: [
-      { label: "Yes — we decide fast on proof", points: 0 },
+      { label: "Yes, we decide fast on proof", points: 0 },
       { label: "Yes, but it takes a budget cycle", points: 1 },
       { label: "Major hesitancy on any software spend", points: 2 },
       { label: "There's no budget mechanism", points: 3 },
@@ -170,13 +170,13 @@ function bandFor(score: number): { name: string; headline: string } {
   if (score >= 60)
     return { name: "Nearly Ready", headline: "One or two foundations to fix first, then you're clear." };
   if (score >= 40)
-    return { name: "Foundation Stage", headline: "Real opportunity — process and data cleanup comes before AI." };
+    return { name: "Foundation Stage", headline: "Real opportunity: process and data cleanup comes before AI." };
   return { name: "Pre-Ready", headline: "AI isn't your bottleneck yet. Here's what is." };
 }
 
 const DIM_PRESCRIPTION: Record<string, string> = {
   "Process & Data":
-    "Write down your core workflow, step by step, before buying any AI tool. AI amplifies whatever process you feed it — including a broken one.",
+    "Write down your core workflow, step by step, before buying any AI tool. AI amplifies whatever process you feed it, including a broken one.",
   "Tools & Stack":
     "Get your customer and job data into one system before automating around it. Scattered data makes every AI project more expensive.",
   "People":
@@ -227,9 +227,9 @@ export default function ReadinessQuiz() {
       if (!res.ok) throw new Error(`webhook ${res.status}`);
       setEmailed(true);
     } catch {
-      // Results still show even if delivery fails — never trap the visitor.
+      // Results still show even if delivery fails; never trap the visitor.
       setSubmitError(
-        "We couldn't email your results automatically. Your score is below — you can print this page or screenshot it."
+        "We couldn't email your results automatically. Your score is below. You can print this page or screenshot it."
       );
       setEmailed(true);
     } finally {
@@ -237,7 +237,7 @@ export default function ReadinessQuiz() {
     }
   }
 
-  /* GA4 — same pattern as MailtoTracker: GA4 loads directly, no GTM forwarding */
+  /* GA4, same pattern as MailtoTracker (GA4 loads directly, no GTM forwarding) */
   function track(event: string, params: Record<string, unknown> = {}) {
     const w = window as unknown as {
       gtag?: (...args: unknown[]) => void;
@@ -279,7 +279,7 @@ export default function ReadinessQuiz() {
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-brand-charcoal/70">
             Most AI projects don&apos;t fail because of the technology. They fail
             because the business wasn&apos;t ready. Answer 12 questions about how
-            your business actually runs — get your score, your weakest
+            your business actually runs, then get your score, your weakest
             foundation, and what to fix first.
           </p>
           <button
@@ -332,7 +332,7 @@ export default function ReadinessQuiz() {
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-brand-charcoal/70">
             You&apos;ll get your AI Readiness Score, your four dimension
-            breakdowns, and the two things to fix first — by email, in about a
+            breakdowns, and the two things to fix first, by email, in about a
             minute.
           </p>
           <div className="mt-6 space-y-4">
@@ -366,7 +366,7 @@ export default function ReadinessQuiz() {
                 Text your results too, if email is easier to miss.
               </p>
             </div>
-            {/* honeypot — hidden from humans */}
+            {/* honeypot: hidden from humans */}
             <input
               type="text"
               name="company_website"
@@ -380,10 +380,10 @@ export default function ReadinessQuiz() {
           </div>
 
           <p className="mt-5 text-xs leading-relaxed text-brand-charcoal/60">
-            By clicking below, you&apos;ll also get <em>More From Less</em> — our
+            By clicking below, you&apos;ll also get <em>More From Less</em>, our
             free Sunday email breaking down one real AI workflow with the
             actual math behind it. Only want the score? Unsubscribe anytime
-            with one click — no hard feelings.
+            with one click, no hard feelings.
           </p>
 
           <button
@@ -450,12 +450,12 @@ export default function ReadinessQuiz() {
             <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-brand-charcoal/70">
               The 45-minute AI Audit maps where your hours actually go, puts
               dollar figures on what a computer should be doing, and delivers
-              a written plan within four days. $999 — and you approve
+              a written plan within four days. $999, and you approve
               everything before anything goes live.
             </p>
             <a
               href={`mailto:info@newplains.dev?subject=${encodeURIComponent(
-                "AI Readiness follow-up — scored " + score
+                "AI Readiness follow-up: scored " + score
               )}&body=${encodeURIComponent(
                 `Hi New Plains,\n\nI just scored ${score}/100 (${band.name}) on your AI Readiness assessment. My weakest area was ${weakest.name}. I'd like to book the 45-minute AI Audit.\n\n`
               )}`}
