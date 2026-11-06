@@ -5,6 +5,7 @@ import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
 import DirectEmailNote, { mailto } from "./DirectEmailNote";
 import HorizonPhoto from "./HorizonPhoto";
+import HorizonWindmill from "./HorizonWindmill";
 
 export const metadata: Metadata = {
   title: "AI Business Consulting for Established Businesses | New Plains",
@@ -31,9 +32,10 @@ const steps = [
 export default function AiPage() {
   return <div className={styles.page}>
     <section className={styles.horizon}>
-      <div className={styles.horizonText}>
+      <div className={`${styles.horizonText} ${styles.withWindmill}`}>
         <p className={styles.horizonEyebrow}>New Plains / AI business consulting</p>
         <h1>Better business.<br />Less busywork.<br /><span>AI with a purpose.</span></h1>
+        <HorizonWindmill />
       </div>
       <HorizonPhoto priority />
     </section>

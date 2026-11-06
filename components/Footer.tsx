@@ -7,7 +7,7 @@ export default function Footer() {
         <p className="text-gray-400">
           &copy; {new Date().getFullYear()} New Plains LLC. All rights reserved.
         </p>
-        <div className="flex gap-6">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 whitespace-nowrap">
           <Link
             href="/privacy"
             className="text-gray-400 hover:text-[#C4A265] transition-colors"
