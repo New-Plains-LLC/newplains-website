@@ -155,6 +155,9 @@ export const consultingToolExamples = [
     title: "Give every new inquiry a next step.",
     description:
       "Connect a lead form to a personal follow-up email and an immediate team alert. Help your people respond while the inquiry is fresh and keep new opportunities moving.",
+    image: "/projects/speed-to-lead.png",
+    imageAlt:
+      "Speed-to-Lead workflow: a web form webhook feeds a qualify step, which sends a personal email and a Telegram plus SMS alert, then responds in under one second.",
   },
   {
     label: "Virtual Offsite / Collaborative meetings",

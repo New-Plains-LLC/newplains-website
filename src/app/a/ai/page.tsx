@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
 import DirectEmailNote, { mailto } from "./DirectEmailNote";
@@ -10,6 +11,11 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
+// Raychel Sanner, "Severe thunderstorm over rural Oklahoma" (Unsplash License).
+const HORIZON_PHOTO = "https://images.unsplash.com/photo-1702432665495-38902d6e5633";
+// Tools with a shareable screenshot lead the section; the rest read as rows.
+const featured = consultingToolExamples.filter((e) => e.image);
+const listed = consultingToolExamples.filter((e) => !e.image);
 const outcomes = [
   ["01", "Revenue", "Give good opportunities a clear next step.", "Route incoming leads, prepare follow-up drafts, and bring overdue opportunities to the right person. Measure response time and follow-through."],
   ["02", "Customer experience", "Keep the handoff from becoming the holdup.", "Organize service requests, surface relevant history, and draft consistent updates for staff review. Measure handoff delays and rework."],
@@ -25,10 +31,17 @@ const steps = [
 ];
 export default function AiPage() {
   return <div className={styles.page}>
+    <section className={styles.horizon}>
+      <div className={styles.horizonText}>
+        <p className={styles.horizonEyebrow}>New Plains / AI business consulting</p>
+        <h1>Better business.<br />Less busywork.<br /><span>AI with a purpose.</span></h1>
+      </div>
+      <div className={styles.horizonPhoto}>
+        <Image src={HORIZON_PHOTO} alt="Storm clouds building over open Oklahoma prairie" fill priority sizes="100vw" />
+      </div>
+    </section>
     <section className={styles.hero}>
-      <p className={styles.eyebrow}>New Plains / AI business consulting</p>
-      <h1>Better business.<br />Less busywork.<br /><em>AI with a purpose.</em></h1>
-      <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br />An operator’s perspective.</span></div>
+      <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br /> An operator’s perspective.<br /><a href="https://unsplash.com/photos/nqu5L_xc6bc">Photo: Raychel Sanner, Unsplash</a></span></div>
       <div className={styles.paths}>
         <Link href="/a/ai/workshop"><small>01 / Find your direction</small><strong>Start with a leadership workshop <span>→</span></strong><p>Align the team. Prioritize opportunities. Build practical AI capability.</p></Link>
         <a href={inquiry("Custom AI system inquiry")}><small>02 / Put a defined workflow to work</small><strong>Build a custom AI system <span>↗</span></strong><p>Bring us the process, the bottleneck, and the outcome you need.</p></a>
@@ -42,14 +55,26 @@ export default function AiPage() {
       <p className={styles.eyebrow}>Examples of what we can build</p>
       <h2>Practical tools.<br />Built around your work.</h2>
       <p>From following up with a prospect to finding a decision from last quarter, the right tool gives your team a clear next step.</p>
-      <div className={styles.examples}>
-        {consultingToolExamples.map((example) => (
-          <article key={example.title}>
+      {featured.map((example) => (
+        <article key={example.title} className={styles.feature}>
+          <div>
             <small>{example.label}</small>
             <h3>{example.title}</h3>
             <p>{example.description}</p>
-            {example.upcoming && <p>{example.upcoming}</p>}
-            {example.url && <a href={example.url}>{example.linkLabel} ↗</a>}
+          </div>
+          <Image src={example.image!} alt={example.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 700px) 100vw, 60vw" />
+        </article>
+      ))}
+      <div className={styles.rows}>
+        {listed.map((example) => (
+          <article key={example.title}>
+            <small>{example.label}</small>
+            <h3>{example.title}</h3>
+            <div className={styles.toolBody}>
+              <p>{example.description}</p>
+              {example.upcoming && <p>{example.upcoming}</p>}
+              {example.url && <a href={example.url}>{example.linkLabel} ↗</a>}
+            </div>
           </article>
         ))}
       </div>
