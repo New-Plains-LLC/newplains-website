@@ -36,29 +36,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    // Concept A — Two Doors (unlisted, noindex)
-    {
-      url: `${baseUrl}/a`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
+    // Concept A — AI business consulting (unlisted, noindex)
     {
       url: `${baseUrl}/a/ai`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,
     },
-    {
-      url: `${baseUrl}/a/govcon`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    // Concept B — The Contractor (unlisted, noindex)
-    // Concept C — The Operator (unlisted, noindex)
-    // Concept D — Field Notes (unlisted, noindex)
-    // Concept index (unlisted, noindex)
   ];
 
   // Blog posts
