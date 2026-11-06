@@ -237,7 +237,7 @@ export default function ReadinessQuiz() {
     }
   }
 
-  /* GA4: same pattern as MailtoTracker: GA4 loads directly, no GTM forwarding */
+  /* GA4, same pattern as MailtoTracker (GA4 loads directly, no GTM forwarding) */
   function track(event: string, params: Record<string, unknown> = {}) {
     const w = window as unknown as {
       gtag?: (...args: unknown[]) => void;
@@ -279,7 +279,7 @@ export default function ReadinessQuiz() {
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-brand-charcoal/70">
             Most AI projects don&apos;t fail because of the technology. They fail
             because the business wasn&apos;t ready. Answer 12 questions about how
-            your business actually runs: get your score, your weakest
+            your business actually runs, then get your score, your weakest
             foundation, and what to fix first.
           </p>
           <button

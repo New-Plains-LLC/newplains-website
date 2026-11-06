@@ -17,13 +17,15 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
+const SITE_TITLE = "New Plains LLC | Practical AI Innovation";
+
 export const metadata: Metadata = {
-  title: "New Plains LLC | Practical AI Innovation",
+  title: SITE_TITLE,
   description:
     "New Plains LLC is an AI innovation studio building practical tools that bring the power of AI to everyday workflows.",
   metadataBase: new URL("https://newplains.dev"),
   openGraph: {
-    title: "New Plains LLC | Practical AI Innovation",
+    title: SITE_TITLE,
     description:
       "AI innovation studio building practical tools that bring the power of AI to everyday workflows.",
     url: "https://newplains.dev",
@@ -34,13 +36,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "New Plains LLC | Practical AI Innovation",
+        alt: SITE_TITLE,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "New Plains LLC | Practical AI Innovation",
+    title: SITE_TITLE,
     description:
       "AI innovation studio building practical tools that bring the power of AI to everyday workflows.",
     images: ["/og-image.png"],
