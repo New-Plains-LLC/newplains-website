@@ -10,7 +10,7 @@ import { sendGTMEvent } from "@next/third-parties/google";
  * convert via `mailto:info@newplains.dev?subject=AI%20Audit...`, which never
  * hits the server, so without this event GA4 can see the page visit but not
  * the booking intent. The clicked href is passed as a param so different
- * mailto CTAs (audit / training / scope / RFQ) are distinguishable in GA4.
+ * mailto CTAs (audit / workshop / project / concierge) are distinguishable in GA4.
  *
  * GA4 config tag should map `event` -> custom event `contact_email_click`
  * with parameter `mailto_target`. Nothing else uses these names.

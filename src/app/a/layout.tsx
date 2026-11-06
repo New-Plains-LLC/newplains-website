@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "New Plains LLC — Two Ways We Work. One Promise.",
+  title: "New Plains LLC: AI Business Consulting",
   description:
-    "AI business consulting — the $999 1-hour audit call, workflow automation, custom agents, and AI training. Or government contracting with an embedded RFQ form. info@newplains.dev",
+    "AI business consulting for established businesses: leadership workshops, custom AI systems, and ongoing AI concierge support. Start with a workshop or the $999 AI Audit. info@newplains.dev",
   robots: { index: false },
 };
 
@@ -16,7 +16,7 @@ export default function ConceptALayout({
     <div className="min-h-screen bg-brand-cream text-brand-charcoal antialiased">
       <header className="border-b border-brand-copper/15 bg-brand-cream/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <Link href="/a" className="flex items-center gap-3">
+          <Link href="/a/ai" className="flex items-center gap-3">
             <Image
               src="/logo.png"
               alt="New Plains LLC"
@@ -26,8 +26,8 @@ export default function ConceptALayout({
               className="h-10 w-auto shrink-0"
             />
             <span className="flex flex-col leading-tight">
-              <span className="font-heading text-xl font-semibold tracking-tight text-brand-charcoal">
-                New Plains <span className="text-brand-copper">LLC</span>
+              <span className="font-heading whitespace-nowrap text-lg font-semibold tracking-tight text-brand-charcoal sm:text-xl">
+                New Plains <span className="hidden text-brand-copper sm:inline">LLC</span>
               </span>
               <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">
                 Business first. Built to work.
@@ -46,10 +46,10 @@ export default function ConceptALayout({
             </Link>
           </nav>
           <Link
-            href="mailto:info@newplains.dev?subject=AI%20Audit"
-            className="rounded-full bg-brand-copper px-5 py-2.5 text-sm font-semibold text-brand-cream shadow-sm transition-colors hover:bg-brand-copper-light"
+            href="/a/ai/workshop"
+            className="shrink-0 whitespace-nowrap bg-brand-charcoal px-3 py-2.5 text-sm sm:px-5 font-semibold text-brand-cream transition-colors hover:bg-brand-green"
           >
-            Book the Audit
+            Plan a workshop
           </Link>
         </div>
       </header>
