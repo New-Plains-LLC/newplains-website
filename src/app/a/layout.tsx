@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { Archivo } from "next/font/google";
+
+// One variable family; the width axis carries hierarchy (wide headlines, normal body).
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
 
 export const metadata: Metadata = {
   title: "New Plains LLC: AI Business Consulting",
@@ -13,7 +17,7 @@ export default function ConceptALayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="min-h-screen bg-brand-cream text-brand-charcoal antialiased">
+    <div className={`${archivo.variable} min-h-screen bg-brand-cream text-brand-charcoal antialiased [font-family:var(--font-archivo),sans-serif]`}>
       <header className="border-b border-brand-copper/15 bg-brand-cream/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
           <Link href="/a/ai" className="flex items-center gap-3">
@@ -26,7 +30,7 @@ export default function ConceptALayout({
               className="h-10 w-auto shrink-0"
             />
             <span className="flex flex-col leading-tight">
-              <span className="font-heading whitespace-nowrap text-lg font-semibold tracking-tight text-brand-charcoal sm:text-xl">
+              <span className="whitespace-nowrap text-lg font-semibold tracking-tight text-brand-charcoal sm:text-xl">
                 New Plains <span className="hidden text-brand-copper sm:inline">LLC</span>
               </span>
               <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-brand-charcoal/50 sm:inline">

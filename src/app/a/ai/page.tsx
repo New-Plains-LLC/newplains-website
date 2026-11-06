@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { consultingToolExamples } from "@/../lib/projects";
 import styles from "./services.module.css";
 import DirectEmailNote, { mailto } from "./DirectEmailNote";
+import HorizonPhoto from "./HorizonPhoto";
 
 export const metadata: Metadata = {
   title: "AI Business Consulting for Established Businesses | New Plains",
@@ -10,6 +12,9 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
+// Tools with a shareable screenshot lead the section; the rest read as rows.
+const featured = consultingToolExamples.filter((e) => e.image);
+const listed = consultingToolExamples.filter((e) => !e.image);
 const outcomes = [
   ["01", "Revenue", "Give good opportunities a clear next step.", "Route incoming leads, prepare follow-up drafts, and bring overdue opportunities to the right person. Measure response time and follow-through."],
   ["02", "Customer experience", "Keep the handoff from becoming the holdup.", "Organize service requests, surface relevant history, and draft consistent updates for staff review. Measure handoff delays and rework."],
@@ -25,10 +30,15 @@ const steps = [
 ];
 export default function AiPage() {
   return <div className={styles.page}>
+    <section className={styles.horizon}>
+      <div className={styles.horizonText}>
+        <p className={styles.horizonEyebrow}>New Plains / AI business consulting</p>
+        <h1>Better business.<br />Less busywork.<br /><span>AI with a purpose.</span></h1>
+      </div>
+      <HorizonPhoto priority />
+    </section>
     <section className={styles.hero}>
-      <p className={styles.eyebrow}>New Plains / AI business consulting</p>
-      <h1>Better business.<br />Less busywork.<br /><em>AI with a purpose.</em></h1>
-      <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br />An operator’s perspective.</span></div>
+      <div className={styles.heroBottom}><p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p><span>Oklahoma roots.<br /> An operator’s perspective.</span></div>
       <div className={styles.paths}>
         <Link href="/a/ai/workshop"><small>01 / Find your direction</small><strong>Start with a leadership workshop <span>→</span></strong><p>Align the team. Prioritize opportunities. Build practical AI capability.</p></Link>
         <a href={inquiry("Custom AI system inquiry")}><small>02 / Put a defined workflow to work</small><strong>Build a custom AI system <span>↗</span></strong><p>Bring us the process, the bottleneck, and the outcome you need.</p></a>
@@ -42,19 +52,32 @@ export default function AiPage() {
       <p className={styles.eyebrow}>Examples of what we can build</p>
       <h2>Practical tools.<br />Built around your work.</h2>
       <p>From following up with a prospect to finding a decision from last quarter, the right tool gives your team a clear next step.</p>
-      <div className={styles.examples}>
-        {consultingToolExamples.map((example) => (
-          <article key={example.title}>
+      {featured.map((example) => (
+        <article key={example.title} className={styles.feature}>
+          <div>
             <small>{example.label}</small>
             <h3>{example.title}</h3>
             <p>{example.description}</p>
-            {example.upcoming && <p>{example.upcoming}</p>}
-            {example.url && <a href={example.url}>{example.linkLabel} ↗</a>}
+          </div>
+          <Image src={example.image!} alt={example.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 700px) 100vw, 60vw" />
+        </article>
+      ))}
+      <div className={styles.rows}>
+        {listed.map((example) => (
+          <article key={example.title}>
+            <small>{example.label}</small>
+            <h3>{example.title}</h3>
+            <div className={styles.toolBody}>
+              <p>{example.description}</p>
+              {example.upcoming && <p>{example.upcoming}</p>}
+              {example.url && <a href={example.url}>{example.linkLabel} ↗</a>}
+            </div>
           </article>
         ))}
       </div>
     </section>
-    <section className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p><DirectEmailNote /></div><a className={styles.button} href={inquiry("AI Audit: $999")}>Ask about the $999 audit ↗</a></section>
+    <section className={styles.wheat}><div className={styles.audit}><div><p className={styles.eyebrow}>A distinct starting point</p><h2>The $999 AI Audit.</h2><p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p><DirectEmailNote /></div><a className={styles.button} href={inquiry("AI Audit: $999")}>Ask about the $999 audit ↗</a></div></section>
     <section className={styles.section}><p className={styles.eyebrow}>Your next move</p><h2>Bring a business problem.<br />Let’s make it concrete.</h2><p>Email your team size, current tools, the workflow that needs attention, and what a better outcome would look like. We’ll review the fit and discuss scope and next steps before an engagement is agreed.</p><div className={styles.actions}><Link className={styles.button} href="/a/ai/workshop">Explore the workshop →</Link><a className={styles.button} href={inquiry("Custom AI system inquiry")}>Discuss a custom project ↗</a><a className={styles.button} href={inquiry("AI Concierge inquiry")}>Ask about AI concierge ↗</a></div><DirectEmailNote /></section>
+    <HorizonPhoto decorative className={styles.horizonClose} />
   </div>;
 }
