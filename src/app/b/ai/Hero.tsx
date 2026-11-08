@@ -39,8 +39,8 @@ function CycleWord() {
 // A two-tab ask box, workshop first. Submitting carries the answer down to
 // the inquiry form at the end of the page, which does the sending.
 const OFFERS = {
-  workshop: { tab: "Leadership workshop", prompt: "What should leadership decide?" },
-  audit: { tab: "The $999 audit", prompt: "Which workflow slows you down?" },
+  workshop: { tab: "Leadership workshop", prompt: "What should leaders decide?" },
+  audit: { tab: "The $999 audit", prompt: "Which workflow slows you?" },
 } as const;
 type Offer = keyof typeof OFFERS;
 const KEYS = Object.keys(OFFERS) as Offer[];

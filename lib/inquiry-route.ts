@@ -41,5 +41,5 @@ export function ownPage(referer: string | null, origin: string, fallbackPath: st
 // POST, same-site included, so a POST without one isn't from our page.
 export function sameHost(origin: string | null, host: string | null) {
   if (!origin || !host) return false;
-  try { return !!host && new URL(origin).host === host; } catch { return false; }
+  try { return new URL(origin).host === host; } catch { return false; }
 }
