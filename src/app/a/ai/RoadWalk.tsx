@@ -3,7 +3,7 @@
 import Image, { getImageProps } from "next/image";
 import { useEffect, useRef, type ReactNode } from "react";
 import { preload } from "react-dom";
-import { HORIZON_CREDIT, HORIZON_CREDIT_LABEL, HORIZON_PHOTO } from "./HorizonPhoto";
+import { HORIZON_CREDIT, HORIZON_CREDIT_LABEL, HORIZON_PHOTO } from "./horizon";
 import HorizonWindmill from "./HorizonWindmill";
 import styles from "./walk.module.css";
 

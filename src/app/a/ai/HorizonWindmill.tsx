@@ -1,4 +1,4 @@
-import styles from "./services.module.css";
+import styles from "./windmill.module.css";
 
 // Flat silhouette of the farm windmill from the original 3D home page:
 // tapered lattice tower, 18-blade fan wheel, tail vane. Decorative only.
@@ -31,7 +31,7 @@ export default function HorizonWindmill({ className }: { className: string }) {
       </g>
       <path d="M164 68 L198 62 L198 98 L164 92 Z" fill="currentColor" />
       <rect x="90" y="106" width="20" height="7" fill="currentColor" />
-      <g className={styles.windmillFan}>
+      <g className={styles.fan}>
         <g fill="none" stroke="currentColor">
           <circle cx="100" cy="88" r="62" strokeWidth="2.5" />
           <circle cx="100" cy="88" r="36" strokeWidth="1.5" />

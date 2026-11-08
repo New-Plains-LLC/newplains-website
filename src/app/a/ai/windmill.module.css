@@ -1,0 +1,8 @@
+/* HorizonWindmill's fan turns here; callers own its placement and size. */
+.fan {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turn 20s linear infinite;
+}
+@keyframes turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .fan { animation: none; } }

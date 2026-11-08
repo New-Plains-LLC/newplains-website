@@ -1,13 +1,8 @@
 import Image from "next/image";
+import { HORIZON_CREDIT, HORIZON_CREDIT_LABEL, HORIZON_PHOTO } from "./horizon";
 import styles from "./services.module.css";
 
-// Raychel Sanner, "Severe thunderstorm over rural Oklahoma" (Unsplash License).
-export const HORIZON_PHOTO = "https://images.unsplash.com/photo-1702432665495-38902d6e5633";
-export const HORIZON_CREDIT = "https://unsplash.com/photos/nqu5L_xc6bc";
-export const HORIZON_CREDIT_LABEL = "Photo: Raychel Sanner / Unsplash";
-
-// The horizon strip opens the workshop page. (/a/ai's road walk uses the
-// same photo for its storm.)
+// The horizon strip opens the workshop page.
 export default function HorizonPhoto({ priority = false, className = "" }: { priority?: boolean; className?: string }) {
   return (
     <div className={`${styles.horizonPhoto} ${className}`}>
