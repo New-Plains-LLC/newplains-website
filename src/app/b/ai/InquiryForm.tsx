@@ -49,17 +49,19 @@ export default function InquiryForm() {
     return () => cancelAnimationFrame(id);
   }, [focusName]);
 
-  // The note the hero last put in the form, so an empty hero submit can
-  // clear the hero's own text without erasing a note typed in the form.
-  const heroNote = useRef("");
+  // The note the hero last put in the form, and the interest it answered,
+  // so the hero's own text can be cleared without erasing a typed note.
+  const heroNote = useRef({ text: "", interest: "" });
   useEffect(() => {
     const go = (d: InquiryDetail, scroll: boolean) => {
       setInterest(d.interest);
-      // The hero always sends its tab's text, even empty. Empty clears only
-      // text the hero itself put there, so an earlier tab's answer never
-      // sits under a different interest and a typed note is never lost.
-      if (d.message) { heroNote.current = d.message; setMessage(d.message); }
-      else if (d.message === "") setMessage((m) => (m === heroNote.current ? "" : m));
+      // The hero always sends its tab's text, even empty. Empty, or a CTA
+      // for a different interest, clears only text the hero itself put
+      // there: an answer never sits under another interest's question, and
+      // a note typed or edited in the form is never lost.
+      const hero = heroNote.current;
+      if (d.message) { heroNote.current = { text: d.message, interest: d.interest }; setMessage(d.message); }
+      else if (d.message === "" || d.interest !== hero.interest) setMessage((m) => (m === hero.text ? "" : m));
       // A CTA means a fresh start: bring the form back after a send, and drop
       // an error left from an earlier attempt.
       setStatus((st) => (st.kind === "sent" || st.kind === "error" ? { kind: "idle" } : st));

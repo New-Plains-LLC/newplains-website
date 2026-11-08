@@ -58,8 +58,11 @@ const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\
 // paste tables); every other C0/C1 control goes.
 const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u0085\u2028\u2029]/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f-\u009f]/g, "").trim() : "");
 // Both sides are dot-separated parts, so "a..b@c.com", ".a@c.com",
-// "a@b..com" and "x@y.com." fail (mail servers bounce them).
-const EMAIL_RE = /^[^\s@.]+(\.[^\s@.]+)*@[^\s@.]+(\.[^\s@.]+)+$/;
+// "a@b..com" and "x@y.com." fail (mail servers bounce them). Domain labels
+// are letters and digits (any script) with inner hyphens only, like DNS:
+// "a@-b.com", "a@b-.com" and "a@b:c.com" fail.
+const LABEL = String.raw`[\p{L}\p{N}](?:[\p{L}\p{N}-]*[\p{L}\p{N}])?`;
+const EMAIL_RE = new RegExp(String.raw`^[^\s@.]+(\.[^\s@.]+)*@${LABEL}(\.${LABEL})+$`, "u");
 
 export function parseInquiry(raw: Record<string, unknown>): Result {
   const v = {
