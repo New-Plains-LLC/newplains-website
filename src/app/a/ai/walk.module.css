@@ -1,0 +1,352 @@
+/* /a/ai road walk. Flat stacked page by default; the walk turns on only under
+   (prefers-reduced-motion: no-preference) and (scripting: enabled), which is the
+   same query RoadWalk.tsx checks before it moves anything. */
+
+.walk {
+  --ink: #2D2A26;
+  --paper: #FAF8F5;
+  --copper: #B87333;
+  --copper-ink: #8A4F1E;
+  --green: #7A8B5C;
+  --soft: #5C5650;
+  --post-c: #6B6259;
+  color: var(--ink);
+  background: #F4EFE6;
+  font-family: var(--font-archivo), system-ui, sans-serif;
+}
+.walk h1, .walk h2, .walk h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+  margin: 0;
+}
+.walk h1 { font-size: clamp(2.5rem, 4.6vw, 4.4rem); line-height: 1.02; margin: 14px 0 22px; }
+.walk h1 span { color: var(--copper-ink); }
+.walk h2 { font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.06; margin: 12px 0 18px; }
+.walk h3 { font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.15; margin: 10px 0 12px; }
+.walk p { margin: 0; line-height: 1.6; text-wrap: pretty; }
+.walk p + p { margin-top: 12px; }
+.walk a:not(.button) { color: var(--copper-ink); text-decoration: underline; text-underline-offset: 4px; }
+
+.label {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--copper-ink);
+}
+.small { font-size: 0.85rem; color: var(--soft); }
+.lede { font-family: var(--font-serif), Georgia, serif; font-size: 1.45rem; line-height: 1.3; margin-top: 10px !important; }
+
+/* ---- Boards ---- */
+.stop {
+  position: relative;
+  background: var(--paper);
+  border-radius: 22px;
+  padding: clamp(22px, 2.6vw, 36px);
+  box-shadow: 0 1px 0 #2D2A2612, 0 28px 60px -32px #2D2A2670;
+  width: min(560px, 88vw);
+}
+.hero { width: min(640px, 88vw); }
+.hero > p:not(.label):not(.small) { font-size: 1.05rem; }
+.hero .small { margin-top: 18px !important; }
+
+.sign { width: min(420px, 82vw); border-radius: 14px; border-top: 4px solid var(--copper); }
+.signText { font-family: var(--font-serif), Georgia, serif; font-size: clamp(1.45rem, 2.2vw, 1.9rem); line-height: 1.2; }
+
+.tintGreen { background: #E6EADB; }
+.tintWheat { background: #F3E9D2; }
+.tintCopper { background: #F3E3D6; }
+.card { width: min(440px, 86vw); }
+
+.operator, .feature { width: min(860px, 90vw); display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; }
+.operator img, .feature img { width: 100%; height: auto; border-radius: 12px; display: block; }
+.feature { grid-template-columns: 1.35fr 1fr; }
+
+.pair { width: min(900px, 90vw); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.pair p { font-size: 0.95rem; }
+.pair a { display: inline-block; margin-top: 12px; font-weight: 600; font-size: 0.9rem; }
+
+.marker { width: min(340px, 80vw); border-radius: 14px; background: #F3E9D2; }
+.marker p:not(.mile) { font-size: 0.95rem; }
+.mile {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--green);
+}
+
+.fork { width: min(940px, 92vw); }
+.arms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+.arms a {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #F1ECE2;
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s;
+}
+.arms a:hover, .arms a:focus-visible { background: #E6EADB; }
+.arms small { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--copper-ink); }
+.arms strong { font-family: var(--font-serif), Georgia, serif; font-weight: 500; font-size: 1.35rem; line-height: 1.2; }
+.arms span { font-size: 0.88rem; line-height: 1.5; color: var(--soft); }
+
+.gate { width: min(640px, 90vw); background: #EADBB4; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin: 22px 0 6px; }
+.button {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: background-color 0.2s;
+}
+.button:hover, .button:focus-visible { background: #4F5E3A; }
+.quiet { font-weight: 600; font-size: 0.92rem; }
+
+/* ---- The peak board ---- */
+.board { width: min(940px, 92vw); --k: 1; }
+.notes { position: relative; height: 232px; margin: 18px 0 8px; container-type: inline-size; }
+.note {
+  --ox: calc(var(--o) * 26.33);
+  --oy: 92;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 21cqw;
+  min-height: 48px;
+  display: grid;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.25;
+  background: color-mix(in oklab, #F0DDAE calc((1 - var(--k)) * 100%), #E1E8D3);
+  box-shadow: 0 10px 18px -12px #2D2A2680;
+  transform:
+    translate(calc((var(--sx) * (1 - var(--k)) + var(--ox) * var(--k)) * 1cqw),
+              calc((var(--sy) * (1 - var(--k)) + var(--oy) * var(--k)) * 1px))
+    rotate(calc(var(--r) * (1 - var(--k)) * 1deg));
+}
+.note > span { grid-area: 1 / 1; }
+.note .before { opacity: calc(1 - var(--k) * 2); }
+.note .after { opacity: calc(var(--k) * 2 - 1); color: #3E4A2C; }
+.gone { opacity: calc(1 - var(--k) * 1.8); }
+.flow {
+  position: absolute;
+  left: 4cqw;
+  right: 4cqw;
+  top: 115px;
+  height: 2px;
+  background: var(--green);
+  transform: scaleX(var(--k));
+  transform-origin: left;
+}
+.captions { display: grid; font-size: 0.95rem; color: var(--soft); }
+.captions > p { grid-area: 1 / 1; margin: 0 !important; }
+.captions .before { opacity: calc(1 - var(--k) * 2); }
+.captions .after { opacity: calc(var(--k) * 2 - 1); }
+
+/* ---- Flat page (reduced motion, no JS, old browsers) ---- */
+.track { padding: 40px 16px 96px; }
+.world { display: grid; justify-items: center; gap: 28px; max-width: 960px; margin: auto; }
+.world > .stop { width: min(100%, 860px); }
+.storm, .sun, .rows, .road, .posts, .mill, .credit, .rail { display: none; }
+
+@media (max-width: 759px) {
+  .operator, .feature, .pair { grid-template-columns: 1fr; gap: 16px; }
+  .arms { grid-template-columns: 1fr; gap: 8px; }
+  .arms a { padding: 14px 16px; gap: 4px; }
+  .arms span { display: none; }
+  .notes { height: 252px; }
+  .note {
+    width: 46cqw;
+    --ox: 27;
+    --oy: calc(var(--o) * 60 + 6);
+    font-size: 0.8rem;
+    transform:
+      translate(calc((min(var(--sx), 54) * (1 - var(--k)) + var(--ox) * var(--k)) * 1cqw),
+                calc((var(--sy) * 1.15 * (1 - var(--k)) + var(--oy) * var(--k)) * 1px))
+      rotate(calc(var(--r) * (1 - var(--k)) * 1deg));
+  }
+  .flow { left: 50%; right: auto; top: 20px; width: 2px; height: 190px; transform: scaleY(var(--k)); transform-origin: top; }
+  .operator img { max-height: 30svh; object-fit: cover; }
+  .feature img { max-height: 26svh; object-fit: cover; object-position: top; }
+}
+
+/* ---- The walk ---- */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .track { padding: 0; position: relative; height: 100svh; }
+  .stage {
+    --clear: 0;
+    --ground: 75%;
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    perspective: 1000px;
+    perspective-origin: 50% 40%;
+    background: linear-gradient(#F7F2E9 0%, #EFE2C4 40%, #F2EBDD 40%, #EFE7D7 100%);
+  }
+  .storm {
+    display: block;
+    position: absolute;
+    inset: 0;
+    opacity: calc(1 - var(--clear));
+    background: linear-gradient(#1F1D1A 0%, #3A3631 40%, #322E29 40%, #26231F 100%);
+  }
+  /* The photo's own horizon sits about 66% down the frame. Size the photo so
+     that row lands on the stage horizon, and clip its field below. */
+  .stormSky { position: absolute; inset: 0 0 60% 0; overflow: hidden; opacity: 0.9; }
+  .stormSky > div {
+    --h: max(66.7vw, 60.6svh);
+    position: absolute;
+    left: 50%;
+    bottom: calc(var(--h) * -0.34);
+    width: calc(var(--h) * 1.5);
+    height: var(--h);
+    transform: translateX(-50%);
+  }
+  .stormSky img { object-fit: cover; }
+
+  /* Light breaking through at the turn: peaks halfway through the clearing. */
+  .sun {
+    display: block;
+    position: absolute;
+    inset: 0 0 45% 0;
+    background: radial-gradient(60% 70% at 50% 100%, #F2D9A0 0%, #E9C77Fcc 30%, transparent 70%);
+    opacity: calc(var(--clear) * (1 - var(--clear)) * 3.2);
+    pointer-events: none;
+  }
+  .rows {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 40%;
+    width: 100%;
+    height: 60%;
+    overflow: visible;
+  }
+  .rows line { stroke: #9CAF88; stroke-opacity: 0.38; stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+  .road {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: var(--ground);
+    width: 260px;
+    height: 16000px;
+    margin-left: -130px;
+    transform-origin: 50% 0;
+    transform: translateZ(700px) rotateX(-90deg);
+    background:
+      repeating-linear-gradient(to bottom, transparent 0 70px, var(--copper) 70px 124px, transparent 124px 180px) center / 8px 100% no-repeat,
+      linear-gradient(var(--green), var(--green)) left / 3px 100% no-repeat,
+      linear-gradient(var(--green), var(--green)) right / 3px 100% no-repeat;
+    pointer-events: none;
+  }
+  .posts, .world { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; }
+  .posts { display: block; }
+  .post {
+    position: absolute;
+    left: 50%;
+    top: var(--ground);
+    width: 7px;
+    height: 13svh;
+    margin-left: -3px;
+    background: var(--post-c);
+    border-radius: 2px 2px 0 0;
+  }
+  .world { display: block; max-width: none; margin: 0; }
+  .world > .stop { position: absolute; left: 50%; top: 50%; width: min(560px, 88vw); }
+  .world > .hero { width: min(640px, 88vw); }
+  .world > .sign { width: min(420px, 82vw); }
+  .world > .card { width: min(440px, 86vw); }
+  .world > .operator, .world > .feature { width: min(860px, 90vw); }
+  .world > .pair { width: min(900px, 90vw); }
+  .world > .marker { width: min(340px, 80vw); }
+  .world > .fork, .world > .board { width: min(940px, 92vw); }
+  .world > .gate { width: min(640px, 90vw); }
+  .stage:not([data-ready]) .world > .stop:not(:first-of-type) { opacity: 0; }
+
+  /* Every board stands on two posts that reach the ground line. */
+  .world > .stop::before, .world > .stop::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    width: 8px;
+    height: var(--post, 0px);
+    background: var(--post-c);
+  }
+  .world > .stop::before { left: 16%; }
+  .world > .stop::after { right: 16%; }
+
+  .mill { display: block; position: absolute; left: 50%; top: var(--ground); width: 0; height: 0; }
+  .millSvg { position: absolute; bottom: 0; left: -280px; height: 900px; width: auto; color: #6E7D52; }
+
+  .credit {
+    display: block;
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    font-size: 0.68rem;
+    color: #FAF8F5 !important;
+    text-decoration: none !important;
+    opacity: calc(0.75 - var(--clear));
+  }
+
+  .rail { display: block; position: absolute; left: 20px; bottom: 20px; z-index: 5; }
+  .rail ol {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    border-radius: 999px;
+    background: #FAF8F5EE;
+    box-shadow: 0 10px 30px -18px #2D2A2690;
+  }
+  .rail button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font: 600 0.74rem/1 var(--font-archivo), system-ui, sans-serif;
+    color: var(--soft);
+    cursor: pointer;
+  }
+  .rail button::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid var(--copper);
+  }
+  .rail button[aria-current="step"] { background: #EADBB4; color: var(--ink); }
+  .rail button[aria-current="step"]::before { background: var(--copper); }
+  .rail button:hover { color: var(--ink); }
+  .rail button:focus-visible { outline: 2px solid var(--copper-ink); outline-offset: 2px; }
+
+  @media (max-width: 759px) {
+    .rail { left: 12px; right: 12px; bottom: 12px; }
+    .rail ol { justify-content: space-between; }
+    .rail button { padding: 10px; }
+    .rail button span { display: none; }
+    .rail button[aria-current="step"] span { display: inline; }
+    .stop { padding: 20px; }
+    .walk h2 { font-size: 1.75rem; }
+    .walk h1 { font-size: 2.3rem; }
+    .millSvg { height: 620px; left: -190px; }
+  }
+}

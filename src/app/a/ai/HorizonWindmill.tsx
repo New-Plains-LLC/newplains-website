@@ -15,9 +15,9 @@ const leg = (y: number) => {
 };
 const levels = [320, 262, 210, 166, 132, 112];
 
-export default function HorizonWindmill() {
+export default function HorizonWindmill({ className = styles.windmill }: { className?: string }) {
   return (
-    <svg className={styles.windmill} viewBox="0 0 200 320" aria-hidden="true" focusable="false">
+    <svg className={className} viewBox="0 0 200 320" aria-hidden="true" focusable="false">
       <g fill="none" stroke="currentColor" strokeLinecap="round">
         <path d="M70 320 L94 112 M130 320 L106 112" strokeWidth="3" />
         {levels.slice(0, -1).map((y, i) => {
