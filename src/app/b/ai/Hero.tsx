@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, type FormEvent, type KeyboardEvent } from "react";
-import { mailto } from "../../a/ai/DirectEmailNote";
+import { openInquiry } from "./InquiryForm";
 import s from "./b.module.css";
 
 const WORDS = ["busywork.", "retyping.", "chasing.", "copy-paste."];
@@ -35,23 +35,11 @@ function CycleWord() {
   );
 }
 
-// A two-tab ask box, workshop first. Each tab opens a pre-filled email in the
-// visitor's own mail app; nothing is sent from the page.
+// A two-tab ask box, workshop first. Submitting carries the answer down to
+// the inquiry form at the end of the page, which does the sending.
 const OFFERS = {
-  workshop: {
-    tab: "Leadership workshop",
-    prompt: "What should leadership decide?",
-    submit: "Write to us about a leadership workshop",
-    subject: "Leadership AI workshop inquiry",
-    body: (t: string) => `What we want to decide:\n${t}\n\nBusiness name:\nTeam size:\nWho would attend:\n`,
-  },
-  audit: {
-    tab: "The $999 audit",
-    prompt: "Which workflow slows you down?",
-    submit: "Write to us about the $999 audit",
-    subject: "AI Audit: $999",
-    body: (t: string) => `What slows us down:\n${t}\n\nBusiness name:\nTeam size:\nTools you use:\n`,
-  },
+  workshop: { tab: "Leadership workshop", prompt: "What should leadership decide?" },
+  audit: { tab: "The $999 audit", prompt: "Which workflow slows you down?" },
 } as const;
 type Offer = keyof typeof OFFERS;
 const KEYS = Object.keys(OFFERS) as Offer[];
@@ -62,7 +50,7 @@ function AskBox() {
   const o = OFFERS[tab];
   const send = (e: FormEvent) => {
     e.preventDefault();
-    location.href = mailto(o.subject, o.body(text.trim()));
+    openInquiry({ interest: tab, message: text.trim() });
   };
   // Tabs pattern: only the selected tab is in the Tab order; arrow keys,
   // Home and End move between tabs and select them.
@@ -87,7 +75,7 @@ function AskBox() {
       <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} onSubmit={send}>
         <label htmlFor="ask-text" className={s.srOnly}>{o.prompt}</label>
         <input id="ask-text" value={text} onChange={(e) => setText(e.target.value)} placeholder={o.prompt} autoComplete="off" />
-        <button type="submit" aria-label={o.submit}>↵</button>
+        <button type="submit" aria-label="Continue to the inquiry form">↵</button>
       </form>
       {tab === "workshop" && (
         <Link href="/a/ai/workshop" className={s.askMore}>What the workshop covers →</Link>

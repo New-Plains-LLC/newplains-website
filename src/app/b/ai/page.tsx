@@ -4,8 +4,8 @@ import Image from "next/image";
 import { Newsreader } from "next/font/google";
 import { Fragment, type ReactNode } from "react";
 import { consultingToolExamples } from "@/../lib/projects";
-import DirectEmailNote, { mailto } from "../../a/ai/DirectEmailNote";
 import Hero from "./Hero";
+import InquiryForm from "./InquiryForm";
 import s from "./b.module.css";
 
 export const metadata: Metadata = {
@@ -16,8 +16,6 @@ export const metadata: Metadata = {
 
 const serif = Newsreader({ subsets: ["latin"], weight: ["300", "400"], variable: "--font-serif", display: "swap" });
 
-const workshop = mailto("Leadership AI workshop inquiry", "Business name:\nTeam size:\nWho would attend:\nWhat we want to decide:\n");
-const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
 const featured = consultingToolExamples.find((e) => e.image);
 const listed = consultingToolExamples.filter((e) => !e.image);
 
@@ -86,7 +84,7 @@ export default function AiPageB() {
           <a href="#approach">Approach</a>
           <a href="#audit">$999 audit</a>
         </nav>
-        <a className={s.navCta} href="#workshop">Plan a workshop</a>
+        <a className={s.navCta} href="#contact" data-interest="workshop">Plan a workshop</a>
       </header>
 
       <Hero />
@@ -253,22 +251,21 @@ export default function AiPageB() {
       <section className={s.ways}>
         <p className={s.label}>Three ways in</p>
         <Link href="/a/ai/workshop"><strong>Leadership workshop</strong><span>Align the team. Prioritize opportunities. Build practical AI capability.</span><i>→</i></Link>
-        <a href={inquiry("Custom AI system inquiry")}><strong>Custom AI system</strong><span>Bring us the process, the bottleneck, and the outcome you need.</span><i>↗</i></a>
-        <a href={inquiry("AI Concierge inquiry")}><strong>AI concierge</strong><span>Ongoing support that ships the next improvement and trains the people who own it.</span><i>↗</i></a>
+        <a href="#contact" data-interest="custom"><strong>Custom AI system</strong><span>Bring us the process, the bottleneck, and the outcome you need.</span><i>↓</i></a>
+        <a href="#contact" data-interest="concierge"><strong>AI concierge</strong><span>Ongoing support that ships the next improvement and trains the people who own it.</span><i>↓</i></a>
       </section>
 
-      <section id="workshop" className={s.close}>
-        <p className={s.label}>Where to start</p>
-        <h2>The leadership workshop.</h2>
-        <p>A working session for your leadership team. Agree where AI supports the business, choose the opportunities worth a closer look, and decide what your people need to use it well. We confirm the agenda, format, duration, and fee with you before you book.</p>
-        <div className={s.closeActions}>
-          <a className={s.button} href={workshop}>Plan a leadership workshop ↗</a>
-          <Link href="/a/ai/workshop">What the workshop covers →</Link>
+      <section id="contact" className={s.close}>
+        <div className={s.closeIntro}>
+          <p className={s.label}>Where to start</p>
+          <h2>The leadership workshop.</h2>
+          <p>A working session for your leadership team. Agree where AI supports the business, choose the opportunities worth a closer look, and decide what your people need to use it well. We confirm the agenda, format, duration, and fee with you before you book.</p>
+          <Link href="/a/ai/workshop" className={s.closeLink}>What the workshop covers →</Link>
+          <div id="audit" className={s.closeAside}>
+            <p><strong>Need a narrower start?</strong> The $999 AI Audit is a paid, standalone one-hour conversation about a single workflow, with no obligation to commission a build. <a href="#contact" data-interest="audit">Ask about the audit&nbsp;↓</a></p>
+          </div>
         </div>
-        <div id="audit" className={s.closeAside}>
-          <p><strong>Need a narrower start?</strong> The $999 AI Audit is a paid, standalone one-hour conversation about a single workflow, with no obligation to commission a build. <a href={inquiry("AI Audit: $999")}>Ask about the audit&nbsp;↗</a></p>
-        </div>
-        <div className={s.closeNote}><DirectEmailNote /></div>
+        <InquiryForm />
       </section>
 
       <p className={s.wordmark} aria-hidden="true">New Plains</p>
