@@ -169,7 +169,7 @@
     overflow: hidden;
     perspective: 1000px;
     perspective-origin: 50% 40%;
-    background: linear-gradient(#F7F2E9 0%, #EFE2C4 40%, #F2EBDD 40%, #EFE7D7 100%);
+    background: linear-gradient(#F7F2E9 0%, #EEE6CF 40%, #C9D2B2 40%, #A9B98F 100%);
   }
   .storm {
     display: block;
@@ -219,8 +219,8 @@
     top: calc(40% - 2px);
     height: 24%;
     background: linear-gradient(
-      color-mix(in oklab, #3A3631 calc((1 - var(--clear)) * 100%), #EFE2C4) 0%,
-      color-mix(in oklab, #3A3631 calc((1 - var(--clear)) * 100%), #EFE2C4) 8%,
+      color-mix(in oklab, #3A3631 calc((1 - var(--clear)) * 100%), #E2E4CE) 0%,
+      color-mix(in oklab, #3A3631 calc((1 - var(--clear)) * 100%), #E2E4CE) 8%,
       transparent 100%
     );
     pointer-events: none;

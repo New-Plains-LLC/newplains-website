@@ -26,19 +26,20 @@ const TRAVEL = 0.55; // global scale on travel scroll between boards
 const HOLD = 0.8; // global scale on hold scroll at each board
 
 // Field patches: [left edge, right edge, fill] at the bottom of the screen,
-// each a wedge to the vanishing point. Low-contrast brand tones, irregular
-// widths, a bare gap around the road.
+// each a wedge to the vanishing point. Mostly green (pasture, young wheat,
+// a darker hay meadow) with a few gold wheat fields, so the clear side of
+// the storm reads as plains, not desert. Brand greens and wheat only.
 const FIELDS: [number, number, string][] = [
-  [-420, -230, "#C4A26530"],
-  [-230, -120, "#7A8B5C26"],
-  [-120, -55, "#8A6A4A1F"],
-  [-55, -8, "#C4A26538"],
-  [-8, 28, "#7A8B5C1C"],
-  [72, 104, "#C4A2652E"],
-  [104, 160, "#8A6A4A1C"],
-  [160, 250, "#7A8B5C2B"],
-  [250, 400, "#C4A26526"],
-  [400, 560, "#7A8B5C1F"],
+  [-420, -230, "#7A8B5C59"],
+  [-230, -120, "#C4A26573"],
+  [-120, -55, "#5E6E4461"],
+  [-55, -8, "#9CAF8880"],
+  [-8, 28, "#7A8B5C40"],
+  [72, 104, "#9CAF8873"],
+  [104, 160, "#C4A26566"],
+  [160, 250, "#7A8B5C66"],
+  [250, 400, "#9CAF8866"],
+  [400, 560, "#C4A26559"],
 ];
 
 export type Mark = { id: string; label: string };
