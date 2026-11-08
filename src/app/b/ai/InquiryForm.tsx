@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { INQUIRY_PATH, INTERESTS, MAX, PROMPTS, SIZES, firstName, isInterest, type Interest } from "@/../lib/inquiry";
 import s from "./b.module.css";
@@ -34,6 +34,10 @@ export default function InquiryForm() {
   const [interest, setInterest] = useState<Interest>("workshop");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const thanks = useRef<HTMLDivElement>(null);
+  // The form, and the button that had focus, are gone once it sends: move
+  // focus to the thank-you so keyboard and screen-reader users keep their place.
+  useEffect(() => { if (status.kind === "sent") thanks.current?.focus(); }, [status.kind]);
 
   useEffect(() => {
     const go = (d: InquiryDetail, scroll: boolean) => {
@@ -74,12 +78,14 @@ export default function InquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(f),
         // The route gives AgentMail 10s; never leave the button on "Sending…".
-        signal: AbortSignal.timeout(20_000),
+        // (AbortSignal.timeout is missing before Safari 16.4; send without it.)
+        signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(20_000) : undefined,
       });
       const out: Reply = await res.json().catch(() => ({}));
       if (res.ok && out.ok) {
         // Analytics must never turn a sent inquiry into an error message.
         try { trackLead(String(f.interest), String(f.size)); } catch {}
+        setMessage(""); // sent; any next note starts blank
         setStatus({ kind: "sent", name: firstName(f.name), email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
@@ -89,10 +95,10 @@ export default function InquiryForm() {
 
   if (status.kind === "sent") {
     return (
-      <div className={s.inquiry} role="status">
+      <div ref={thanks} tabIndex={-1} className={s.inquiry} role="status">
         <p className={s.sentTitle}>{status.name ? `Thanks, ${status.name}.` : "Thanks."}</p>
         <p>Your inquiry is in. Shawn’s assistant will email <strong>{status.email}</strong> shortly to confirm, then follow up to find a time that works.</p>
-        <button type="button" className={s.again} onClick={() => { setMessage(""); setStatus({ kind: "idle" }); }}>Send another note</button>
+        <button type="button" className={s.again} onClick={() => setStatus({ kind: "idle" })}>Send another note</button>
       </div>
     );
   }

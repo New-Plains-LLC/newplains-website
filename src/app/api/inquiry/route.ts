@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
   let raw: Record<string, unknown>;
   try {
     const textBody = await req.text();
-    if (textBody.length > MAX_BODY) return fail(413, "Request too large");
+    if (Buffer.byteLength(textBody) > MAX_BODY) return fail(413, "Request too large");
     const body = JSON.parse(textBody);
     if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error();
     raw = body;

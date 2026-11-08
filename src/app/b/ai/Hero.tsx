@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, type FormEvent, type KeyboardEvent } from "react";
 import { openInquiry } from "./InquiryForm";
+import { WORKSHOP_HREF } from "./links";
 import s from "./b.module.css";
 
 const WORDS = ["busywork.", "retyping.", "chasing.", "copy-paste."];
@@ -82,7 +83,7 @@ function AskBox() {
         <button type="submit" aria-label="Continue to the inquiry form">↵</button>
       </form>
       {tab === "workshop" && (
-        <Link href="/a/ai/workshop" className={s.askMore}>What the workshop covers →</Link>
+        <Link href={WORKSHOP_HREF} className={s.askMore}>What the workshop covers →</Link>
       )}
     </div>
   );

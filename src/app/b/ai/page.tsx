@@ -5,6 +5,7 @@ import { Newsreader } from "next/font/google";
 import { Fragment, type ReactNode } from "react";
 import { consultingToolExamples } from "@/../lib/projects";
 import Hero from "./Hero";
+import { WORKSHOP_HREF } from "./links";
 import InquiryForm from "./InquiryForm";
 import s from "./b.module.css";
 
@@ -253,7 +254,7 @@ export default function AiPageB() {
 
       <section className={s.ways}>
         <p className={s.label}>Three ways in</p>
-        <Link href="/a/ai/workshop"><strong>Leadership workshop</strong><span>Align the team. Prioritize opportunities. Build practical AI capability.</span><i>→</i></Link>
+        <Link href={WORKSHOP_HREF}><strong>Leadership workshop</strong><span>Align the team. Prioritize opportunities. Build practical AI capability.</span><i>→</i></Link>
         <a href="#contact" data-interest="custom"><strong>Custom AI system</strong><span>Bring us the process, the bottleneck, and the outcome you need.</span><i>↓</i></a>
         <a href="#contact" data-interest="concierge"><strong>AI concierge</strong><span>Ongoing support that ships the next improvement and trains the people who own it.</span><i>↓</i></a>
       </section>
@@ -263,7 +264,7 @@ export default function AiPageB() {
           <p className={s.label}>Where to start</p>
           <h2>The leadership workshop.</h2>
           <p>A working session for your leadership team. Agree where AI supports the business, choose the opportunities worth a closer look, and decide what your people need to use it well. We confirm the agenda, format, duration, and fee with you before you book.</p>
-          <Link href="/a/ai/workshop" className={s.closeLink}>What the workshop covers →</Link>
+          <Link href={WORKSHOP_HREF} className={s.closeLink}>What the workshop covers →</Link>
           <div id="audit" className={s.closeAside}>
             <p><strong>Need a narrower start?</strong> The $999 AI Audit is a paid, standalone one-hour conversation about a single workflow, with no obligation to commission a build. <a href="#contact" data-interest="audit">Ask about the audit&nbsp;↓</a></p>
           </div>
