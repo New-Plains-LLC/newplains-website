@@ -77,7 +77,10 @@ function AskBox() {
           </button>
         ))}
       </div>
-      <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} onSubmit={send}>
+      {/* method="dialog" outside a <dialog> makes a native submit a no-op, so
+          pressing Enter before hydration can't reload the page and lose the
+          text; once hydrated, send() handles the submit. */}
+      <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} method="dialog" onSubmit={send}>
         <label htmlFor="ask-text" className={s.srOnly}>{o.prompt}</label>
         <input id="ask-text" value={text} onChange={(e) => setTexts((t) => ({ ...t, [tab]: e.target.value }))} placeholder={o.prompt} autoComplete="off" />
         <button type="submit" aria-label="Continue to the inquiry form">↵</button>

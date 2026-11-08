@@ -74,6 +74,9 @@ export default function InquiryForm() {
     // Links like <a href="#contact" data-interest="audit"> scroll on their
     // own; this only sets the interest and focus.
     const onClick = (e: MouseEvent) => {
+      // A modified click opens the link in a new tab or window; leave this
+      // tab's form alone.
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const a = (e.target as Element).closest?.("a[data-interest]");
       const v = a?.getAttribute("data-interest");
       if (isInterest(v)) go({ interest: v }, false);
