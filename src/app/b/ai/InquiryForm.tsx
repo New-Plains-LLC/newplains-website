@@ -112,6 +112,10 @@ export default function InquiryForm() {
         const sentNote = String(f.message ?? "");
         setMessage((m) => (m === sentNote ? "" : m));
         setStatus({ kind: "sent", name: firstName(f.name), email: String(f.email).trim() });
+      } else if (res.status === 429) {
+        // Vercel's firewall rate limit (5 per minute per IP) answers before
+        // the route does, without our JSON shape.
+        setStatus({ kind: "error", error: "Too many tries in a row. Please wait a minute and send again." });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
       setStatus({ kind: "error", error: "Could not send right now." });

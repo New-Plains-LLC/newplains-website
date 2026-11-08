@@ -46,7 +46,10 @@ $20 a month for 1,000 a day.
 
 **Spam and abuse:** `/api/inquiry` is protected by Vercel BotID (Basic
 mode, free on every plan): an invisible browser check that scripts and
-headless clients fail.
+headless clients fail. A Vercel firewall rule, "Rate limit inquiry
+form" (Firewall → Rules), allows 5 requests to `/api/inquiry` per minute
+per IP and answers the rest with 429; the form tells the visitor to wait a
+minute. It changes without a redeploy.
 A person could still type a stranger's address into the form by hand, so
 Hermes sends at most two emails before the person replies and stops
 auto-replying if inquiries spike (section 3). If junk still gets through,
