@@ -8,9 +8,13 @@ import DirectEmailNote, { mailto } from "./DirectEmailNote";
 import RoadWalk, { type Mark } from "./RoadWalk";
 import w from "./walk.module.css";
 
+// Used across the page; change them here.
+const WORKSHOP = "/a/ai/workshop";
+const AUDIT_PRICE = "$999";
+
 export const metadata: Metadata = {
   title: "AI Business Consulting for Established Businesses | New Plains",
-  description: "Align your leadership team, choose practical AI opportunities, and build systems around the way your business works. Workshops, custom implementation, and the $999 AI Audit.",
+  description: `Align your leadership team, choose practical AI opportunities, and build systems around the way your business works. Workshops, custom implementation, and the ${AUDIT_PRICE} AI Audit.`,
   robots: { index: false },
 };
 
@@ -199,18 +203,18 @@ export default function AiPage() {
         <Stop gap={1600} hold={0.85} pace={1} x={1} className={`${w.panel} ${w.fork}`} label="Three ways in">
           <p className={w.label}>Three ways in</p>
           <div className={w.arms}>
-            <Link href="/a/ai/workshop"><small>Find your direction</small><strong>Leadership workshop →</strong><span>Align the team. Prioritize opportunities. Build practical AI capability.</span></Link>
+            <Link href={WORKSHOP}><small>Find your direction</small><strong>Leadership workshop →</strong><span>Align the team. Prioritize opportunities. Build practical AI capability.</span></Link>
             <a href={inquiry("Custom AI system inquiry")}><small>Put a defined workflow to work</small><strong>Custom AI system ↗</strong><span>Bring us the process, the bottleneck, and the outcome you need.</span></a>
             <a href={inquiry("AI Concierge inquiry")}><small>Keep the improvements coming</small><strong>AI concierge ↗</strong><span>Ongoing support that ships the next improvement and trains the people who own it.</span></a>
           </div>
         </Stop>
         <Stop id="audit" gap={1700} hold={1.2} pace={1} x={0} className={`${w.panel} ${w.gate}`}>
           <p className={w.label}>A distinct starting point</p>
-          <h2>The $999 AI Audit.</h2>
+          <h2>{`The ${AUDIT_PRICE} AI Audit.`}</h2>
           <p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p>
           <div className={w.actions}>
-            <a className={w.button} href={inquiry("AI Audit: $999")}>Ask about the $999 audit ↗</a>
-            <Link className={w.quiet} href="/a/ai/workshop">Or start with the workshop →</Link>
+            <a className={w.button} href={inquiry(`AI Audit: ${AUDIT_PRICE}`)}>{`Ask about the ${AUDIT_PRICE} audit ↗`}</a>
+            <Link className={w.quiet} href={WORKSHOP}>Or start with the workshop →</Link>
           </div>
           <DirectEmailNote />
         </Stop>

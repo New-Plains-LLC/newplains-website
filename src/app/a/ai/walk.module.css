@@ -25,9 +25,12 @@
 .walk h1 span { color: var(--copper-ink); }
 .walk h2 { font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.06; margin: 12px 0 18px; }
 .walk h3 { font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.15; margin: 10px 0 12px; }
-.walk p { margin: 0; line-height: 1.6; text-wrap: pretty; }
-.walk p + p { margin-top: 12px; }
-.walk a:not(.button) { color: var(--copper-ink); text-decoration: underline; text-underline-offset: 4px; }
+.walk p { line-height: 1.6; text-wrap: pretty; }
+/* Base spacing and links at the lowest specificity (:where adds none), so
+   component rules below override them by order alone, without !important. */
+.walk :where(p) { margin: 0; }
+.walk :where(p + p) { margin-top: 12px; }
+.walk :where(a:not(.button)) { color: var(--copper-ink); text-decoration: underline; text-underline-offset: 4px; }
 .panel > a:not(.button) { display: inline-block; margin-top: 12px; font-weight: 600; font-size: 0.9rem; }
 
 .label {
@@ -38,7 +41,7 @@
   color: var(--copper-ink);
 }
 .small { font-size: 0.85rem; color: var(--soft); }
-.lede { font-family: var(--font-serif), Georgia, serif; font-size: 1.45rem; line-height: 1.3; margin-top: 10px !important; }
+.lede { font-family: var(--font-serif), Georgia, serif; font-size: 1.45rem; line-height: 1.3; margin-top: 10px; }
 
 /* ---- Boards ---- */
 .stop {
@@ -49,7 +52,7 @@
   box-shadow: 0 1px 0 #2D2A2612, 0 28px 60px -32px #2D2A2670;
 }
 .hero > p:not(.label):not(.small) { font-size: 1.05rem; }
-.hero .small { margin-top: 18px !important; }
+.hero .small { margin-top: 18px; }
 
 .sign { border-radius: 14px; border-top: 4px solid var(--copper); }
 .signText { font-family: var(--font-serif), Georgia, serif; font-size: clamp(1.45rem, 2.2vw, 1.9rem); line-height: 1.2; }
@@ -80,8 +83,8 @@
   padding: 20px;
   border-radius: 14px;
   background: #F1ECE2;
-  color: var(--ink) !important;
-  text-decoration: none !important;
+  color: var(--ink);
+  text-decoration: none;
   transition: background-color 0.2s;
 }
 .arms a:hover, .arms a:focus-visible { background: #E6EADB; }
@@ -136,7 +139,7 @@
 .gone { opacity: calc(1 - var(--k) * 1.8); }
 .flow { position: absolute; left: 50%; top: 20px; width: 2px; height: 190px; background: var(--green); transform: scaleY(var(--k)); transform-origin: top; }
 .captions { display: grid; font-size: 0.95rem; color: var(--soft); }
-.captions > p { grid-area: 1 / 1; margin: 0 !important; }
+.captions > p { grid-area: 1 / 1; margin: 0; }
 .captions .before { opacity: calc(1 - var(--k) * 2); }
 .captions .after { opacity: calc(var(--k) * 2 - 1); }
 
@@ -295,8 +298,8 @@
     font-size: 0.68rem;
     /* Cream on the storm, ink once the sky clears: the credit stays
        readable (and its focus visible) the whole walk. */
-    color: color-mix(in oklab, #FAF8F5 calc((1 - var(--clear)) * 100%), #2D2A26) !important;
-    text-decoration: none !important;
+    color: color-mix(in oklab, #FAF8F5 calc((1 - var(--clear)) * 100%), #2D2A26);
+    text-decoration: none;
     opacity: calc(0.75 - var(--clear) * 0.3);
   }
 
