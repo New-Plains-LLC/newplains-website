@@ -20,7 +20,9 @@ export async function readCapped(body: ReadableStream<Uint8Array> | null, max: n
   const all = new Uint8Array(size);
   let at = 0;
   for (const p of parts) { all.set(p, at); at += p.byteLength; }
-  return new TextDecoder().decode(all);
+  // fatal: invalid UTF-8 throws (the route answers 400) rather than
+  // turning into U+FFFD characters in the email.
+  return new TextDecoder("utf-8", { fatal: true }).decode(all);
 }
 
 // The Referer is client-controlled: keep it only if it is one of our own
@@ -35,9 +37,9 @@ export function ownPage(referer: string | null, origin: string, fallbackPath: st
   return origin + fallbackPath;
 }
 
-// True when there is no Origin header (same-origin GETs, server tools) or
-// when Origin names this host. A cross-site browser POST always sends one.
+// True only when Origin names this host. Browsers send Origin on every
+// POST, same-site included, so a POST without one isn't from our page.
 export function sameHost(origin: string | null, host: string | null) {
-  if (!origin) return true;
+  if (!origin || !host) return false;
   try { return !!host && new URL(origin).host === host; } catch { return false; }
 }

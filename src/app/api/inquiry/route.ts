@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
     return fail(503, UNVERIFIED);
   }
   if (isBot) return fail(403, UNVERIFIED);
-  // Browsers send Origin on a cross-site POST; only our own host may submit.
+  // Browsers send Origin on every POST; only our own host may submit, and a
+  // request without Origin did not come from our page.
   // Compared by host, so http/https behind a proxy can't cause a mismatch.
   const origin = req.headers.get("origin"), host = req.headers.get("host");
   if (!sameHost(origin, host)) {
