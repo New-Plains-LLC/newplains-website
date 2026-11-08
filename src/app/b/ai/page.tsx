@@ -51,7 +51,7 @@ function Words({ text, mark }: { text: string; mark?: boolean }) {
   );
 }
 
-function Band({ tone, label, title, children, mock }: { tone: string; label: string; title: ReactNode; children: ReactNode; mock: ReactNode }) {
+function Band({ tone, label, title, children, mock, mockLabel }: { tone: string; label: string; title: ReactNode; children: ReactNode; mock: ReactNode; mockLabel: string }) {
   return (
     <section className={`${s.band} ${tone}`}>
       <div className={s.bandInner}>
@@ -60,7 +60,7 @@ function Band({ tone, label, title, children, mock }: { tone: string; label: str
           <h2>{title}</h2>
           {children}
         </div>
-        <div className={s.bandMock} role="img" aria-label="Illustration of the workflow, with sample data">
+        <div className={s.bandMock} role="img" aria-label={mockLabel}>
           {mock}
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function AiPageB() {
       <header className={s.nav}>
         <Link href="/b/ai" className={s.brand} aria-label="New Plains home">
           <span className={s.logo}>
-            <Image src="/logo.png" alt="" width={1264} height={848} priority />
+            <Image src="/logo.png" alt="" width={1264} height={848} sizes="60px" priority />
           </span>
           New Plains
         </Link>
@@ -125,6 +125,7 @@ export default function AiPageB() {
           tone={s.sage}
           label="Revenue"
           title="Give good opportunities a clear next step."
+          mockLabel="Sample lead queue: a quote request routed to the rep who knows the account with a reply drafted, one lead replied to, one flagged after five days without a reply."
           mock={
             <div className={s.stack}>
               <div className={`${s.card} ${s.cardOpen}`}>
@@ -145,6 +146,7 @@ export default function AiPageB() {
           tone={s.wheat}
           label="Customer experience"
           title="Keep the handoff from becoming the holdup."
+          mockLabel="Sample service request: past visits and part status pulled together, with a drafted customer update waiting for staff review."
           mock={
             <div className={s.stack}>
               <div className={`${s.card} ${s.cardOpen}`}>
@@ -168,6 +170,7 @@ export default function AiPageB() {
           tone={s.copper}
           label="Operating capacity"
           title="Get your people out of the copy-and-paste loop."
+          mockLabel="Sample Monday report for four branches: orders synced, branch numbers reconciled, invoices filed, notes summarized, three exceptions left for a person."
           mock={
             <div className={s.stack}>
               <div className={`${s.card} ${s.cardOpen}`}>

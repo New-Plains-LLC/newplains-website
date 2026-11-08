@@ -64,8 +64,8 @@ export default function InquiryForm() {
       });
       const out = await res.json().catch(() => ({}));
       if (res.ok && out.ok) {
-        // The server answers bots with a quiet success; don't count them.
-        if (!f.website) trackLead(String(f.interest), String(f.size));
+        // Analytics must never turn a sent inquiry into an error message.
+        try { trackLead(String(f.interest), String(f.size)); } catch {}
         setStatus({ kind: "sent", name: String(f.name).trim().split(/\s+/)[0], email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
@@ -120,10 +120,6 @@ export default function InquiryForm() {
         <span>{PROMPTS[interest]}</span>
         <textarea name="message" rows={4} required maxLength={MAX.message} value={message} onChange={(e) => setMessage(e.target.value)} {...invalid("message")} />
       </label>
-      {/* Hidden from people; bots that fill every field give themselves away. */}
-      <div className={s.trap} aria-hidden="true">
-        <label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
-      </div>
       {err && (
         <p id="inq-error" className={s.formError} role="alert">
           {err.error}{" "}

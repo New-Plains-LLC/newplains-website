@@ -53,13 +53,6 @@ export async function POST(req: NextRequest) {
     return fail(400, "Invalid request");
   }
 
-  // Honeypot: a hidden field people never see. A bot that fills it gets a
-  // normal-looking success and no email; the drop is logged without data.
-  if (raw.website) {
-    console.warn("[inquiry] dropped: honeypot filled");
-    return ok();
-  }
-
   const parsed = parseInquiry(raw);
   if (!parsed.ok) return fail(400, parsed.error, parsed.field);
 
