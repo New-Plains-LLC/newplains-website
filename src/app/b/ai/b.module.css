@@ -95,7 +95,7 @@
   background: var(--cream); border-radius: 11px; padding: 8px 8px 8px 16px;
   box-shadow: 0 1px 3px rgb(45 42 38 / 0.08);
 }
-.askPanel input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--ink); outline: none; padding: 8px 0; }
+.askPanel input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--ink); padding: 8px 0; }
 .askPanel input::placeholder { color: var(--muted); }
 .askPanel button {
   flex: none; width: 40px; height: 36px; display: grid; place-items: center;

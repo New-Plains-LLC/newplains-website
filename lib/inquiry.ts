@@ -55,8 +55,9 @@ const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\
 // Unicode line/paragraph separators count as newlines, so each visible
 // line of the message is quoted in the email.
 const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u2028\u2029]/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, "").trim() : "");
-// Domain is dot-separated labels, so "a@b..com" and "x@y.com." fail.
-const EMAIL_RE = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
+// Both sides are dot-separated parts, so "a..b@c.com", ".a@c.com",
+// "a@b..com" and "x@y.com." fail (mail servers bounce them).
+const EMAIL_RE = /^[^\s@.]+(\.[^\s@.]+)*@[^\s@.]+(\.[^\s@.]+)+$/;
 
 export function parseInquiry(raw: Record<string, unknown>): Result {
   const v = {

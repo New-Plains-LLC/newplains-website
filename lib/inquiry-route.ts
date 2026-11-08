@@ -28,7 +28,9 @@ export async function readCapped(body: ReadableStream<Uint8Array> | null, max: n
 export function ownPage(referer: string | null, origin: string, fallbackPath: string) {
   try {
     const u = new URL(referer ?? "");
-    if (u.origin === origin && /^\/[\w\-/]{0,100}$/.test(u.pathname)) return origin + u.pathname;
+    // Host, not full origin, like sameHost: a proxy reporting http for an
+    // https page must not mislabel it. Dots are fine in a path label.
+    if (u.host === new URL(origin).host && /^\/[\w\-/.]{0,100}$/.test(u.pathname)) return origin + u.pathname;
   } catch {}
   return origin + fallbackPath;
 }
