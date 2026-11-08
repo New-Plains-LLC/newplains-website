@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkBotId } from "botid/server";
-import { INQUIRY_PAGE, INQUIRY_TO, MAX_BODY, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
+import { INQUIRY_PAGE, MAX_BODY, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
 import { ownPage, readCapped, sameHost } from "@/../lib/inquiry-route";
 
 // Website inquiry form -> one email to the Hermes assistant's AgentMail inbox.
@@ -19,6 +19,9 @@ import { ownPage, readCapped, sameHost } from "@/../lib/inquiry-route";
 // the AgentMail send has its own 10s timeout.
 export const maxDuration = 20;
 
+// The Hermes assistant's inbox. Kept here, in server-only code, so it can
+// never reach a client bundle through lib/inquiry's shared imports.
+const INQUIRY_TO = "shawns_assistant@agentmail.to";
 const UNVERIFIED = "We could not verify this browser.";
 const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });

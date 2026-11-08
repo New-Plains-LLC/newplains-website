@@ -3,7 +3,6 @@
 // contract with the Hermes assistant that reads it: see
 // docs/hermes-inquiry-assistant.md before changing a field or the subject.
 
-export const INQUIRY_TO = "shawns_assistant@agentmail.to";
 // The form posts here and BotID protects it (src/instrumentation-client.ts);
 // the route itself lives at src/app/api/inquiry/route.ts.
 export const INQUIRY_PATH = "/api/inquiry";
