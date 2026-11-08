@@ -11,7 +11,8 @@ import { ownPage, readCapped } from "@/../lib/inquiry-route";
 // Env (Vercel, server only):
 //   AGENTMAIL_API_KEY    AgentMail API key
 //   AGENTMAIL_FORM_INBOX inbox ID of the sending inbox (new_plains_website_inbox@agentmail.to)
-//   AGENTMAIL_API_BASE   optional, for tests against a local mock
+//   AGENTMAIL_API_BASE   optional override of the AgentMail API URL, e.g. to
+//                        point a local run at a mock server instead
 
 const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });
