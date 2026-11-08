@@ -60,9 +60,12 @@ const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u0085\
 // Both sides are dot-separated parts, so "a..b@c.com", ".a@c.com",
 // "a@b..com" and "x@y.com." fail (mail servers bounce them). Domain labels
 // are letters and digits (any script) with inner hyphens only, like DNS:
-// "a@-b.com", "a@b-.com" and "a@b:c.com" fail.
+// "a@-b.com", "a@b-.com" and "a@b:c.com" fail. The local part also refuses
+// the specials that are only legal inside quotes ("(),:;<>[\]), which
+// mail servers reject unquoted.
 const LABEL = String.raw`[\p{L}\p{N}](?:[\p{L}\p{N}-]*[\p{L}\p{N}])?`;
-const EMAIL_RE = new RegExp(String.raw`^[^\s@.]+(\.[^\s@.]+)*@${LABEL}(\.${LABEL})+$`, "u");
+const ATOM = String.raw`[^\s@."(),:;<>[\]\\]+`;
+const EMAIL_RE = new RegExp(String.raw`^${ATOM}(\.${ATOM})*@${LABEL}(\.${LABEL})+$`, "u");
 
 export function parseInquiry(raw: Record<string, unknown>): Result {
   const v = {

@@ -55,10 +55,10 @@ export default function InquiryForm() {
   useEffect(() => {
     const go = (d: InquiryDetail, scroll: boolean) => {
       setInterest(d.interest);
-      // The hero always sends its tab's text, even empty. Empty, or a CTA
-      // for a different interest, clears only text the hero itself put
-      // there: an answer never sits under another interest's question, and
-      // a note typed or edited in the form is never lost.
+      // A new note replaces the form's. An empty message, or a CTA or empty
+      // hero submit for a different interest, clears only text the hero
+      // itself put there: an answer never sits under another interest's
+      // question, and a note typed or edited in the form is never lost.
       const hero = heroNote.current;
       if (d.message) { heroNote.current = { text: d.message, interest: d.interest }; setMessage(d.message); }
       else if (d.message === "" || d.interest !== hero.interest) setMessage((m) => (m === hero.text ? "" : m));

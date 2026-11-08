@@ -55,7 +55,11 @@ function AskBox() {
   const o = OFFERS[tab];
   const send = (e: FormEvent) => {
     e.preventDefault();
-    openInquiry({ interest: tab, message: text.trim() });
+    // The note moves to the form and leaves the box, so a later submit here
+    // can't refill the form with a note that was already sent. An empty box
+    // sends no message: the form keeps its text for the same interest.
+    openInquiry({ interest: tab, message: text.trim() || undefined });
+    setTexts((t) => ({ ...t, [tab]: "" }));
   };
   // Tabs pattern: only the selected tab is in the Tab order; arrow keys,
   // Home and End move between tabs and select them.

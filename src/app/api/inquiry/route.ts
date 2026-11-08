@@ -47,7 +47,9 @@ export async function POST(req: NextRequest) {
     // Logged so a proxy rewriting Host would show up instead of silently
     // refusing real leads. Neither header carries visitor data.
     console.warn("[inquiry] refused: origin/host mismatch", { origin, host });
-    return fail(403, UNVERIFIED);
+    // Not a bot verdict (a privacy extension can strip Origin), so no
+    // "verify this browser" wording; the form adds the email fallback.
+    return fail(403, "Could not send from this page.");
   }
 
   const key = process.env.AGENTMAIL_API_KEY;
