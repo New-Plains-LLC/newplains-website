@@ -45,8 +45,9 @@ export default function InquiryForm() {
       // The hero always sends its tab's text, even empty, so an earlier
       // tab's answer is never left under a different interest.
       if (d.message !== undefined) setMessage(d.message);
-      // A CTA clicked after sending means a new note: show the form again.
-      setStatus((st) => (st.kind === "sent" ? { kind: "idle" } : st));
+      // A CTA means a fresh start: bring the form back after a send, and drop
+      // an error left from an earlier attempt.
+      setStatus((st) => (st.kind === "sent" || st.kind === "error" ? { kind: "idle" } : st));
       const el = document.getElementById("contact");
       if (scroll) el?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       // After the render, in case the form just replaced the thank-you.
