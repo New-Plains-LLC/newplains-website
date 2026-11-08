@@ -169,6 +169,8 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   const draw = (u: number) => {
     const cam = camAt(u);
     worldEl.style.transform = `translate3d(0,0,${cam}px)`;
+    // The road is a treadmill too: it stays with the camera and only its
+    // dashes slide, so its fixed length is draw distance, not walk length.
     roadEl.style.transform = `translateZ(700px) rotateX(-90deg) translateY(${-(cam % DASH)}px)`;
     postsEl.style.transform = `translate3d(0,0,${cam % POST_GAP}px)`;
     const md = cam - millZ;

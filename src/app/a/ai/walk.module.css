@@ -231,6 +231,9 @@
     left: 50%;
     top: var(--ground);
     width: 260px;
+    /* Draw distance, not walk length: the road sits outside .world and only
+       shifts by cam % DASH each frame (RoadWalk draw()), a treadmill that
+       always reaches 16000px ahead of the camera however far you walk. */
     height: 16000px;
     margin-left: -130px;
     transform-origin: 50% 0;
