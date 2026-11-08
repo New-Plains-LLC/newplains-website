@@ -51,9 +51,9 @@ function Words({ text, mark }: { text: string; mark?: boolean }) {
   );
 }
 
-function Band({ id, tone, label, title, children, mock }: { id?: string; tone: string; label: string; title: ReactNode; children: ReactNode; mock: ReactNode }) {
+function Band({ tone, label, title, children, mock }: { tone: string; label: string; title: ReactNode; children: ReactNode; mock: ReactNode }) {
   return (
-    <section id={id} className={`${s.band} ${tone}`}>
+    <section className={`${s.band} ${tone}`}>
       <div className={s.bandInner}>
         <div className={s.bandText}>
           <p className={s.label}>{label}</p>

@@ -15,6 +15,14 @@ const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });
 const fail = (status: number, error: string, field?: string) => NextResponse.json({ ok: false, error, field }, { status });
 
+function ownPage(referer: string | null, origin: string) {
+  try {
+    const u = new URL(referer ?? "");
+    if (u.origin === origin && /^\/[\w\-/]{0,100}$/.test(u.pathname)) return origin + u.pathname;
+  } catch {}
+  return `${origin}/b/ai`;
+}
+
 export async function POST(req: NextRequest) {
   // Only the site's own pages may post here.
   if (req.headers.get("origin") !== req.nextUrl.origin) return fail(403, "Forbidden");
@@ -30,8 +38,13 @@ export async function POST(req: NextRequest) {
 
   // Bots: a filled hidden field, or a form sent faster than a person could
   // fill it. They get a normal-looking success and no email is sent.
+  // Drops are logged (reason only, no personal data) so a real lead caught
+  // by mistake still leaves a trace in the Vercel logs.
   const elapsed = Date.now() - Number(raw.startedAt);
-  if (raw.website || !(elapsed >= MIN_FILL_MS)) return ok();
+  if (raw.website || !(elapsed >= MIN_FILL_MS)) {
+    console.warn("[inquiry] dropped as bot", raw.website ? "honeypot" : `fill time ${Number.isFinite(elapsed) ? elapsed + "ms" : "missing"}`);
+    return ok();
+  }
 
   const parsed = parseInquiry(raw);
   if (!parsed.ok) return fail(400, parsed.error, parsed.field);
@@ -40,7 +53,9 @@ export async function POST(req: NextRequest) {
   const inbox = process.env.AGENTMAIL_FORM_INBOX;
   if (!key || !inbox) return fail(503, "The form is not set up yet.");
 
-  const page = req.headers.get("referer") ?? `${req.nextUrl.origin}/b/ai`;
+  // Referer is client-controlled: keep it only if it is one of our own
+  // pages, and only its path, so it cannot add lines to the email.
+  const page = ownPage(req.headers.get("referer"), req.nextUrl.origin);
   const { subject, text } = inquiryEmail(parsed.value, { page, at: new Date() });
 
   try {

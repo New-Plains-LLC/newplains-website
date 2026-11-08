@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sendGTMEvent } from "@next/third-parties/google";
-import { INTERESTS, PROMPTS, SIZES, isInterest, type Interest } from "@/../lib/inquiry";
+import { INTERESTS, MAX, PROMPTS, SIZES, isInterest, type Interest } from "@/../lib/inquiry";
 import s from "./b.module.css";
 
 const CONTACT_EMAIL = "info@newplains.dev";
@@ -66,7 +66,8 @@ export default function InquiryForm() {
       });
       const out = await res.json().catch(() => ({}));
       if (res.ok && out.ok) {
-        trackLead(String(f.interest), String(f.size));
+        // The server answers bots with a quiet success; don't count them.
+        if (!f.website) trackLead(String(f.interest), String(f.size));
         setStatus({ kind: "sent", name: String(f.name).trim().split(/\s+/)[0], email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
@@ -91,17 +92,17 @@ export default function InquiryForm() {
       <div className={s.row}>
         <label className={s.field}>
           <span>Name</span>
-          <input id="inq-name" name="name" autoComplete="name" required maxLength={120} {...invalid("name")} />
+          <input id="inq-name" name="name" autoComplete="name" required maxLength={MAX.name} {...invalid("name")} />
         </label>
         <label className={s.field}>
           <span>Work email</span>
-          <input name="email" type="email" autoComplete="email" required maxLength={254} {...invalid("email")} />
+          <input name="email" type="email" autoComplete="email" required maxLength={MAX.email} {...invalid("email")} />
         </label>
       </div>
       <div className={s.row}>
         <label className={s.field}>
           <span>Company</span>
-          <input name="company" autoComplete="organization" required maxLength={160} {...invalid("company")} />
+          <input name="company" autoComplete="organization" required maxLength={MAX.company} {...invalid("company")} />
         </label>
         <label className={s.field}>
           <span>Company size</span>
@@ -119,7 +120,7 @@ export default function InquiryForm() {
       </label>
       <label className={s.field}>
         <span>{PROMPTS[interest]}</span>
-        <textarea name="message" rows={4} required maxLength={4000} value={message} onChange={(e) => setMessage(e.target.value)} {...invalid("message")} />
+        <textarea name="message" rows={4} required maxLength={MAX.message} value={message} onChange={(e) => setMessage(e.target.value)} {...invalid("message")} />
       </label>
       {/* Hidden from people; bots that fill every field give themselves away. */}
       <div className={s.trap} aria-hidden="true">

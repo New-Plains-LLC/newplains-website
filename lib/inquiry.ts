@@ -21,13 +21,14 @@ export const isInterest = (v: unknown): v is Interest => typeof v === "string" &
 export const PROMPTS: Record<Interest, string> = {
   workshop: "What does your leadership team need to decide?",
   audit: "Which workflow slows your team down?",
-  custom: "What process do you want to fix, and what would better look like?",
+  custom: "What process do you want to fix, and what would a better version look like?",
   concierge: "What would you want ongoing help with?",
 };
 
 export const SIZES = ["1–49", "50–249", "250–999", "1,000+"] as const;
 
-const MAX = { name: 120, email: 254, company: 160, message: 4000 };
+// Shared with the form's maxLength attributes so the two cannot drift.
+export const MAX = { name: 120, email: 254, company: 160, message: 4000 };
 // A person needs a few seconds to fill the form; a script posting at once is
 // treated as a bot.
 export const MIN_FILL_MS = 2500;
@@ -65,7 +66,7 @@ export function parseInquiry(raw: Record<string, unknown>): Result {
   if (!isInterest(v.interest)) return { ok: false, field: "interest", error: "Please choose what you are interested in." };
   if (!v.message) return { ok: false, field: "message", error: "Please add a short note." };
   for (const k of Object.keys(MAX) as (keyof typeof MAX)[]) {
-    if (v[k].length > MAX[k]) return { ok: false, field: k, error: `Please keep this under ${MAX[k]} characters.` };
+    if (v[k].length > MAX[k]) return { ok: false, field: k, error: `Please keep this to ${MAX[k]} characters or fewer.` };
   }
   return { ok: true, value: v as Inquiry };
 }

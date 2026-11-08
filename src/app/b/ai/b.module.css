@@ -12,6 +12,7 @@
   --wheat: #D4B87A;
   --wheat-deep: color-mix(in oklab, #C4A265 50%, #2D2A26);
   --copper: #B87333;
+  --terracotta: #C4825A;
   --copper-deep: color-mix(in oklab, #B87333 62%, #2D2A26);
   --panel: color-mix(in oklab, #9CAF88 13%, #FAF8F5);
   --serif: var(--font-serif), Georgia, serif;
@@ -41,6 +42,7 @@
   display: flex; align-items: center; gap: 32px;
   padding: 14px max(24px, (100% - 1160px) / 2);
   background: color-mix(in oklab, var(--cream) 88%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(10px);
   backdrop-filter: saturate(1.2) blur(10px);
   font-size: 14px;
 }
@@ -149,11 +151,11 @@
 }
 .notesPile span:nth-child(1) { left: 12%; top: 0; background: color-mix(in oklab, var(--wheat) 55%, var(--cream)); rotate: -7deg; }
 .notesPile span:nth-child(2) { left: 40%; top: 40px; background: color-mix(in oklab, var(--sage) 50%, var(--cream)); rotate: 5deg; }
-.notesPile span:nth-child(3) { left: 6%; top: 132px; background: color-mix(in oklab, #C4825A 42%, var(--cream)); rotate: 3deg; }
+.notesPile span:nth-child(3) { left: 6%; top: 132px; background: color-mix(in oklab, var(--terracotta) 42%, var(--cream)); rotate: 3deg; }
 .notesPile span:nth-child(4) { left: 36%; top: 168px; background: color-mix(in oklab, var(--wheat) 38%, var(--cream)); rotate: -4deg; }
 .story { display: grid; gap: 1.1em; font-size: clamp(22px, 2.3vw, 30px); line-height: 1.32; letter-spacing: -0.018em; max-width: 21em; }
 .word { display: inline-block; }
-.mark { background: color-mix(in oklab, #C4825A 30%, var(--cream)); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 0 4px; border-radius: 3px; }
+.mark { background: color-mix(in oklab, var(--terracotta) 30%, var(--cream)); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 0 4px; border-radius: 3px; }
 @media (max-width: 860px) {
   .panel { border-radius: 36px; margin: 0 8px; padding: 88px 24px 96px; }
   .stagger span:nth-child(2) { padding-left: 0.8em; }
@@ -169,7 +171,7 @@
 .band { padding: 128px 0; }
 .sage { background: color-mix(in oklab, var(--sage) 22%, var(--cream)); --deep: var(--sage-deep); }
 .wheat { background: color-mix(in oklab, var(--wheat) 26%, var(--cream)); --deep: var(--wheat-deep); }
-.copper { background: color-mix(in oklab, #C4825A 18%, var(--cream)); --deep: var(--copper-deep); }
+.copper { background: color-mix(in oklab, var(--terracotta) 18%, var(--cream)); --deep: var(--copper-deep); }
 .bandInner { width: var(--wrap); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .bandText h2 { font-size: clamp(38px, 4.6vw, 60px); line-height: 1.05; letter-spacing: -0.022em; color: var(--deep); max-width: 10em; }
 .bandText > p:last-child { margin-top: 24px; max-width: 28em; font-size: 18px; }
@@ -203,7 +205,7 @@
 .cardRow { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
 .pillGreen, .pillCopper, .pillWheat { font-size: 12px; padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
 .pillGreen { background: color-mix(in oklab, var(--sage) 30%, var(--cream)); color: var(--sage-deep); }
-.pillCopper { background: color-mix(in oklab, #C4825A 26%, var(--cream)); color: var(--copper-deep); }
+.pillCopper { background: color-mix(in oklab, var(--terracotta) 26%, var(--cream)); color: var(--copper-deep); }
 .pillWheat { background: color-mix(in oklab, var(--wheat) 38%, var(--cream)); color: var(--wheat-deep); }
 .btnMini { font-size: 12.5px; font-weight: 500; background: var(--ink); color: var(--cream); padding: 6px 11px; border-radius: 8px; }
 .history { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--muted); }
@@ -253,6 +255,7 @@
     linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
     linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
     var(--cream);
+  -webkit-mask-image: linear-gradient(transparent, black 80px, black calc(100% - 80px), transparent);
   mask-image: linear-gradient(transparent, black 80px, black calc(100% - 80px), transparent);
 }
 .approachHead > p:last-child { margin-top: 24px; max-width: 30em; color: var(--muted); font-size: 18px; }

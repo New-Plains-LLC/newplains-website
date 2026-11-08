@@ -57,7 +57,7 @@ function AskBox() {
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
     const at = KEYS.indexOf(tab);
     const moves: Record<string, number> = { ArrowRight: at + 1, ArrowLeft: at - 1, Home: 0, End: KEYS.length - 1 };
-    const next = moves[e.key];
+    const next = Object.hasOwn(moves, e.key) ? moves[e.key] : undefined;
     if (next === undefined) return;
     e.preventDefault();
     const k = KEYS[(next + KEYS.length) % KEYS.length];
