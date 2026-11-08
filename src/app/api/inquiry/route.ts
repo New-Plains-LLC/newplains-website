@@ -64,7 +64,13 @@ export async function POST(req: NextRequest) {
   // Refuse oversized bodies before parsing: early on content-length, and
   // while reading for chunked uploads that don't send one.
   if (Number(req.headers.get("content-length") ?? 0) > MAX_BODY) return fail(413, "Request too large");
-  const textBody = await readCapped(req, MAX_BODY);
+  let textBody: string | null;
+  try {
+    textBody = await readCapped(req, MAX_BODY);
+  } catch {
+    // Client hung up mid-body: answer in the route's own JSON shape.
+    return fail(400, "Invalid request");
+  }
   if (textBody === null) return fail(413, "Request too large");
   let raw: Record<string, unknown>;
   try {
