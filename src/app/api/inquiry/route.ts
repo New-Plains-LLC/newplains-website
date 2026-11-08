@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { INQUIRY_TO, MIN_FILL_MS, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
+import { checkBotId } from "botid/server";
+import { INQUIRY_TO, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
 
 // Website inquiry form -> one email to the Hermes assistant's AgentMail inbox.
 // The email is sent from a dedicated AgentMail inbox (AGENTMAIL_FORM_INBOX)
@@ -8,7 +9,7 @@ import { INQUIRY_TO, MIN_FILL_MS, inquiryEmail, parseInquiry } from "@/../lib/in
 //
 // Env (Vercel, server only):
 //   AGENTMAIL_API_KEY    AgentMail API key
-//   AGENTMAIL_FORM_INBOX inbox ID of the sending inbox, e.g. newplains-site@agentmail.to
+//   AGENTMAIL_FORM_INBOX inbox ID of the sending inbox (new_plains_website_inbox@agentmail.to)
 //   AGENTMAIL_API_BASE   optional, for tests against a local mock
 
 const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
@@ -24,8 +25,24 @@ function ownPage(referer: string | null, origin: string) {
 }
 
 export async function POST(req: NextRequest) {
-  // Only the site's own pages may post here.
-  if (req.headers.get("origin") !== req.nextUrl.origin) return fail(403, "Forbidden");
+  // Vercel BotID: the browser check set up in src/instrumentation-client.ts.
+  // Scripts and headless clients fail here. In `next dev` it reports a
+  // human unless BOTID_DEV_BYPASS=BAD-BOT; production ignores that option.
+  // If the check itself errors, refuse rather than send unverified mail.
+  let isBot: boolean;
+  try {
+    ({ isBot } = await checkBotId({
+      developmentOptions: { bypass: process.env.BOTID_DEV_BYPASS === "BAD-BOT" ? "BAD-BOT" : "HUMAN" },
+    }));
+  } catch (e) {
+    console.error("[inquiry] BotID check failed", String(e));
+    return fail(503, "We could not verify this browser.");
+  }
+  if (isBot) return fail(403, "We could not verify this browser.");
+
+  const key = process.env.AGENTMAIL_API_KEY;
+  const inbox = process.env.AGENTMAIL_FORM_INBOX;
+  if (!key || !inbox) return fail(503, "The form is not set up yet.");
 
   let raw: Record<string, unknown>;
   try {
@@ -36,22 +53,15 @@ export async function POST(req: NextRequest) {
     return fail(400, "Invalid request");
   }
 
-  // Bots: a filled hidden field, or a form sent faster than a person could
-  // fill it. They get a normal-looking success and no email is sent.
-  // Drops are logged (reason only, no personal data) so a real lead caught
-  // by mistake still leaves a trace in the Vercel logs.
-  const fillMs = Number(raw.fillMs);
-  if (raw.website || !(fillMs >= MIN_FILL_MS)) {
-    console.warn("[inquiry] dropped as bot", raw.website ? "honeypot" : `fill time ${Number.isFinite(fillMs) ? fillMs + "ms" : "missing"}`);
+  // Honeypot: a hidden field people never see. A bot that fills it gets a
+  // normal-looking success and no email; the drop is logged without data.
+  if (raw.website) {
+    console.warn("[inquiry] dropped: honeypot filled");
     return ok();
   }
 
   const parsed = parseInquiry(raw);
   if (!parsed.ok) return fail(400, parsed.error, parsed.field);
-
-  const key = process.env.AGENTMAIL_API_KEY;
-  const inbox = process.env.AGENTMAIL_FORM_INBOX;
-  if (!key || !inbox) return fail(503, "The form is not set up yet.");
 
   // Referer is client-controlled: keep it only if it is one of our own
   // pages, and only its path, so it cannot add lines to the email.

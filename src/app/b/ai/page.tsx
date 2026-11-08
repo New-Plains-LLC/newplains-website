@@ -213,7 +213,7 @@ export default function AiPageB() {
                 <p className={s.label}>{e.label}</p>
                 <p>{e.description}</p>
                 {e.upcoming && <p className={s.small}>{e.upcoming}</p>}
-                {e.url && <a href={e.url}>{e.linkLabel} ↗</a>}
+                {e.url && e.linkLabel && <a href={e.url}>{e.linkLabel} ↗</a>}
               </div>
             </details>
           ))}

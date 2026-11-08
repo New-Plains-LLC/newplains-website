@@ -1,12 +1,12 @@
 # Website inquiries → Hermes booking assistant
 
 The inquiry form on newplains.dev/b/ai sends one email per submission to
-**shawns-assistant@agentmail.to**. A Hermes profile watches that inbox and
+**shawns_assistant@agentmail.to**. A Hermes profile watches that inbox and
 does what a human assistant would: confirms receipt, asks for what Shawn
 needs to book the call, then books it.
 
 ```
-Visitor fills form ──► /api/inquiry ──► AgentMail (sender inbox) ──► shawns-assistant@agentmail.to ──► Hermes
+Visitor fills form ──► /api/inquiry ──► AgentMail (sender inbox) ──► shawns_assistant@agentmail.to ──► Hermes
                                                                                          │
                          visitor's inbox ◄── 1. confirmation (about 1 min) ◄─────────────┤
                          visitor's inbox ◄── 2. booking questions (about 5 min later) ◄──┤
@@ -19,22 +19,21 @@ Part 1 is a one-time setup for Shawn. Part 2 is the text to give Hermes.
 
 ## Part 1 · One-time setup (Shawn)
 
-1. **Sender inbox.** In the AgentMail console, create an inbox for the
-   website to send from, for example `newplains-site@agentmail.to`. It is
-   separate from `shawns-assistant@` so Hermes can tell real form
-   submissions from anything else. The free plan allows 3 inboxes.
-   Copy its **inbox ID** from the console. AgentMail's docs do not say
-   whether this is the address itself, so use the value the console shows.
-2. **API key.** Create an AgentMail API key for the website.
-3. **Vercel.** Project `newplains-website` → Settings → Environment
-   Variables, for **Preview** and **Production**, marked Sensitive:
+1. **Sender inbox (done).** The website sends from
+   `new_plains_website_inbox@agentmail.to`, separate from
+   `shawns_assistant@` so Hermes can tell real form submissions from
+   anything else.
+2. **API key (done).** An AgentMail API key for the website.
+3. **Vercel (done).** Project `newplains-website` → Settings →
+   Environment Variables, for **Preview** and **Production**:
    - `AGENTMAIL_API_KEY`: the key from step 2
-   - `AGENTMAIL_FORM_INBOX`: the inbox ID from step 1
+   - `AGENTMAIL_FORM_INBOX`: the sender inbox's ID, as the AgentMail
+     console shows it
 
-   Then redeploy (push a commit or use Redeploy). Until both are set the
+   A deployment picks these up when it is built. Until both are set the
    form shows "The form is not set up yet" and offers info@newplains.dev.
 4. **Hermes.** Give Part 2 to the profile that owns
-   `shawns-assistant@agentmail.to`. Fill in the settings block at the top
+   `shawns_assistant@agentmail.to`. Fill in the settings block at the top
    first, especially `FORM_SENDER` and `VIDEO_LINK`.
 5. **Test on the preview** before merging: submit the form with your own
    address, then check you get the confirmation, then the booking
@@ -45,20 +44,18 @@ day. Each lead costs 1 email from the site plus about 3 to 5 from Hermes,
 so the free plan covers roughly 20 new leads a day. The Developer plan is
 $20 a month for 1,000 a day.
 
-**Spam and abuse:** the form drops submissions that fill a hidden field or
-arrive faster than a person could type, and refuses posts that claim to come
-from another site. Those stop casual bots, not a determined script: someone
-could post the form with a stranger's email address, and Hermes would
-write to that stranger. Two limits keep that small. Hermes sends at most two
-emails before the person replies, and it stops auto-replying if inquiries
-spike (section 3). The real fix is a server-checked bot test on
-`/api/inquiry`, such as Vercel BotID or Cloudflare Turnstile. Add one
-before running ads or if junk shows up.
+**Spam and abuse:** `/api/inquiry` is protected by Vercel BotID (Basic
+mode, free on every plan): an invisible browser check that scripts and
+headless clients fail. A hidden honeypot field catches simple form-fillers.
+A person could still type a stranger's address into the form by hand, so
+Hermes sends at most two emails before the person replies and stops
+auto-replying if inquiries spike (section 3). If junk still gets through,
+BotID Deep Analysis is a toggle under Firewall → Rules on Vercel Pro.
 
 ### What Hermes receives
 
 - **From:** the sender inbox (`FORM_SENDER`)
-- **To:** shawns-assistant@agentmail.to
+- **To:** shawns_assistant@agentmail.to
 - **Reply-To:** the visitor's email
 - **Subject:** `Website inquiry: <Interest> from <Name>, <Company>`
 - **Body:** a readable summary, then a JSON block between
@@ -97,10 +94,12 @@ any of this means changing `lib/inquiry.ts` and this file together.
 ### Settings
 
 ```
-FORM_SENDER      = newplains-site@agentmail.to      # the website's sender inbox
+FORM_SENDER      = new_plains_website_inbox@agentmail.to   # the website's sender inbox
 CALL_LENGTH      = 30 minutes                        # first call with Shawn
 VIDEO_LINK       = <Shawn's meeting link>            # or "Shawn will send a link"
-BOOKING_HOURS    = Monday to Friday, 9:00 AM to 4:00 PM Central
+BOOKING_HOURS    = Monday to Friday, 12:00 PM to 1:00 PM Central
+                   Saturday, 8:00 AM to 12:00 PM Central
+                   (the whole call must fit inside a window)
 MIN_NOTICE       = 1 business day
 BUFFER           = 15 minutes before and after other events
 SHAWN_ALERTS     = Telegram, to Shawn
@@ -120,7 +119,7 @@ are an AI assistant and you say so when you introduce yourself.
 ### 1. Recognize a website inquiry
 
 Run this workflow only when a new message arrives in
-shawns-assistant@agentmail.to and **both** are true:
+shawns_assistant@agentmail.to and **both** are true:
 
 - the sender is exactly `FORM_SENDER`
 - the subject starts with `Website inquiry:`
@@ -226,8 +225,10 @@ When they reply:
 
 1. Check Shawn's calendar. Offer two or three specific open slots within
    `BOOKING_HOURS`, at least `MIN_NOTICE` out, with `BUFFER` around other
-   events. Show each time in their time zone and Central. Never offer
-   anything between 9:00 PM and 5:00 AM Central.
+   events. On weekdays a 30-minute call can start at 12:00 or 12:30 PM
+   Central; on Saturdays, any half hour from 8:00 to 11:30 AM. Show each
+   time in their time zone and Central. Never offer a time outside
+   `BOOKING_HOURS`, even if they ask; pass that request to Shawn.
 2. When they pick one, book it on Shawn's calendar, invite them, include
    `VIDEO_LINK`, and put their answers and the original message in the
    event description.

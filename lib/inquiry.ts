@@ -3,7 +3,7 @@
 // contract with the Hermes assistant that reads it: see
 // docs/hermes-inquiry-assistant.md before changing a field or the subject.
 
-export const INQUIRY_TO = "shawns-assistant@agentmail.to";
+export const INQUIRY_TO = "shawns_assistant@agentmail.to";
 export const SUBJECT_PREFIX = "Website inquiry:";
 
 export const INTERESTS = {
@@ -29,11 +29,6 @@ export const SIZES = ["1–49", "50–249", "250–999", "1,000+"] as const;
 
 // Shared with the form's maxLength attributes so the two cannot drift.
 export const MAX = { name: 120, email: 254, company: 160, message: 4000 };
-// A person needs a moment to fill the form; a script posting at once is
-// treated as a bot. The browser measures it on its own clock, from the
-// visitor's first interaction with the form to submit, so a wrong system
-// clock or a long time on the page cannot skew it.
-export const MIN_FILL_MS = 1500;
 
 export type Inquiry = {
   name: string;
