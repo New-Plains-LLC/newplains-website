@@ -13,7 +13,8 @@ export const INTERESTS = {
   concierge: "AI concierge",
 } as const;
 export type Interest = keyof typeof INTERESTS;
-export const isInterest = (v: unknown): v is Interest => typeof v === "string" && v in INTERESTS;
+// Own keys only: `in` would also accept inherited names like "toString".
+export const isInterest = (v: unknown): v is Interest => typeof v === "string" && Object.hasOwn(INTERESTS, v);
 
 // The prompt the form shows for each interest; the email repeats it so the
 // assistant knows what question the message answers.
@@ -69,6 +70,13 @@ export function parseInquiry(raw: Record<string, unknown>): Result {
   return { ok: true, value: v as Inquiry };
 }
 
+// A greeting-safe first name: one word of letters (plus ' . -), at most 30
+// characters. Anything else is blank and the assistant writes "Hi there".
+const firstName = (name: string) => {
+  const w = name.split(" ")[0];
+  return /^\p{L}[\p{L}'’.-]{0,29}$/u.test(w) ? w : "";
+};
+
 export function inquiryEmail(q: Inquiry, meta: { page: string; at: Date }) {
   const central = meta.at.toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "medium", timeStyle: "short" });
   const subject = `${SUBJECT_PREFIX} ${INTERESTS[q.interest]} from ${q.name}, ${q.company}`;
@@ -78,6 +86,7 @@ export function inquiryEmail(q: Inquiry, meta: { page: string; at: Date }) {
     submitted_at: meta.at.toISOString(),
     page: meta.page,
     name: q.name,
+    first_name: firstName(q.name),
     email: q.email,
     company: q.company,
     company_size: q.size,

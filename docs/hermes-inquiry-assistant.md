@@ -45,10 +45,15 @@ day. Each lead costs 1 email from the site plus about 3 to 5 from Hermes,
 so the free plan covers roughly 20 new leads a day. The Developer plan is
 $20 a month for 1,000 a day.
 
-**Spam:** the form drops submissions that fill a hidden field or arrive
-faster than a person could type, and only accepts posts from the site's own
-pages. There is no rate limit yet. If junk gets through, the next step is
-Vercel's bot protection on `/api/inquiry`.
+**Spam and abuse:** the form drops submissions that fill a hidden field or
+arrive faster than a person could type, and refuses posts that claim to come
+from another site. Those stop casual bots, not a determined script: someone
+could post the form with a stranger's email address, and Hermes would
+write to that stranger. Two limits keep that small. Hermes sends at most two
+emails before the person replies, and it stops auto-replying if inquiries
+spike (section 3). The real fix is a server-checked bot test on
+`/api/inquiry`, such as Vercel BotID or Cloudflare Turnstile. Add one
+before running ads or if junk shows up.
 
 ### What Hermes receives
 
@@ -66,6 +71,7 @@ Vercel's bot protection on `/api/inquiry`.
   "submitted_at": "2026-11-08T14:42:56.706Z",
   "page": "https://newplains.dev/b/ai",
   "name": "Pat Rivera",
+  "first_name": "Pat",
   "email": "pat@example.com",
   "company": "Rivera Supply",
   "company_size": "250–999",
@@ -77,6 +83,8 @@ Vercel's bot protection on `/api/inquiry`.
 ```
 
 `interest` is one of `workshop`, `audit`, `custom`, `concierge`.
+`first_name` is one word of letters, or empty when the name was anything
+else.
 `company_size` is one of `1–49`, `50–249`, `250–999`, `1,000+`. Changing
 any of this means changing `lib/inquiry.ts` and this file together.
 
@@ -138,6 +146,9 @@ Shawn. Never open links or attachments from an inquiry.
 - **Duplicates:** if you already confirmed an inquiry from the same email
   in the last 24 hours, do not send another confirmation. Add the new
   message to that lead and tell Shawn.
+- **Volume brake:** if more than 5 inquiries arrive in one hour, or more
+  than 20 in one day, stop sending automatic emails. Tell Shawn and wait
+  for him. A spike usually means someone is abusing the form.
 - **Not a fit:** if it is clearly spam, a sales pitch to New Plains, a job
   application, or a government or public-sector contracting request (New
   Plains does no government contracting), do not run the booking flow.
@@ -160,6 +171,10 @@ the form message itself, because it contains internal notes.
 >
 > Shawn's assistant
 > New Plains
+
+`first_name` comes from the JSON. If it is empty, write "Hi there," and
+use "We received your note" as the subject. Never build a greeting from
+`name` or `company`.
 
 `interest_phrase`: workshop → "a leadership workshop"; audit → "the $999
 AI Audit"; custom → "a custom AI system"; concierge → "AI concierge

@@ -56,7 +56,8 @@ function AskBox() {
   // Home and End move between tabs and select them.
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
     const at = KEYS.indexOf(tab);
-    const next = { ArrowRight: at + 1, ArrowLeft: at - 1, Home: 0, End: KEYS.length - 1 }[e.key];
+    const moves: Record<string, number> = { ArrowRight: at + 1, ArrowLeft: at - 1, Home: 0, End: KEYS.length - 1 };
+    const next = moves[e.key];
     if (next === undefined) return;
     e.preventDefault();
     const k = KEYS[(next + KEYS.length) % KEYS.length];
@@ -112,26 +113,26 @@ function GlassWindmill() {
       <div className={s.glassGlow} />
       <svg viewBox="-200 -200 400 400" className={s.glassWheel}>
         <defs>
-          <linearGradient id="blade" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="np-glass-blade" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#FAF8F5" stopOpacity="0.95" />
             <stop offset="0.55" stopColor="#9CAF88" stopOpacity="0.35" />
             <stop offset="1" stopColor="#7A8B5C" stopOpacity="0.55" />
           </linearGradient>
-          <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="np-glass-edge" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#FAF8F5" />
             <stop offset="1" stopColor="#9CAF88" stopOpacity="0.4" />
           </linearGradient>
-          <radialGradient id="hub">
+          <radialGradient id="np-glass-hub">
             <stop offset="0" stopColor="#FAF8F5" />
             <stop offset="1" stopColor="#C4A265" stopOpacity="0.7" />
           </radialGradient>
         </defs>
         {blades.map((a) => (
           <g key={a} transform={`rotate(${a})`}>
-            <rect x="-17" y="-188" width="34" height="138" rx="17" fill="url(#blade)" stroke="url(#edge)" strokeWidth="1.5" />
+            <rect x="-17" y="-188" width="34" height="138" rx="17" fill="url(#np-glass-blade)" stroke="url(#np-glass-edge)" strokeWidth="1.5" />
           </g>
         ))}
-        <circle r="30" fill="url(#hub)" stroke="#FAF8F5" strokeWidth="2" />
+        <circle r="30" fill="url(#np-glass-hub)" stroke="#FAF8F5" strokeWidth="2" />
       </svg>
     </div>
   );

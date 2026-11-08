@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { INTERESTS, PROMPTS, SIZES, isInterest, type Interest } from "@/../lib/inquiry";
 import s from "./b.module.css";
 
@@ -11,6 +12,15 @@ export type InquiryDetail = { interest: Interest; message?: string };
 // Jump to the form with an interest (and optionally a first answer) filled in.
 export function openInquiry(detail: InquiryDetail) {
   window.dispatchEvent(new CustomEvent<InquiryDetail>(INQUIRY_EVENT, { detail }));
+}
+
+// The form replaces mailto CTAs, which MailtoTracker counted as
+// contact_email_click. A sent inquiry is the stronger signal: GA4's
+// recommended generate_lead event, with no name or email attached.
+function trackLead(interest: string, size: string) {
+  const params = { inquiry_interest: interest, company_size: size, page_path: location.pathname };
+  sendGTMEvent({ event: "generate_lead", ...params });
+  (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.("event", "generate_lead", params);
 }
 
 type Status = { kind: "idle" | "sending" } | { kind: "sent"; name: string; email: string } | { kind: "error"; error: string; field?: string };
@@ -55,8 +65,10 @@ export default function InquiryForm() {
         body: JSON.stringify({ ...f, startedAt: startedAt.current }),
       });
       const out = await res.json().catch(() => ({}));
-      if (res.ok && out.ok) setStatus({ kind: "sent", name: String(f.name).trim().split(/\s+/)[0], email: String(f.email).trim() });
-      else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
+      if (res.ok && out.ok) {
+        trackLead(String(f.interest), String(f.size));
+        setStatus({ kind: "sent", name: String(f.name).trim().split(/\s+/)[0], email: String(f.email).trim() });
+      } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
       setStatus({ kind: "error", error: "Could not send right now." });
     }
