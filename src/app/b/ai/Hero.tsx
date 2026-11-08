@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, type FormEvent, type KeyboardEvent } from "react";
+import { MAX } from "@/../lib/inquiry";
 import { openInquiry } from "./InquiryForm";
 import { WORKSHOP_HREF } from "./links";
 import s from "./b.module.css";
@@ -82,7 +83,7 @@ function AskBox() {
           text; once hydrated, send() handles the submit. */}
       <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} method="dialog" onSubmit={send}>
         <label htmlFor="ask-text" className={s.srOnly}>{o.prompt}</label>
-        <input id="ask-text" value={text} onChange={(e) => setTexts((t) => ({ ...t, [tab]: e.target.value }))} placeholder={o.prompt} autoComplete="off" />
+        <input id="ask-text" value={text} onChange={(e) => setTexts((t) => ({ ...t, [tab]: e.target.value }))} placeholder={o.prompt} autoComplete="off" maxLength={MAX.message} />
         <button type="submit" aria-label="Continue to the inquiry form">↵</button>
       </form>
       {tab === "workshop" && (

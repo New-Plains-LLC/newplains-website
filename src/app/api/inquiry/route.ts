@@ -14,6 +14,11 @@ import { ownPage, readCapped, sameHost } from "@/../lib/inquiry-route";
 //   AGENTMAIL_API_BASE   optional override of the AgentMail API URL, e.g. to
 //                        point a local run at a mock server instead
 
+// Hard cap on the whole invocation, so a client that trickles or stalls
+// its body can't hold the function open. A real submit takes about 1s;
+// the AgentMail send has its own 10s timeout.
+export const maxDuration = 20;
+
 const UNVERIFIED = "We could not verify this browser.";
 const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });

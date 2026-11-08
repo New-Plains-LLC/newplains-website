@@ -54,7 +54,8 @@ type Result = { ok: true; value: Inquiry } | { ok: false; field: keyof Inquiry; 
 // "Field: value" line in the email. (\s already covers U+2028/U+2029.)
 const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f-\u009f]+/g, " ").replace(/\s+/g, " ").trim() : "");
 // NEL and the Unicode line/paragraph separators count as newlines, so each
-// visible line of the message is quoted in the email; other C0/C1 controls go.
+// visible line of the message is quoted in the email. Tab stays (people
+// paste tables); every other C0/C1 control goes.
 const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u0085\u2028\u2029]/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f-\u009f]/g, "").trim() : "");
 // Both sides are dot-separated parts, so "a..b@c.com", ".a@c.com",
 // "a@b..com" and "x@y.com." fail (mail servers bounce them).
@@ -84,8 +85,10 @@ export function parseInquiry(raw: Record<string, unknown>): Result {
 // A greeting-safe first name: one word of letters (plus ' . -), at most 30
 // characters. Anything else is blank and the assistant writes "Hi there".
 // Takes the raw name, so the form's thank-you and the email can't disagree.
+// A trailing dot goes ("J. R. R. Tolkien" -> "J"), so "Thanks, {name}."
+// never ends in "..".
 export const firstName = (name: unknown) => {
-  const w = line(name).split(" ")[0];
+  const w = line(name).split(" ")[0].replace(/\.+$/, "");
   return /^\p{L}[\p{L}'’.-]{0,29}$/u.test(w) ? w : "";
 };
 
