@@ -123,7 +123,6 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
       segs.push({ u0: u, u1: u + hold, c0: cam, c1: z, ease: false });
       u += hold;
       cam = z;
-      el.dataset.u = ((uA + u) / 2).toFixed(3); // hold midpoint, for tests
       // Keep the board's foot above the ground line so its posts can stand.
       const [w, h] = sizes[i];
       // Boards stand on the shoulders, inner edge clear of the road ahead,
@@ -292,7 +291,6 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     const posts = [...postsEl.children] as HTMLElement[];
     for (const el of [trackEl, stageEl, worldEl, roadEl, postsEl, millEl, ...boardEls, ...posts]) el.style.cssText = "";
     delete stageEl.dataset.ready;
-    boardEls.forEach((el) => delete el.dataset.u);
     railBtns.forEach((btn) => btn.removeAttribute("aria-current"));
   };
 }
