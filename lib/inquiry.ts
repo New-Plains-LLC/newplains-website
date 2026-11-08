@@ -74,14 +74,18 @@ export function parseInquiry(raw: Record<string, unknown>): Result {
 
 // A greeting-safe first name: one word of letters (plus ' . -), at most 30
 // characters. Anything else is blank and the assistant writes "Hi there".
-export const firstName = (name: string) => {
-  const w = name.split(" ")[0];
+// Takes the raw name, so the form's thank-you and the email can't disagree.
+export const firstName = (name: unknown) => {
+  const w = line(name).split(" ")[0];
   return /^\p{L}[\p{L}'’.-]{0,29}$/u.test(w) ? w : "";
 };
 
 export function inquiryEmail(q: Inquiry, meta: { page: string; at: Date }) {
   const central = meta.at.toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "medium", timeStyle: "short" });
-  const subject = `${SUBJECT_PREFIX} ${INTERESTS[q.interest]} from ${q.name}, ${q.company}`;
+  // Name and company are capped here so the subject stays well under the
+  // ~255 bytes some mail servers keep; the JSON has the full values.
+  const clip = (s: string) => { const c = Array.from(s); return c.length > 60 ? `${c.slice(0, 59).join("")}…` : s; };
+  const subject = `${SUBJECT_PREFIX} ${INTERESTS[q.interest]} from ${clip(q.name)}, ${clip(q.company)}`;
   const data = {
     type: "newplains.inquiry",
     version: 1,

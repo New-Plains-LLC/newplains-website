@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 const serif = Newsreader({ subsets: ["latin"], weight: ["300", "400"], variable: "--font-serif", display: "swap" });
 
-const featured = consultingToolExamples.find((e) => e.image);
+const featured = consultingToolExamples.find((e): e is typeof e & { image: string } => Boolean(e.image));
 const listed = consultingToolExamples.filter((e) => !e.image);
 
 // Read as you scroll: each word darkens as it passes the middle of the screen.
@@ -199,7 +199,7 @@ export default function AiPageB() {
         {featured && (
           <article className={s.feature}>
             <div className={s.featureShot}>
-              <Image src={featured.image!} alt={featured.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 860px) 92vw, 720px" />
+              <Image src={featured.image} alt={featured.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 860px) 92vw, 720px" />
             </div>
             <div>
               <p className={s.label}>{featured.label}</p>

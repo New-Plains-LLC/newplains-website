@@ -43,7 +43,10 @@ export default function InquiryForm() {
       if (scroll) el?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       form.current?.querySelector<HTMLInputElement>("#inq-name")?.focus({ preventScroll: true });
     };
-    const onEvent = (e: Event) => go((e as CustomEvent<InquiryDetail>).detail, true);
+    const onEvent = (e: Event) => {
+      const d = (e as CustomEvent<Partial<InquiryDetail> | null>).detail;
+      if (d && isInterest(d.interest)) go({ interest: d.interest, message: typeof d.message === "string" ? d.message : undefined }, true);
+    };
     // Links like <a href="#contact" data-interest="audit"> scroll on their
     // own; this only sets the interest and focus.
     const onClick = (e: MouseEvent) => {
@@ -70,7 +73,7 @@ export default function InquiryForm() {
       if (res.ok && out.ok) {
         // Analytics must never turn a sent inquiry into an error message.
         try { trackLead(String(f.interest), String(f.size)); } catch {}
-        setStatus({ kind: "sent", name: firstName(String(f.name).trim().replace(/\s+/g, " ")), email: String(f.email).trim() });
+        setStatus({ kind: "sent", name: firstName(f.name), email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
       setStatus({ kind: "error", error: "Could not send right now." });
