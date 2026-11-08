@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkBotId } from "botid/server";
 import { INQUIRY_PAGE, INQUIRY_TO, MAX_BODY, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
-import { ownPage, readCapped } from "@/../lib/inquiry-route";
+import { ownPage, readCapped, sameHost } from "@/../lib/inquiry-route";
 
 // Website inquiry form -> one email to the Hermes assistant's AgentMail inbox.
 // The email is sent from a dedicated AgentMail inbox (AGENTMAIL_FORM_INBOX)
@@ -33,6 +33,9 @@ export async function POST(req: NextRequest) {
     return fail(503, "We could not verify this browser.");
   }
   if (isBot) return fail(403, "We could not verify this browser.");
+  // Browsers send Origin on a cross-site POST; only our own host may submit.
+  // Compared by host, so http/https behind a proxy can't cause a mismatch.
+  if (!sameHost(req.headers.get("origin"), req.headers.get("host"))) return fail(403, "We could not verify this browser.");
 
   const key = process.env.AGENTMAIL_API_KEY;
   const inbox = process.env.AGENTMAIL_FORM_INBOX;

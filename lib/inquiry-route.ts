@@ -13,7 +13,8 @@ export async function readCapped(body: ReadableStream<Uint8Array> | null, max: n
     const { done, value } = await reader.read();
     if (done) break;
     size += value.byteLength;
-    if (size > max) { await reader.cancel(); return null; }
+    // Too large either way; a failed cancel must not turn this into an error.
+    if (size > max) { await reader.cancel().catch(() => {}); return null; }
     parts.push(value);
   }
   const all = new Uint8Array(size);
@@ -30,4 +31,11 @@ export function ownPage(referer: string | null, origin: string, fallbackPath: st
     if (u.origin === origin && /^\/[\w\-/]{0,100}$/.test(u.pathname)) return origin + u.pathname;
   } catch {}
   return origin + fallbackPath;
+}
+
+// True when there is no Origin header (same-origin GETs, server tools) or
+// when Origin names this host. A cross-site browser POST always sends one.
+export function sameHost(origin: string | null, host: string | null) {
+  if (!origin) return true;
+  try { return !!host && new URL(origin).host === host; } catch { return false; }
 }

@@ -21,7 +21,8 @@ export const INTERESTS = {
 } as const;
 export type Interest = keyof typeof INTERESTS;
 // Own keys only: `in` would also accept inherited names like "toString".
-export const isInterest = (v: unknown): v is Interest => typeof v === "string" && Object.hasOwn(INTERESTS, v);
+// (hasOwnProperty.call rather than Object.hasOwn, which needs Safari 15.4+.)
+export const isInterest = (v: unknown): v is Interest => typeof v === "string" && Object.prototype.hasOwnProperty.call(INTERESTS, v);
 
 // The prompt the form shows for each interest; the email repeats it so the
 // assistant knows what question the message answers.
@@ -51,7 +52,9 @@ type Result = { ok: true; value: Inquiry } | { ok: false; field: keyof Inquiry; 
 // Single-line fields lose control characters and line breaks, so a value
 // cannot fake an extra "Field: value" line in the email.
 const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim() : "");
-const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, "").trim() : "");
+// Unicode line/paragraph separators count as newlines, so each visible
+// line of the message is quoted in the email.
+const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u2028\u2029]/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, "").trim() : "");
 // Domain is dot-separated labels, so "a@b..com" and "x@y.com." fail.
 const EMAIL_RE = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
 
