@@ -69,10 +69,11 @@ type StopProps = {
   y?: number; // vertical offset, fraction of viewport height
   className?: string;
   peak?: boolean;
+  landmark?: boolean; // the windmill stands just past this board
   label?: string;
   children: ReactNode;
 };
-function Stop({ id, gap, hold, pace, x, y, className = "", peak, label, children }: StopProps) {
+function Stop({ id, gap, hold, pace, x, y, className = "", peak, landmark, label, children }: StopProps) {
   return (
     <article
       id={id}
@@ -85,6 +86,7 @@ function Stop({ id, gap, hold, pace, x, y, className = "", peak, label, children
       data-x={x}
       data-y={y}
       data-peak={peak ? "" : undefined}
+      data-landmark={landmark ? "" : undefined}
     >
       {children}
     </article>
@@ -179,7 +181,7 @@ export default function AiPage() {
           </Stop>
         ))}
 
-        <Stop id="approach" gap={1500} hold={0.55} pace={1} x={0.16} className={w.panel}>
+        <Stop id="approach" landmark gap={1500} hold={0.55} pace={1} x={0.16} className={w.panel}>
           <p className={w.label}>From first question to everyday use</p>
           <h2>Built with your people.<br />Designed for the real world.</h2>
           <p className={w.small}>Clear scope. Human approval. Deliberate data access. A person to handle the exceptions.</p>

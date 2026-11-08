@@ -265,6 +265,8 @@
   .world > .board { width: min(520px, 92vw); }
   .world > .gate { width: min(640px, 90vw); }
   .stage:not([data-ready]) .world > .stop:not(:first-of-type) { opacity: 0; }
+  /* Unplaced scenery would pile up at the origin until the first measure. */
+  .stage:not([data-ready]) :is(.mill, .posts) { visibility: hidden; }
 
   /* Every board stands on two posts that reach the ground line. */
   .world > .stop::before, .world > .stop::after {

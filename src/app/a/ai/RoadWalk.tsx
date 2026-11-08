@@ -54,6 +54,218 @@ const smooth = (a: number, b: number, t: number) => {
   return x * x * (3 - 2 * x);
 };
 
+type Els = {
+  track: HTMLElement;
+  stage: HTMLElement;
+  world: HTMLElement;
+  road: HTMLElement;
+  posts: HTMLElement;
+  mill: HTMLElement;
+  rail: HTMLElement | null;
+};
+
+// Runs the walk until the returned function is called. That removes every
+// listener and inline style the walk set, so the flat page takes over.
+function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadEl, posts: postsEl, mill: millEl, rail: railEl }: Els) {
+  const boardEls = [...worldEl.querySelectorAll<HTMLElement>("[data-stop]")];
+  const railBtns = [...(railEl?.querySelectorAll<HTMLButtonElement>("button") ?? [])];
+  let disposed = false;
+
+  let boards: Board[] = [];
+  let segs: Seg[] = [];
+  let total = 1;
+  let vh = 1;
+  let us = 0; // smoothed scroll position, in screens
+  let last = 0;
+  let raf = 0;
+  let millZ = 0;
+
+  const camAt = (u: number) => {
+    for (const s of segs) {
+      if (u <= s.u1) {
+        const t = s.u1 > s.u0 ? clamp((u - s.u0) / (s.u1 - s.u0)) : 1;
+        return s.c0 + (s.c1 - s.c0) * (s.ease ? easeInOut(t) : t);
+      }
+    }
+    return segs.length ? segs[segs.length - 1].c1 : 0;
+  };
+
+  const measure = () => {
+    vh = stageEl.clientHeight;
+    const vw = stageEl.clientWidth;
+    const narrow = vw < 760;
+    const ground = narrow ? 0.8 : 0.75;
+    stageEl.style.setProperty("--ground", `${ground * 100}%`);
+    let z = CREEP, u = 0, cam = 0;
+    segs = [];
+    boards = boardEls.map((el, i) => {
+      const gap = Number(el.dataset.gap ?? 1400);
+      const hold = Number(el.dataset.hold ?? 0.6) * HOLD;
+      const pace = Number(el.dataset.pace ?? 0.8);
+      if (i > 0) {
+        z += gap;
+        const travel = (gap / 1000) * pace * TRAVEL;
+        segs.push({ u0: u, u1: u + travel, c0: cam, c1: z - CREEP, ease: true });
+        u += travel;
+        cam = z - CREEP;
+      }
+      const uA = u;
+      segs.push({ u0: u, u1: u + hold, c0: cam, c1: z, ease: false });
+      u += hold;
+      cam = z;
+      el.dataset.u = ((uA + u) / 2).toFixed(3); // hold midpoint, for tests
+      // Keep the board's foot above the ground line so its posts can stand.
+      const h = el.offsetHeight;
+      // Boards stand on the shoulders, inner edge clear of the road ahead,
+      // angled to face the walker. data-x picks the side (sign only); 0 is
+      // across the road (the gate). Phones have no room for a clear lane,
+      // so boards only lean toward their side there.
+      const xf = Number(el.dataset.x ?? 0);
+      const side = Math.sign(xf);
+      const w = el.offsetWidth;
+      const lane = Math.min(Math.max(170, vw * 0.11), Math.max(0, vw / 2 - 20 - w));
+      const x = narrow ? side * Math.max(0, (vw - w) / 2 - 8) : side * (lane + w / 2);
+      const turn = narrow ? 0 : side * 11;
+      const room = (ground - 0.5) * vh - h / 2 - 28;
+      const y = Math.max(Math.min(Number(el.dataset.y ?? 0) * vh, room), -(0.5 * vh - h / 2 - 12));
+      el.style.setProperty("--post", `${Math.max(0, (ground - 0.5) * vh - y - h / 2)}px`);
+      el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${-z}px) rotateY(${turn}deg)`;
+      return { el, z, uA, uB: u, peak: el.hasAttribute("data-peak") };
+    });
+    total = u;
+    trackEl.style.height = `${(total + 1) * vh}px`;
+
+    // Fence posts ride a treadmill: fixed slots, shifted by cam mod gap.
+    const fence = narrow ? vw * 0.62 : vw * 0.56;
+    [...postsEl.children].forEach((p, i) => {
+      const k = Math.floor(i / 2);
+      const s = i % 2 ? 1 : -1;
+      (p as HTMLElement).style.transform = `translate3d(${s * fence}px, -100%, ${-k * POST_GAP + 400}px)`;
+    });
+
+    // The windmill stands well off the road, past the board marked
+    // data-landmark (the start of the approach markers).
+    const at = boards.find((b) => b.el.hasAttribute("data-landmark"));
+    millZ = (at?.z ?? 20000) + 2600;
+    millEl.style.transform = `translate3d(${vw * (narrow ? 0.9 : 0.95)}px, -100%, ${-millZ}px)`;
+  };
+
+  const draw = (u: number) => {
+    const cam = camAt(u);
+    worldEl.style.transform = `translate3d(0,0,${cam}px)`;
+    roadEl.style.transform = `translateZ(700px) rotateX(-90deg) translateY(${-(cam % DASH)}px)`;
+    postsEl.style.transform = `translate3d(0,0,${cam % POST_GAP}px)`;
+    const md = cam - millZ;
+    millEl.style.visibility = md > 700 ? "hidden" : "visible";
+
+    let clear = 0;
+    boards.forEach((b) => {
+      const d = cam - b.z;
+      const o = d < 0 ? clamp((2800 + d) / 1600) : clamp(1 - d / 420);
+      // Opacity only, never visibility: hidden boards would drop out of the
+      // tab order, and focusing a far board is how keyboard users walk.
+      b.el.style.opacity = o.toFixed(3);
+      b.el.style.pointerEvents = Math.abs(d) < 260 ? "auto" : "none";
+      if (b.peak) {
+        const span = b.uB - b.uA;
+        const local = span > 0 ? (u - b.uA) / span : 1;
+        const k = smooth(0.12, 0.72, local);
+        b.el.style.setProperty("--k", k.toFixed(4));
+        clear = smooth(0.3, 0.9, local);
+      }
+    });
+    stageEl.style.setProperty("--clear", clear.toFixed(4));
+
+    // Rail: the last marker whose board we have reached.
+    let current = 0;
+    railBtns.forEach((btn, i) => {
+      const b = boards.find((x) => x.el.id === btn.dataset.target);
+      if (b && u >= b.uA - 0.15) current = i;
+    });
+    railBtns.forEach((btn, i) => btn.setAttribute("aria-current", i === current ? "step" : "false"));
+  };
+
+  const target = () => clamp(-trackEl.getBoundingClientRect().top / vh, 0, total);
+
+  const tick = (now: number) => {
+    const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
+    last = now;
+    const t = target();
+    us += (t - us) * (1 - Math.exp(-dt * SMOOTH));
+    if (Math.abs(t - us) < 0.0004) us = t;
+    draw(us);
+    raf = us === t ? 0 : requestAnimationFrame(tick);
+    if (!raf) last = 0;
+  };
+  const wake = () => {
+    if (!raf) raf = requestAnimationFrame(tick);
+  };
+
+  // Boards are matched by element, since most of them have no id.
+  const scrollToBoard = (target: string | HTMLElement, at = 0.65) => {
+    const b = boards.find((x) => (typeof target === "string" ? x.el.id === target : x.el === target));
+    if (!b) return false;
+    const top = trackEl.getBoundingClientRect().top + scrollY;
+    scrollTo({ top: top + (b.uA + (b.uB - b.uA) * at) * vh, behavior: "auto" });
+    return true;
+  };
+
+  const onResize = () => {
+    const frac = total ? us / total : 0;
+    measure();
+    us = frac * total;
+    draw(us);
+    wake();
+  };
+  const onFocus = (e: FocusEvent) => {
+    const el = (e.target as HTMLElement).closest<HTMLElement>("[data-stop]");
+    // Defer: the browser's own scroll-focused-element-into-view runs after
+    // focusin and would otherwise overwrite this.
+    if (el) requestAnimationFrame(() => !disposed && scrollToBoard(el));
+  };
+  const onHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (id) scrollToBoard(id);
+  };
+  const onRail = (e: MouseEvent) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-target]");
+    const id = btn?.dataset.target;
+    if (id) scrollToBoard(id);
+  };
+
+  measure();
+  us = target();
+  draw(us);
+  stageEl.dataset.ready = "";
+  addEventListener("scroll", wake, { passive: true });
+  addEventListener("resize", onResize);
+  addEventListener("hashchange", onHash);
+  worldEl.addEventListener("focusin", onFocus);
+  railEl?.addEventListener("click", onRail);
+  // Fonts and images change board heights, and board heights set the posts.
+  document.fonts?.ready.then(() => !disposed && onResize());
+  addEventListener("load", onResize);
+  onHash();
+
+  return () => {
+    disposed = true;
+    cancelAnimationFrame(raf);
+    removeEventListener("scroll", wake);
+    removeEventListener("resize", onResize);
+    removeEventListener("hashchange", onHash);
+    removeEventListener("load", onResize);
+    worldEl.removeEventListener("focusin", onFocus);
+    railEl?.removeEventListener("click", onRail);
+    // Hand back to the CSS fallback: none of these carry inline styles of
+    // their own, so clearing them wholesale is safe.
+    const posts = [...postsEl.children] as HTMLElement[];
+    for (const el of [trackEl, stageEl, worldEl, roadEl, postsEl, millEl, ...boardEls, ...posts]) el.style.cssText = "";
+    delete stageEl.dataset.ready;
+    boardEls.forEach((el) => delete el.dataset.u);
+    railBtns.forEach((btn) => btn.removeAttribute("aria-current"));
+  };
+}
+
 export default function RoadWalk({ children, marks }: { children: ReactNode; marks: Mark[] }) {
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -63,195 +275,26 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
   const mill = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLOListElement>(null);
 
+  // Follows the media query live: turning on reduced motion mid-visit drops
+  // the walk for the flat page, and turning it off brings the walk back.
   useEffect(() => {
-    if (!matchMedia(WALK_QUERY).matches) return;
-    const trackEl = track.current!, stageEl = stage.current!, worldEl = world.current!;
-    const roadEl = road.current!, postsEl = posts.current!, millEl = mill.current!;
-    const boardEls = [...worldEl.querySelectorAll<HTMLElement>("[data-stop]")];
-    const railBtns = [...(rail.current?.querySelectorAll<HTMLButtonElement>("button") ?? [])];
-
-    let boards: Board[] = [];
-    let segs: Seg[] = [];
-    let total = 1;
-    let vh = 1;
-    let us = 0; // smoothed scroll position, in screens
-    let last = 0;
-    let raf = 0;
-    let millZ = 0;
-
-    const camAt = (u: number) => {
-      for (const s of segs) {
-        if (u <= s.u1) {
-          const t = s.u1 > s.u0 ? clamp((u - s.u0) / (s.u1 - s.u0)) : 1;
-          return s.c0 + (s.c1 - s.c0) * (s.ease ? easeInOut(t) : t);
-        }
+    const [t, s, wo, ro, po, mi] = [track.current, stage.current, world.current, road.current, posts.current, mill.current];
+    if (!t || !s || !wo || !ro || !po || !mi) return;
+    const els = { track: t, stage: s, world: wo, road: ro, posts: po, mill: mi, rail: rail.current };
+    const mq = matchMedia(WALK_QUERY);
+    let stop: (() => void) | undefined;
+    const sync = () => {
+      if (mq.matches) stop ??= startWalk(els);
+      else {
+        stop?.();
+        stop = undefined;
       }
-      return segs.length ? segs[segs.length - 1].c1 : 0;
     };
-
-    const measure = () => {
-      vh = stageEl.clientHeight;
-      const vw = stageEl.clientWidth;
-      const narrow = vw < 760;
-      const ground = narrow ? 0.8 : 0.75;
-      stageEl.style.setProperty("--ground", `${ground * 100}%`);
-      let z = CREEP, u = 0, cam = 0;
-      segs = [];
-      boards = boardEls.map((el, i) => {
-        const gap = Number(el.dataset.gap ?? 1400);
-        const hold = Number(el.dataset.hold ?? 0.6) * HOLD;
-        const pace = Number(el.dataset.pace ?? 0.8);
-        if (i > 0) {
-          z += gap;
-          const travel = (gap / 1000) * pace * TRAVEL;
-          segs.push({ u0: u, u1: u + travel, c0: cam, c1: z - CREEP, ease: true });
-          u += travel;
-          cam = z - CREEP;
-        }
-        const uA = u;
-        segs.push({ u0: u, u1: u + hold, c0: cam, c1: z, ease: false });
-        u += hold;
-        cam = z;
-        el.dataset.u = ((uA + u) / 2).toFixed(3); // hold midpoint, for tests
-        // Keep the board's foot above the ground line so its posts can stand.
-        const h = el.offsetHeight;
-        // Boards stand on the shoulders, inner edge clear of the road ahead,
-        // angled to face the walker. data-x picks the side (sign only); 0 is
-        // across the road (the gate). Phones have no room for a clear lane,
-        // so boards only lean toward their side there.
-        const xf = Number(el.dataset.x ?? 0);
-        const side = Math.sign(xf);
-        const w = el.offsetWidth;
-        const lane = Math.min(Math.max(170, vw * 0.11), Math.max(0, vw / 2 - 20 - w));
-        const x = narrow ? side * Math.max(0, (vw - w) / 2 - 8) : side * (lane + w / 2);
-        const turn = narrow ? 0 : side * 11;
-        const room = (ground - 0.5) * vh - h / 2 - 28;
-        const y = Math.max(Math.min(Number(el.dataset.y ?? 0) * vh, room), -(0.5 * vh - h / 2 - 12));
-        el.style.setProperty("--post", `${Math.max(0, (ground - 0.5) * vh - y - h / 2)}px`);
-        el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${-z}px) rotateY(${turn}deg)`;
-        return { el, z, uA, uB: u, peak: el.hasAttribute("data-peak") };
-      });
-      total = u;
-      trackEl.style.height = `${(total + 1) * vh}px`;
-
-      // Fence posts ride a treadmill: fixed slots, shifted by cam mod gap.
-      const fence = narrow ? vw * 0.62 : vw * 0.56;
-      [...postsEl.children].forEach((p, i) => {
-        const k = Math.floor(i / 2);
-        const s = i % 2 ? 1 : -1;
-        (p as HTMLElement).style.transform = `translate3d(${s * fence}px, -100%, ${-k * POST_GAP + 400}px)`;
-      });
-
-      // The windmill stands well off the road, between two approach markers.
-      const at = boards.find((b) => b.el.id === "approach");
-      millZ = (at?.z ?? 20000) + 2600;
-      millEl.style.transform = `translate3d(${vw * (narrow ? 0.9 : 0.95)}px, -100%, ${-millZ}px)`;
-    };
-
-    const draw = (u: number) => {
-      const cam = camAt(u);
-      worldEl.style.transform = `translate3d(0,0,${cam}px)`;
-      roadEl.style.transform = `translateZ(700px) rotateX(-90deg) translateY(${-(cam % DASH)}px)`;
-      postsEl.style.transform = `translate3d(0,0,${cam % POST_GAP}px)`;
-      const md = cam - millZ;
-      millEl.style.visibility = md > 700 ? "hidden" : "visible";
-
-      let clear = 0;
-      boards.forEach((b) => {
-        const d = cam - b.z;
-        const o = d < 0 ? clamp((2800 + d) / 1600) : clamp(1 - d / 420);
-        // Opacity only, never visibility: hidden boards would drop out of the
-        // tab order, and focusing a far board is how keyboard users walk.
-        b.el.style.opacity = o.toFixed(3);
-        b.el.style.pointerEvents = Math.abs(d) < 260 ? "auto" : "none";
-        if (b.peak) {
-          const local = (u - b.uA) / (b.uB - b.uA);
-          const k = smooth(0.12, 0.72, local);
-          b.el.style.setProperty("--k", k.toFixed(4));
-          clear = smooth(0.3, 0.9, local);
-        }
-      });
-      stageEl.style.setProperty("--clear", clear.toFixed(4));
-
-      // Rail: the last marker whose board we have reached.
-      let current = 0;
-      railBtns.forEach((btn, i) => {
-        const b = boards.find((x) => x.el.id === btn.dataset.target);
-        if (b && u >= b.uA - 0.15) current = i;
-      });
-      railBtns.forEach((btn, i) => btn.setAttribute("aria-current", i === current ? "step" : "false"));
-    };
-
-    const target = () => clamp(-trackEl.getBoundingClientRect().top / vh, 0, total);
-
-    const tick = (now: number) => {
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
-      last = now;
-      const t = target();
-      us += (t - us) * (1 - Math.exp(-dt * SMOOTH));
-      if (Math.abs(t - us) < 0.0004) us = t;
-      draw(us);
-      raf = us === t ? 0 : requestAnimationFrame(tick);
-      if (!raf) last = 0;
-    };
-    const wake = () => {
-      if (!raf) raf = requestAnimationFrame(tick);
-    };
-
-    // Boards are matched by element, since most of them have no id.
-    const scrollToBoard = (target: string | HTMLElement, at = 0.65) => {
-      const b = boards.find((x) => (typeof target === "string" ? x.el.id === target : x.el === target));
-      if (!b) return false;
-      const top = trackEl.getBoundingClientRect().top + scrollY;
-      scrollTo({ top: top + (b.uA + (b.uB - b.uA) * at) * vh, behavior: "auto" });
-      return true;
-    };
-
-    const onResize = () => {
-      const frac = total ? us / total : 0;
-      measure();
-      us = frac * total;
-      draw(us);
-      wake();
-    };
-    const onFocus = (e: FocusEvent) => {
-      const el = (e.target as HTMLElement).closest<HTMLElement>("[data-stop]");
-      // Defer: the browser's own scroll-focused-element-into-view runs after
-      // focusin and would otherwise overwrite this.
-      if (el) requestAnimationFrame(() => scrollToBoard(el));
-    };
-    const onHash = () => {
-      const id = decodeURIComponent(location.hash.slice(1));
-      if (id) scrollToBoard(id);
-    };
-    const onRail = (e: MouseEvent) => {
-      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-target]");
-      if (btn) scrollToBoard(btn.dataset.target!);
-    };
-
-    measure();
-    us = target();
-    draw(us);
-    stageEl.dataset.ready = "";
-    addEventListener("scroll", wake, { passive: true });
-    addEventListener("resize", onResize);
-    addEventListener("hashchange", onHash);
-    worldEl.addEventListener("focusin", onFocus);
-    const railEl = rail.current;
-    railEl?.addEventListener("click", onRail);
-    // Fonts and images change board heights, and board heights set the posts.
-    document.fonts?.ready.then(onResize);
-    addEventListener("load", onResize);
-    onHash();
-
+    sync();
+    mq.addEventListener("change", sync);
     return () => {
-      cancelAnimationFrame(raf);
-      removeEventListener("scroll", wake);
-      removeEventListener("resize", onResize);
-      removeEventListener("hashchange", onHash);
-      removeEventListener("load", onResize);
-      worldEl.removeEventListener("focusin", onFocus);
-      railEl?.removeEventListener("click", onRail);
+      mq.removeEventListener("change", sync);
+      stop?.();
     };
   }, []);
 
@@ -294,7 +337,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
           <ol ref={rail}>
             {marks.map((m) => (
               <li key={m.id}>
-                <button type="button" data-target={m.id}>
+                <button type="button" data-target={m.id} aria-label={m.label}>
                   <span>{m.label}</span>
                 </button>
               </li>
