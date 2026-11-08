@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkBotId } from "botid/server";
 import { INQUIRY_PAGE, INQUIRY_TO, MAX_BODY, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
+import { ownPage, readCapped } from "@/../lib/inquiry-route";
 
 // Website inquiry form -> one email to the Hermes assistant's AgentMail inbox.
 // The email is sent from a dedicated AgentMail inbox (AGENTMAIL_FORM_INBOX)
@@ -15,31 +16,6 @@ import { INQUIRY_PAGE, INQUIRY_TO, MAX_BODY, inquiryEmail, parseInquiry } from "
 const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });
 const fail = (status: number, error: string, field?: string) => NextResponse.json({ ok: false, error, field }, { status });
-
-// Reads the body but stops at max bytes, so a chunked upload with no
-// content-length can't make the function buffer more than that.
-async function readCapped(req: NextRequest, max: number): Promise<string | null> {
-  if (!req.body) return "";
-  const reader = req.body.getReader();
-  const parts: Uint8Array[] = [];
-  let size = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    size += value.byteLength;
-    if (size > max) { await reader.cancel(); return null; }
-    parts.push(value);
-  }
-  return Buffer.concat(parts).toString("utf8");
-}
-
-function ownPage(referer: string | null, origin: string) {
-  try {
-    const u = new URL(referer ?? "");
-    if (u.origin === origin && /^\/[\w\-/]{0,100}$/.test(u.pathname)) return origin + u.pathname;
-  } catch {}
-  return origin + INQUIRY_PAGE;
-}
 
 export async function POST(req: NextRequest) {
   // Vercel BotID: the browser check set up in src/instrumentation-client.ts.
@@ -66,7 +42,7 @@ export async function POST(req: NextRequest) {
   if (Number(req.headers.get("content-length") ?? 0) > MAX_BODY) return fail(413, "Request too large");
   let textBody: string | null;
   try {
-    textBody = await readCapped(req, MAX_BODY);
+    textBody = await readCapped(req.body, MAX_BODY);
   } catch {
     // Client hung up mid-body: answer in the route's own JSON shape.
     return fail(400, "Invalid request");
@@ -86,7 +62,7 @@ export async function POST(req: NextRequest) {
 
   // Referer is client-controlled: keep it only if it is one of our own
   // pages, and only its path, so it cannot add lines to the email.
-  const page = ownPage(req.headers.get("referer"), req.nextUrl.origin);
+  const page = ownPage(req.headers.get("referer"), req.nextUrl.origin, INQUIRY_PAGE);
   const { subject, text } = inquiryEmail(parsed.value, { page, at: new Date() });
 
   try {
