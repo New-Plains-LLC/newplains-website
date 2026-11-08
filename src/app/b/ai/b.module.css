@@ -26,11 +26,13 @@
   letter-spacing: -0.01em;
   overflow-x: clip;
 }
-.page h1, .page h2, .page h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
-.page p { margin: 0; }
-.page a { color: inherit; }
+/* Resets sit in :where() so they weigh no more than one class: any class
+   rule after this point wins with no important flag. */
+.page :where(h1, h2, h3) { font-family: var(--serif); font-weight: 400; margin: 0; }
+.page :where(p) { margin: 0; }
+.page :where(a) { color: inherit; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.label { font-size: 13px; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 18px !important; }
+.label { font-size: 13px; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 18px; }
 .small { font-size: 14px; color: var(--muted); }
 
 /* Nav */
@@ -49,7 +51,7 @@
 .nav nav a { text-decoration: none; color: var(--muted); }
 .nav nav a:hover { color: var(--ink); }
 .navCta {
-  margin-left: auto; text-decoration: none; background: var(--ink); color: var(--cream) !important;
+  margin-left: auto; text-decoration: none; background: var(--ink); color: var(--cream);
   padding: 7px 14px; border-radius: 8px; font-weight: 500;
 }
 .navCta:hover { background: var(--copper-deep); }
@@ -63,12 +65,15 @@
 }
 .hero h1 { font-size: clamp(52px, 7.4vw, 96px); line-height: 0.92; letter-spacing: -0.025em; color: var(--ink); }
 .cycle { display: inline-block; position: relative; color: var(--copper-deep); }
-.cycleWord { display: inline-block; animation: wordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.cycleWord { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .cycleWord { animation: wordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+}
 @keyframes wordIn {
   from { opacity: 0; transform: translateY(0.35em); filter: blur(6px); }
   to { opacity: 1; transform: none; filter: none; }
 }
-.heroLede { max-width: 32em; margin-top: 28px !important; font-size: 18px; color: var(--muted); }
+.heroLede { max-width: 32em; margin-top: 28px; font-size: 18px; color: var(--muted); }
 
 .ask {
   margin-top: 36px; max-width: 460px;
@@ -120,7 +125,7 @@
 }
 
 .creds {
-  width: var(--wrap); margin: 0 auto 72px !important;
+  width: var(--wrap); margin: 0 auto 72px;
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 28px;
   font-family: var(--serif); font-size: 22px; color: var(--faint);
   border-top: 1px solid var(--line); padding-top: 28px;
@@ -169,7 +174,7 @@
 .bandText h2 { font-size: clamp(38px, 4.6vw, 60px); line-height: 1.05; letter-spacing: -0.022em; color: var(--deep); max-width: 10em; }
 .bandText > p:last-child { margin-top: 24px; max-width: 28em; font-size: 18px; }
 .bandMock { justify-self: end; width: 100%; max-width: 480px; }
-.footnote { width: var(--wrap); margin: 0 auto !important; padding: 20px 0; font-size: 13px; color: var(--muted); }
+.footnote { width: var(--wrap); margin: 0 auto; padding: 20px 0; font-size: 13px; color: var(--muted); }
 @media (max-width: 860px) {
   .band { padding: 88px 0; }
   .bandInner { grid-template-columns: 1fr; gap: 40px; }
@@ -194,7 +199,7 @@
   font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
   background: color-mix(in oklab, var(--deep, var(--sage)) 18%, var(--cream)); color: var(--deep, var(--ink));
 }
-.cardLabel { margin-top: 16px !important; font-size: 12px; font-weight: 600; color: var(--muted); }
+.cardOpen > .cardLabel { margin-top: 16px; font-size: 12px; font-weight: 600; color: var(--muted); }
 .cardRow { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
 .pillGreen, .pillCopper, .pillWheat { font-size: 12px; padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
 .pillGreen { background: color-mix(in oklab, var(--sage) 30%, var(--cream)); color: var(--sage-deep); }
@@ -232,7 +237,7 @@
 .accordion summary:hover, .accordion details[open] summary { color: var(--ink); }
 .accordion summary:focus-visible { outline: 2px solid var(--copper); outline-offset: 4px; border-radius: 4px; }
 .accordion details > div { padding: 4px 0 28px; display: grid; gap: 12px; max-width: 34em; }
-.accordion details > div .label { margin-bottom: 0 !important; }
+.accordion details > div .label { margin-bottom: 0; }
 .accordion details a { font-weight: 500; text-decoration-color: var(--copper); text-underline-offset: 4px; }
 @media (max-width: 860px) {
   .tools { padding: 104px 0 80px; }
@@ -251,7 +256,7 @@
   mask-image: linear-gradient(transparent, black 80px, black calc(100% - 80px), transparent);
 }
 .approachHead > p:last-child { margin-top: 24px; max-width: 30em; color: var(--muted); font-size: 18px; }
-.grid { list-style: none; margin: 72px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+.grid { list-style: none; margin: 72px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .grid li {
   background: color-mix(in oklab, white 60%, var(--cream)); border-radius: 22px; padding: 24px 24px 28px;
   border: 1px solid rgb(45 42 38 / 0.06);
@@ -278,7 +283,7 @@
 .operator { width: var(--wrap); margin: 0 auto; padding: 120px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .operatorPhoto { border-radius: 32px; overflow: hidden; }
 .operatorPhoto img { display: block; width: 100%; height: auto; }
-.quote { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 44px); line-height: 1.12; letter-spacing: -0.018em; margin-bottom: 24px !important; }
+.quote { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 44px); line-height: 1.12; letter-spacing: -0.018em; margin-bottom: 24px; }
 .operator p:last-child { color: var(--muted); max-width: 30em; }
 @media (max-width: 860px) { .operator { grid-template-columns: 1fr; gap: 32px; padding: 72px 0; } }
 
@@ -307,7 +312,7 @@
 .close > p:not(.label) { margin-top: 24px; max-width: 32em; font-size: 19px; color: color-mix(in oklab, var(--cream) 78%, var(--ink)); }
 .closeActions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 40px; }
 .button {
-  display: inline-block; background: var(--wheat); color: var(--ink) !important; text-decoration: none;
+  display: inline-block; background: var(--wheat); color: var(--ink); text-decoration: none;
   font-weight: 500; padding: 14px 22px; border-radius: 12px;
 }
 .button:hover { background: var(--cream); }
@@ -325,7 +330,7 @@
   font-family: var(--serif); font-weight: 300; letter-spacing: -0.04em; line-height: 0.8;
   font-size: 19.5vw; white-space: nowrap; text-align: center;
   color: color-mix(in oklab, var(--wheat) 45%, var(--cream));
-  margin: 72px 0 -0.12em !important; user-select: none;
+  margin: 72px 0 -0.12em; user-select: none;
 }
 
 /* Scroll-driven polish, only where supported and wanted. Without it every

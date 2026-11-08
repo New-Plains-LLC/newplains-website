@@ -1,20 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type KeyboardEvent } from "react";
 import { mailto } from "../../a/ai/DirectEmailNote";
 import s from "./b.module.css";
 
 const WORDS = ["busywork.", "retyping.", "chasing.", "copy-paste."];
 
 // The last word of the headline cycles. Screen readers get the first word
-// only; the rotation is decoration and stops under reduced motion.
+// only; the rotation is decoration and stops whenever reduced motion is on,
+// including when the setting changes mid-visit.
 function CycleWord() {
   const [i, setI] = useState(0);
   useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setInterval(() => setI((n) => (n + 1) % WORDS.length), 2600);
-    return () => clearInterval(t);
+    const mq = matchMedia("(prefers-reduced-motion: reduce)");
+    let t: ReturnType<typeof setInterval> | undefined;
+    const sync = () => {
+      clearInterval(t);
+      t = undefined;
+      if (mq.matches) setI(0);
+      else t = setInterval(() => setI((n) => (n + 1) % WORDS.length), 2600);
+    };
+    sync();
+    mq.addEventListener("change", sync);
+    return () => { clearInterval(t); mq.removeEventListener("change", sync); };
   }, []);
   return (
     <>
@@ -45,6 +54,7 @@ const OFFERS = {
   },
 } as const;
 type Offer = keyof typeof OFFERS;
+const KEYS = Object.keys(OFFERS) as Offer[];
 
 function AskBox() {
   const [tab, setTab] = useState<Offer>("workshop");
@@ -54,11 +64,22 @@ function AskBox() {
     e.preventDefault();
     location.href = mailto(o.subject, o.body(text.trim()));
   };
+  // Tabs pattern: only the selected tab is in the Tab order; arrow keys,
+  // Home and End move between tabs and select them.
+  const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
+    const at = KEYS.indexOf(tab);
+    const next = { ArrowRight: at + 1, ArrowLeft: at - 1, Home: 0, End: KEYS.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    const k = KEYS[(next + KEYS.length) % KEYS.length];
+    setTab(k);
+    document.getElementById(`tab-${k}`)?.focus();
+  };
   return (
     <div className={s.ask}>
       <div className={s.tabs} role="tablist" aria-label="Ways to start">
-        {(Object.keys(OFFERS) as Offer[]).map((k) => (
-          <button key={k} type="button" role="tab" id={`tab-${k}`} aria-controls="ask-panel" aria-selected={tab === k} onClick={() => setTab(k)}>
+        {KEYS.map((k) => (
+          <button key={k} type="button" role="tab" id={`tab-${k}`} aria-controls="ask-panel" aria-selected={tab === k} tabIndex={tab === k ? 0 : -1} onClick={() => setTab(k)} onKeyDown={onKey}>
             {OFFERS[k].tab}
           </button>
         ))}
@@ -78,7 +99,7 @@ function AskBox() {
 export default function Hero() {
   return (
     <section className={s.hero}>
-      <div className={s.heroText}>
+      <div>
         <h1>
           Better business.
           <br />
