@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
   // fill it. They get a normal-looking success and no email is sent.
   // Drops are logged (reason only, no personal data) so a real lead caught
   // by mistake still leaves a trace in the Vercel logs.
-  const elapsed = Date.now() - Number(raw.startedAt);
-  if (raw.website || !(elapsed >= MIN_FILL_MS)) {
-    console.warn("[inquiry] dropped as bot", raw.website ? "honeypot" : `fill time ${Number.isFinite(elapsed) ? elapsed + "ms" : "missing"}`);
+  const fillMs = Number(raw.fillMs);
+  if (raw.website || !(fillMs >= MIN_FILL_MS)) {
+    console.warn("[inquiry] dropped as bot", raw.website ? "honeypot" : `fill time ${Number.isFinite(fillMs) ? fillMs + "ms" : "missing"}`);
     return ok();
   }
 

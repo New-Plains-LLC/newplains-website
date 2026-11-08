@@ -46,7 +46,10 @@ const KEYS = Object.keys(OFFERS) as Offer[];
 
 function AskBox() {
   const [tab, setTab] = useState<Offer>("workshop");
-  const [text, setText] = useState("");
+  // Each tab keeps its own answer, so text typed under one offer is never
+  // sent as the other.
+  const [texts, setTexts] = useState<Record<Offer, string>>({ workshop: "", audit: "" });
+  const text = texts[tab];
   const o = OFFERS[tab];
   const send = (e: FormEvent) => {
     e.preventDefault();
@@ -75,7 +78,7 @@ function AskBox() {
       </div>
       <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} onSubmit={send}>
         <label htmlFor="ask-text" className={s.srOnly}>{o.prompt}</label>
-        <input id="ask-text" value={text} onChange={(e) => setText(e.target.value)} placeholder={o.prompt} autoComplete="off" />
+        <input id="ask-text" value={text} onChange={(e) => setTexts((t) => ({ ...t, [tab]: e.target.value }))} placeholder={o.prompt} autoComplete="off" />
         <button type="submit" aria-label="Continue to the inquiry form">↵</button>
       </form>
       {tab === "workshop" && (

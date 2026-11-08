@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sendGTMEvent } from "@next/third-parties/google";
-import { INTERESTS, MAX, PROMPTS, SIZES, isInterest, type Interest } from "@/../lib/inquiry";
+import { INTERESTS, MAX, MIN_FILL_MS, PROMPTS, SIZES, isInterest, type Interest } from "@/../lib/inquiry";
 import s from "./b.module.css";
 
 const CONTACT_EMAIL = "info@newplains.dev";
@@ -29,11 +29,10 @@ export default function InquiryForm() {
   const [interest, setInterest] = useState<Interest>("workshop");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
-  const startedAt = useRef(0);
+  const firstTouch = useRef<number | null>(null);
   const form = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    startedAt.current = Date.now();
     const go = (d: InquiryDetail, scroll: boolean) => {
       setInterest(d.interest);
       if (d.message) setMessage(d.message);
@@ -57,17 +56,18 @@ export default function InquiryForm() {
   const send = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = Object.fromEntries(new FormData(e.currentTarget));
+    const fillMs = firstTouch.current === null ? 0 : Math.round(performance.now() - firstTouch.current);
     setStatus({ kind: "sending" });
     try {
       const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...f, startedAt: startedAt.current }),
+        body: JSON.stringify({ ...f, fillMs }),
       });
       const out = await res.json().catch(() => ({}));
       if (res.ok && out.ok) {
         // The server answers bots with a quiet success; don't count them.
-        if (!f.website) trackLead(String(f.interest), String(f.size));
+        if (!f.website && fillMs >= MIN_FILL_MS) trackLead(String(f.interest), String(f.size));
         setStatus({ kind: "sent", name: String(f.name).trim().split(/\s+/)[0], email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
@@ -88,7 +88,7 @@ export default function InquiryForm() {
   const invalid = (k: string) => (err?.field === k ? { "aria-invalid": true, "aria-describedby": "inq-error" } : {});
 
   return (
-    <form ref={form} className={s.inquiry} onSubmit={send}>
+    <form ref={form} className={s.inquiry} onSubmit={send} onFocusCapture={() => { firstTouch.current ??= performance.now(); }}>
       <div className={s.row}>
         <label className={s.field}>
           <span>Name</span>
