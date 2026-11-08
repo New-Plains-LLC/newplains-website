@@ -14,6 +14,7 @@ import { ownPage, readCapped, sameHost } from "@/../lib/inquiry-route";
 //   AGENTMAIL_API_BASE   optional override of the AgentMail API URL, e.g. to
 //                        point a local run at a mock server instead
 
+const UNVERIFIED = "We could not verify this browser.";
 const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });
 const fail = (status: number, error: string, field?: string) => NextResponse.json({ ok: false, error, field }, { status });
@@ -30,12 +31,12 @@ export async function POST(req: NextRequest) {
     }));
   } catch (e) {
     console.error("[inquiry] BotID check failed", String(e));
-    return fail(503, "We could not verify this browser.");
+    return fail(503, UNVERIFIED);
   }
-  if (isBot) return fail(403, "We could not verify this browser.");
+  if (isBot) return fail(403, UNVERIFIED);
   // Browsers send Origin on a cross-site POST; only our own host may submit.
   // Compared by host, so http/https behind a proxy can't cause a mismatch.
-  if (!sameHost(req.headers.get("origin"), req.headers.get("host"))) return fail(403, "We could not verify this browser.");
+  if (!sameHost(req.headers.get("origin"), req.headers.get("host"))) return fail(403, UNVERIFIED);
 
   const key = process.env.AGENTMAIL_API_KEY;
   const inbox = process.env.AGENTMAIL_FORM_INBOX;

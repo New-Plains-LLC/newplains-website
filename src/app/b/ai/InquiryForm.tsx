@@ -38,6 +38,16 @@ export default function InquiryForm() {
   // The form, and the button that had focus, are gone once it sends: move
   // focus to the thank-you so keyboard and screen-reader users keep their place.
   useEffect(() => { if (status.kind === "sent") thanks.current?.focus(); }, [status.kind]);
+  // Bumped to ask for focus on the name field. The effect runs after React
+  // has committed (so the form exists even if it just replaced the
+  // thank-you); the frame delay lets a link click's own hash navigation
+  // finish first, which would otherwise take the focus back.
+  const [focusName, setFocusName] = useState(0);
+  useEffect(() => {
+    if (!focusName) return;
+    const id = requestAnimationFrame(() => document.getElementById("inq-name")?.focus({ preventScroll: true }));
+    return () => cancelAnimationFrame(id);
+  }, [focusName]);
 
   useEffect(() => {
     const go = (d: InquiryDetail, scroll: boolean) => {
@@ -50,8 +60,7 @@ export default function InquiryForm() {
       setStatus((st) => (st.kind === "sent" || st.kind === "error" ? { kind: "idle" } : st));
       const el = document.getElementById("contact");
       if (scroll) el?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-      // After the render, in case the form just replaced the thank-you.
-      requestAnimationFrame(() => document.getElementById("inq-name")?.focus({ preventScroll: true }));
+      setFocusName((n) => n + 1);
     };
     const onEvent = (e: Event) => {
       const d = (e as CustomEvent<Partial<InquiryDetail> | null>).detail;
@@ -73,14 +82,16 @@ export default function InquiryForm() {
     e.preventDefault();
     const f = Object.fromEntries(new FormData(e.currentTarget));
     setStatus({ kind: "sending" });
+    // The route gives AgentMail 10s; never leave the button on "Sending…".
+    // A plain AbortController works where AbortSignal.timeout doesn't.
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 20_000);
     try {
       const res = await fetch(INQUIRY_PATH, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(f),
-        // The route gives AgentMail 10s; never leave the button on "Sending…".
-        // (AbortSignal.timeout is missing before Safari 16.4; send without it.)
-        signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(20_000) : undefined,
+        signal: ctrl.signal,
       });
       const out: Reply = await res.json().catch(() => ({}));
       if (res.ok && out.ok) {
@@ -91,6 +102,8 @@ export default function InquiryForm() {
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
       setStatus({ kind: "error", error: "Could not send right now." });
+    } finally {
+      clearTimeout(timer);
     }
   };
 
@@ -101,8 +114,7 @@ export default function InquiryForm() {
         <p>Your inquiry is in. Shawn’s assistant will email <strong>{status.email}</strong> shortly to confirm, then follow up to find a time that works.</p>
         <button type="button" className={s.again} onClick={() => {
           setStatus({ kind: "idle" });
-          // This button disappears with the thank-you; put focus in the new form.
-          requestAnimationFrame(() => document.getElementById("inq-name")?.focus());
+          setFocusName((n) => n + 1); // this button is about to disappear
         }}>Send another note</button>
       </div>
     );
