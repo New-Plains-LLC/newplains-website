@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 const serif = Newsreader({ subsets: ["latin"], variable: "--font-serif", display: "swap" });
 
 const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
-const featured = consultingToolExamples.filter((e) => e.image);
+// flatMap narrows image to a string, so the render needs no assertion.
+const featured = consultingToolExamples.flatMap((e) => (e.image ? [{ ...e, image: e.image }] : []));
 const listed = consultingToolExamples.filter((e) => !e.image);
 
 // Things a leadership team did by hand last week. Recognition, not claims.
@@ -163,7 +164,7 @@ export default function AiPage() {
         ))}
         {featured.map((e) => (
           <Stop key={e.title} gap={1500} hold={0.75} pace={1} x={1} className={`${w.panel} ${w.feature}`}>
-            <Image src={e.image!} alt={e.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 760px) 88vw, 560px" />
+            <Image src={e.image} alt={e.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 760px) 88vw, 560px" />
             <div>
               <p className={w.label}>{e.label}</p>
               <h3>{e.title}</h3>

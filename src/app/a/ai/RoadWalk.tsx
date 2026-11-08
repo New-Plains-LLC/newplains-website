@@ -83,6 +83,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   let raf = 0;
   let millZ = 0;
   let railCur = -1;
+  let resizeRaf = 0;
 
   const camAt = (u: number) => {
     for (const s of segs) {
@@ -99,6 +100,9 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     const vw = stageEl.clientWidth;
     const narrow = vw < 760;
     const ground = narrow ? 0.8 : 0.75;
+    // Read every board's size before writing anything, so the writes below
+    // can't force a reflow per board.
+    const sizes = boardEls.map((el) => [el.offsetWidth, el.offsetHeight] as const);
     stageEl.style.setProperty("--ground", `${ground * 100}%`);
     let z = CREEP, u = 0, cam = 0;
     segs = [];
@@ -119,14 +123,13 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
       cam = z;
       el.dataset.u = ((uA + u) / 2).toFixed(3); // hold midpoint, for tests
       // Keep the board's foot above the ground line so its posts can stand.
-      const h = el.offsetHeight;
+      const [w, h] = sizes[i];
       // Boards stand on the shoulders, inner edge clear of the road ahead,
       // angled to face the walker. data-x picks the side (sign only); 0 is
       // across the road (the gate). Phones have no room for a clear lane,
       // so boards only lean toward their side there.
       const xf = Number(el.dataset.x ?? 0);
       const side = Math.sign(xf);
-      const w = el.offsetWidth;
       const lane = Math.min(Math.max(170, vw * 0.11), Math.max(0, vw / 2 - 20 - w));
       const x = narrow ? side * Math.max(0, (vw - w) / 2 - 8) : side * (lane + w / 2);
       const turn = narrow ? 0 : side * 11;
@@ -226,6 +229,13 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     draw(us);
     wake();
   };
+  // Resize fires many times per drag; measure at most once a frame.
+  const onResizeEvent = () => {
+    if (!resizeRaf) resizeRaf = requestAnimationFrame(() => {
+      resizeRaf = 0;
+      onResize();
+    });
+  };
   const onFocus = (e: FocusEvent) => {
     const el = (e.target as HTMLElement).closest<HTMLElement>("[data-stop]");
     // Defer: the browser's own scroll-focused-element-into-view runs after
@@ -254,7 +264,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   draw(us);
   stageEl.dataset.ready = "";
   addEventListener("scroll", wake, { passive: true });
-  addEventListener("resize", onResize);
+  addEventListener("resize", onResizeEvent);
   addEventListener("hashchange", onHash);
   worldEl.addEventListener("focusin", onFocus);
   railEl?.addEventListener("click", onRail);
@@ -267,7 +277,8 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     disposed = true;
     cancelAnimationFrame(raf);
     removeEventListener("scroll", wake);
-    removeEventListener("resize", onResize);
+    removeEventListener("resize", onResizeEvent);
+    cancelAnimationFrame(resizeRaf);
     removeEventListener("hashchange", onHash);
     removeEventListener("load", onResize);
     worldEl.removeEventListener("focusin", onFocus);
@@ -324,7 +335,6 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
               src={HORIZON_PHOTO}
               alt=""
               fill
-              priority
               sizes="100vw"
             />
             </div>
