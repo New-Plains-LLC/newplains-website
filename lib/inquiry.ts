@@ -65,6 +65,12 @@ const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u0085\
 const LABEL = String.raw`[\p{L}\p{N}](?:[\p{L}\p{N}-]*[\p{L}\p{N}])?`;
 const ATOM = String.raw`[^\s@."(),:;<>[\]\\]+`;
 const EMAIL_RE = new RegExp(String.raw`^${ATOM}(\.${ATOM})*@${LABEL}(\.${LABEL})+$`, "u");
+// SMTP caps the local part at 64 bytes and DNS caps each label at 63.
+const validEmail = (e: string) => {
+  if (!EMAIL_RE.test(e)) return false;
+  const [local, domain] = e.split("@");
+  return new TextEncoder().encode(local).length <= 64 && domain.split(".").every((l) => l.length <= 63);
+};
 
 export function parseInquiry(raw: Record<string, unknown>): Result {
   const v = {
@@ -76,7 +82,7 @@ export function parseInquiry(raw: Record<string, unknown>): Result {
     message: block(raw.message),
   };
   if (!v.name) return { ok: false, field: "name", error: "Please add your name." };
-  if (!EMAIL_RE.test(v.email)) return { ok: false, field: "email", error: "Please add a valid email address." };
+  if (!validEmail(v.email)) return { ok: false, field: "email", error: "Please add a valid email address." };
   if (!v.company) return { ok: false, field: "company", error: "Please add your company." };
   if (!(SIZES as readonly string[]).includes(v.size)) return { ok: false, field: "size", error: "Please choose a company size." };
   if (!isInterest(v.interest)) return { ok: false, field: "interest", error: "Please choose what you are interested in." };

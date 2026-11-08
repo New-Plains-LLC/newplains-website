@@ -57,7 +57,11 @@ export async function POST(req: NextRequest) {
 
   const key = process.env.AGENTMAIL_API_KEY;
   const inbox = process.env.AGENTMAIL_FORM_INBOX;
-  if (!key || !inbox) return fail(503, "The form is not set up yet.");
+  if (!key || !inbox) {
+    // Logged: a deployment missing these would otherwise lose leads silently.
+    console.error("[inquiry] AGENTMAIL_API_KEY or AGENTMAIL_FORM_INBOX is not set");
+    return fail(503, "The form is not set up yet.");
+  }
 
   // Refuse oversized bodies before parsing: early on content-length, and
   // while reading for chunked uploads that don't send one.
