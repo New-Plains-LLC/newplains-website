@@ -14,8 +14,9 @@ import styles from "./walk.module.css";
 // The CSS decides whether the walk exists: under (prefers-reduced-motion:
 // no-preference) and (scripting: enabled) the stage turns sticky and 3D,
 // otherwise the boards render as an ordinary stacked page. The JS follows
-// the CSS (it runs whenever the stage is sticky), so the two can't disagree;
-// WALK_QUERY only tells it when to look again, and scopes the preload.
+// the CSS (it runs whenever the stage is sticky), so the two can't disagree.
+// A reduced-motion change is the trigger to look again; WALK_QUERY only
+// scopes the preload.
 //
 // Units: z is in CSS px at the stage perspective (1000px, horizon at 40%). Scroll is measured in "screens"
 // (multiples of the stage height). A board at z = cam sits at scale 1.
@@ -62,7 +63,7 @@ const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 // A board's data-* number, or the fallback when it is missing, empty or not
 // a number: one NaN would void every transform on the walk.
 const num = (v: string | undefined, fallback: number) => {
-  const n = v == null || v.trim() === "" ? NaN : Number(v);
+  const n = v === undefined || v.trim() === "" ? NaN : Number(v);
   return Number.isFinite(n) ? n : fallback;
 };
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -113,7 +114,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   };
 
   const measure = () => {
-    vh = stageEl.clientHeight;
+    vh = Math.max(1, stageEl.clientHeight);
     const vw = stageEl.clientWidth;
     const narrow = vw < 760;
     const ground = narrow ? 0.8 : 0.75;
@@ -333,7 +334,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
     const [t, s, wo, ro, po, mi] = [track.current, stage.current, world.current, road.current, posts.current, mill.current];
     if (!t || !s || !wo || !ro || !po || !mi) return;
     const els = { track: t, stage: s, world: wo, road: ro, posts: po, mill: mi, rail: rail.current };
-    const mq = matchMedia(WALK_QUERY);
+    const mq = matchMedia("(prefers-reduced-motion: reduce)");
     let stop: (() => void) | undefined;
     const sync = () => {
       if (getComputedStyle(s).position === "sticky") stop ??= startWalk(els);

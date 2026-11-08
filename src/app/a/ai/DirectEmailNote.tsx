@@ -1,5 +1,3 @@
-import styles from "./services.module.css";
-
 export const CONTACT_EMAIL = "info@newplains.dev";
 
 // Single builder for every mailto CTA on the /a/ai pages. Body line breaks
@@ -14,7 +12,7 @@ export const mailto = (subject: string, body?: string) =>
 // can copy the address instead of a click that silently does nothing.
 export default function DirectEmailNote() {
   return (
-    <p className={styles.direct}>
+    <p>
       If your email app doesn&apos;t open, write to{" "}
       <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
     </p>
