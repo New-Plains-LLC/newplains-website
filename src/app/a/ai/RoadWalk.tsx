@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useEffect, useRef, type ReactNode } from "react";
+import { preload } from "react-dom";
 import { HORIZON_CREDIT, HORIZON_CREDIT_LABEL, HORIZON_PHOTO } from "./HorizonPhoto";
 import HorizonWindmill from "./HorizonWindmill";
 import styles from "./walk.module.css";
@@ -43,6 +44,11 @@ const FIELDS: [number, number, string][] = [
   [400, 560, "#C4A26559"],
 ];
 
+// The storm sky is 1.5 x max(66.7vw, 60.6svh) wide (walk.module.css), so on
+// screens narrower than 10:11 it is about 91vh wide, not 100vw.
+const STORM_SIZES = "(max-aspect-ratio: 10/11) 91vh, 100vw";
+const storm = getImageProps({ src: HORIZON_PHOTO, alt: "", fill: true, sizes: STORM_SIZES }).props;
+
 export type Mark = { id: string; label: string };
 
 type Seg = { u0: number; u1: number; c0: number; c1: number; ease: boolean };
@@ -83,6 +89,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   let raf = 0;
   let millZ = 0;
   let railCur = -1;
+  let millVis = "";
   let railBoards: (Board | undefined)[] = [];
   let clearS = "";
   let resizeRaf = 0;
@@ -165,7 +172,8 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     roadEl.style.transform = `translateZ(700px) rotateX(-90deg) translateY(${-(cam % DASH)}px)`;
     postsEl.style.transform = `translate3d(0,0,${cam % POST_GAP}px)`;
     const md = cam - millZ;
-    millEl.style.visibility = md > 700 ? "hidden" : "visible";
+    const mv = md > 700 ? "hidden" : "visible";
+    if (mv !== millVis) millEl.style.visibility = millVis = mv;
 
     let clear = 0;
     boards.forEach((b) => {
@@ -271,9 +279,9 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   addEventListener("hashchange", onHash);
   worldEl.addEventListener("focusin", onFocus);
   railEl?.addEventListener("click", onRail);
-  // Fonts and images change board heights, and board heights set the posts.
+  // Web fonts change board heights, and board heights set the posts. Images
+  // don't: next/image reserves their box from width and height.
   document.fonts?.ready.then(() => !disposed && onResize());
-  addEventListener("load", onResize);
   onHash();
 
   return () => {
@@ -283,7 +291,6 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     removeEventListener("resize", onResizeEvent);
     cancelAnimationFrame(resizeRaf);
     removeEventListener("hashchange", onHash);
-    removeEventListener("load", onResize);
     worldEl.removeEventListener("focusin", onFocus);
     railEl?.removeEventListener("click", onRail);
     // Hand back to the CSS fallback: none of these carry inline styles of
@@ -303,6 +310,11 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
   const posts = useRef<HTMLDivElement>(null);
   const mill = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLOListElement>(null);
+
+  // The storm is the walk's first screen, so preload it into <head>, but only
+  // where the walk shows it: the flat page hides the sky, and the lazy image
+  // never loads there.
+  preload(storm.src, { as: "image", imageSrcSet: storm.srcSet, imageSizes: storm.sizes, fetchPriority: "high", media: WALK_QUERY });
 
   // Follows the media query live: turning on reduced motion mid-visit drops
   // the walk for the flat page, and turning it off brings the walk back.
@@ -333,12 +345,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
         <div className={styles.storm} aria-hidden="true">
           <div className={styles.stormSky}>
             <div>
-            <Image
-              src={HORIZON_PHOTO}
-              alt=""
-              fill
-              sizes="100vw"
-            />
+              <Image src={HORIZON_PHOTO} alt="" fill sizes={STORM_SIZES} />
             </div>
           </div>
         </div>

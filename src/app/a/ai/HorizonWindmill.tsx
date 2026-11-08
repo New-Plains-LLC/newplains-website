@@ -3,8 +3,8 @@ import styles from "./services.module.css";
 // Flat silhouette of the farm windmill from the original 3D home page:
 // tapered lattice tower, 18-blade fan wheel, tail vane. Decorative only.
 // The fan turns with a CSS transform (compositor-only, no JS) and stops
-// under prefers-reduced-motion. The tower base sits on the green band's
-// bottom edge, so the photo below reads as its prairie.
+// under prefers-reduced-motion. The road walk stands it in a field beside
+// the road; the caller places and sizes it.
 const BLADES = 18;
 const blades = Array.from({ length: BLADES }, (_, i) => (i * 360) / BLADES);
 
