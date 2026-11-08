@@ -11,9 +11,11 @@ import styles from "./walk.module.css";
 // Each [data-stop] child is a roadside board. It rises from the vanishing
 // point, holds at reading distance, then grows past your shoulder.
 //
-// Everything is gated on (prefers-reduced-motion: no-preference) and
-// (scripting: enabled), the same query the CSS uses. Without it the boards
-// render as an ordinary stacked page.
+// The CSS decides whether the walk exists: under (prefers-reduced-motion:
+// no-preference) and (scripting: enabled) the stage turns sticky and 3D,
+// otherwise the boards render as an ordinary stacked page. The JS follows
+// the CSS (it runs whenever the stage is sticky), so the two can't disagree;
+// WALK_QUERY only tells it when to look again, and scopes the preload.
 //
 // Units: z is in CSS px at the stage perspective (1000px, horizon at 40%). Scroll is measured in "screens"
 // (multiples of the stage height). A board at z = cam sits at scale 1.
@@ -57,6 +59,12 @@ type Seg = { u0: number; u1: number; c0: number; c1: number; ease: boolean };
 type Board = { el: HTMLElement; z: number; uA: number; uB: number; peak: boolean; o?: string; pe?: string; k?: string };
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
+// A board's data-* number, or the fallback when it is missing, empty or not
+// a number: one NaN would void every transform on the walk.
+const num = (v: string | undefined, fallback: number) => {
+  const n = v == null || v.trim() === "" ? NaN : Number(v);
+  return Number.isFinite(n) ? n : fallback;
+};
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const smooth = (a: number, b: number, t: number) => {
   const x = clamp((t - a) / (b - a));
@@ -116,9 +124,9 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     let z = CREEP, u = 0, cam = 0;
     segs = [];
     boards = boardEls.map((el, i) => {
-      const gap = Number(el.dataset.gap ?? 1400);
-      const hold = Number(el.dataset.hold ?? 0.6) * HOLD;
-      const pace = Number(el.dataset.pace ?? 0.8);
+      const gap = num(el.dataset.gap, 1400);
+      const hold = num(el.dataset.hold, 0.6) * HOLD;
+      const pace = num(el.dataset.pace, 0.8);
       if (i > 0) {
         z += gap;
         const travel = (gap / 1000) * pace * TRAVEL;
@@ -136,13 +144,13 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
       // angled to face the walker. data-x picks the side (sign only); 0 is
       // across the road (the gate). Phones have no room for a clear lane,
       // so boards only lean toward their side there.
-      const xf = Number(el.dataset.x ?? 0);
+      const xf = num(el.dataset.x, 0);
       const side = Math.sign(xf);
       const lane = Math.min(Math.max(170, vw * 0.11), Math.max(0, vw / 2 - 20 - w));
       const x = narrow ? side * Math.max(0, (vw - w) / 2 - 8) : side * (lane + w / 2);
       const turn = narrow ? 0 : side * 11;
       const room = (ground - 0.5) * vh - h / 2 - 28;
-      const y = Math.max(Math.min(Number(el.dataset.y ?? 0) * vh, room), -(0.5 * vh - h / 2 - 12));
+      const y = Math.max(Math.min(num(el.dataset.y, 0) * vh, room), -(0.5 * vh - h / 2 - 12));
       el.style.setProperty("--post", `${Math.max(0, (ground - 0.5) * vh - y - h / 2)}px`);
       el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${-z}px) rotateY(${turn}deg)`;
       return { el, z, uA, uB: u, peak: el.hasAttribute("data-peak") };
@@ -193,7 +201,8 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
         const k = smooth(0.12, 0.72, local);
         const ks = k.toFixed(4);
         if (b.k !== ks) b.el.style.setProperty("--k", (b.k = ks));
-        clear = smooth(0.3, 0.9, local);
+        // The sky clears at the first peak and stays clear past any later one.
+        clear = Math.max(clear, smooth(0.3, 0.9, local));
       }
     });
     const cs = clear.toFixed(4);
@@ -327,7 +336,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
     const mq = matchMedia(WALK_QUERY);
     let stop: (() => void) | undefined;
     const sync = () => {
-      if (mq.matches) stop ??= startWalk(els);
+      if (getComputedStyle(s).position === "sticky") stop ??= startWalk(els);
       else {
         stop?.();
         stop = undefined;
