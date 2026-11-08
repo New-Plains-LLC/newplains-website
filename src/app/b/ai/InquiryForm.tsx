@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { INQUIRY_PATH, INTERESTS, MAX, PROMPTS, SIZES, firstName, isInterest, type Interest } from "@/../lib/inquiry";
 import s from "./b.module.css";
@@ -25,13 +25,15 @@ function trackLead(interest: string, size: string) {
   (window as unknown as { gtag?: (...a: unknown[]) => void }).gtag?.("event", "generate_lead", params);
 }
 
+// What /api/inquiry answers, success or not.
+type Reply = { ok?: boolean; error?: string; field?: string };
+
 type Status = { kind: "idle" | "sending" } | { kind: "sent"; name: string; email: string } | { kind: "error"; error: string; field?: string };
 
 export default function InquiryForm() {
   const [interest, setInterest] = useState<Interest>("workshop");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
-  const form = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const go = (d: InquiryDetail, scroll: boolean) => {
@@ -39,9 +41,12 @@ export default function InquiryForm() {
       // The hero always sends its tab's text, even empty, so an earlier
       // tab's answer is never left under a different interest.
       if (d.message !== undefined) setMessage(d.message);
+      // A CTA clicked after sending means a new note: show the form again.
+      setStatus((st) => (st.kind === "sent" ? { kind: "idle" } : st));
       const el = document.getElementById("contact");
       if (scroll) el?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-      form.current?.querySelector<HTMLInputElement>("#inq-name")?.focus({ preventScroll: true });
+      // After the render, in case the form just replaced the thank-you.
+      requestAnimationFrame(() => document.getElementById("inq-name")?.focus({ preventScroll: true }));
     };
     const onEvent = (e: Event) => {
       const d = (e as CustomEvent<Partial<InquiryDetail> | null>).detail;
@@ -68,8 +73,10 @@ export default function InquiryForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(f),
+        // The route gives AgentMail 10s; never leave the button on "Sending…".
+        signal: AbortSignal.timeout(20_000),
       });
-      const out = await res.json().catch(() => ({}));
+      const out: Reply = await res.json().catch(() => ({}));
       if (res.ok && out.ok) {
         // Analytics must never turn a sent inquiry into an error message.
         try { trackLead(String(f.interest), String(f.size)); } catch {}
@@ -94,7 +101,7 @@ export default function InquiryForm() {
   const invalid = (k: string) => (err?.field === k ? { "aria-invalid": true, "aria-describedby": "inq-error" } : {});
 
   return (
-    <form ref={form} className={s.inquiry} onSubmit={send}>
+    <form className={s.inquiry} onSubmit={send}>
       <div className={s.row}>
         <label className={s.field}>
           <span>Name</span>

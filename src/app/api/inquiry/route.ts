@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkBotId } from "botid/server";
-import { INQUIRY_TO, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
+import { INQUIRY_PAGE, INQUIRY_TO, MAX_BODY, inquiryEmail, parseInquiry } from "@/../lib/inquiry";
 
 // Website inquiry form -> one email to the Hermes assistant's AgentMail inbox.
 // The email is sent from a dedicated AgentMail inbox (AGENTMAIL_FORM_INBOX)
@@ -21,7 +21,7 @@ function ownPage(referer: string | null, origin: string) {
     const u = new URL(referer ?? "");
     if (u.origin === origin && /^\/[\w\-/]{0,100}$/.test(u.pathname)) return origin + u.pathname;
   } catch {}
-  return `${origin}/b/ai`;
+  return origin + INQUIRY_PAGE;
 }
 
 export async function POST(req: NextRequest) {
@@ -44,9 +44,13 @@ export async function POST(req: NextRequest) {
   const inbox = process.env.AGENTMAIL_FORM_INBOX;
   if (!key || !inbox) return fail(503, "The form is not set up yet.");
 
+  // Check the size before parsing, so a huge body costs no JSON work.
+  if (Number(req.headers.get("content-length") ?? 0) > MAX_BODY) return fail(413, "Request too large");
   let raw: Record<string, unknown>;
   try {
-    const body = await req.json();
+    const textBody = await req.text();
+    if (textBody.length > MAX_BODY) return fail(413, "Request too large");
+    const body = JSON.parse(textBody);
     if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error();
     raw = body;
   } catch {

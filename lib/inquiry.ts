@@ -7,6 +7,10 @@ export const INQUIRY_TO = "shawns_assistant@agentmail.to";
 // The form posts here and BotID protects it (src/instrumentation-client.ts);
 // the route itself lives at src/app/api/inquiry/route.ts.
 export const INQUIRY_PATH = "/api/inquiry";
+// The page the form lives on; the email's "Page:" falls back to it.
+export const INQUIRY_PAGE = "/b/ai";
+// Largest request body the route reads. The fields' MAX total ~4.5k chars.
+export const MAX_BODY = 20_000;
 export const SUBJECT_PREFIX = "Website inquiry:";
 
 export const INTERESTS = {
@@ -82,9 +86,16 @@ export const firstName = (name: unknown) => {
 
 export function inquiryEmail(q: Inquiry, meta: { page: string; at: Date }) {
   const central = meta.at.toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "medium", timeStyle: "short" });
-  // Name and company are capped here so the subject stays well under the
-  // ~255 bytes some mail servers keep; the JSON has the full values.
-  const clip = (s: string) => { const c = Array.from(s); return c.length > 60 ? `${c.slice(0, 59).join("")}…` : s; };
+  // Name and company are capped at 60 UTF-8 bytes each (whole characters
+  // only), so the subject stays under ~170 bytes whatever script is typed,
+  // well inside the ~255 some mail servers keep. The JSON has full values.
+  const clip = (s: string) => {
+    const bytes = (t: string) => new TextEncoder().encode(t).length;
+    if (bytes(s) <= 60) return s;
+    let out = "";
+    for (const ch of s) { if (bytes(out + ch) > 57) break; out += ch; }
+    return `${out}…`;
+  };
   const subject = `${SUBJECT_PREFIX} ${INTERESTS[q.interest]} from ${clip(q.name)}, ${clip(q.company)}`;
   const data = {
     type: "newplains.inquiry",

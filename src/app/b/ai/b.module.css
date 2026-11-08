@@ -355,7 +355,7 @@
 .sentTitle { font-family: var(--serif); font-size: 34px; line-height: 1.1; letter-spacing: -0.015em; }
 .again { justify-self: start; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .again:focus-visible { outline: 2px solid var(--copper); outline-offset: 4px; border-radius: 4px; }
-.inquiry[role="status"] p:last-child { color: var(--muted); }
+.sentTitle + p { color: var(--muted); }
 @media (max-width: 960px) { .close { grid-template-columns: 1fr; gap: 48px; } }
 @media (max-width: 860px) { .close { border-radius: 36px; margin: 0 8px; padding: 88px 24px; } }
 @media (max-width: 560px) { .row { grid-template-columns: 1fr; } .inquiry { padding: 24px 20px; border-radius: 22px; } }
