@@ -49,12 +49,13 @@ export type Inquiry = {
 
 type Result = { ok: true; value: Inquiry } | { ok: false; field: keyof Inquiry; error: string };
 
-// Single-line fields lose control characters and line breaks, so a value
-// cannot fake an extra "Field: value" line in the email.
-const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim() : "");
-// Unicode line/paragraph separators count as newlines, so each visible
-// line of the message is quoted in the email.
-const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u2028\u2029]/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, "").trim() : "");
+// Single-line fields lose control characters (C0 and C1, which includes
+// NEL U+0085) and line breaks, so a value cannot fake an extra
+// "Field: value" line in the email. (\s already covers U+2028/U+2029.)
+const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f-\u009f]+/g, " ").replace(/\s+/g, " ").trim() : "");
+// NEL and the Unicode line/paragraph separators count as newlines, so each
+// visible line of the message is quoted in the email; other C0/C1 controls go.
+const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u0085\u2028\u2029]/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f-\u009f]/g, "").trim() : "");
 // Both sides are dot-separated parts, so "a..b@c.com", ".a@c.com",
 // "a@b..com" and "x@y.com." fail (mail servers bounce them).
 const EMAIL_RE = /^[^\s@.]+(\.[^\s@.]+)*@[^\s@.]+(\.[^\s@.]+)+$/;

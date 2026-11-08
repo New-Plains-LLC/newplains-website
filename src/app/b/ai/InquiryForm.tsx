@@ -102,7 +102,10 @@ export default function InquiryForm() {
       if (res.ok && out.ok) {
         // Analytics must never turn a sent inquiry into an error message.
         try { trackLead(String(f.interest), String(f.size)); } catch {}
-        setMessage(""); // sent; any next note starts blank
+        // Sent: clear the note, unless a CTA clicked mid-send already put a
+        // new one in its place.
+        const sentNote = String(f.message ?? "");
+        setMessage((m) => (m === sentNote ? "" : m));
         setStatus({ kind: "sent", name: firstName(f.name), email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {

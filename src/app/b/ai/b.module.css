@@ -358,7 +358,10 @@
 .again { justify-self: start; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .again:focus-visible { outline: 2px solid var(--copper); outline-offset: 4px; border-radius: 4px; }
 .sentTitle + p { color: var(--muted); }
-.inquiry[role="status"]:focus { outline: none; } /* focused for screen readers, not a control */
+/* Focused after sending so keyboard and screen-reader users keep their
+   place: a ring for keyboard focus, none after a mouse click. */
+.inquiry[role="status"]:focus { outline: none; }
+.inquiry[role="status"]:focus-visible { outline: 2px solid var(--copper); outline-offset: 4px; }
 @media (max-width: 960px) { .close { grid-template-columns: 1fr; gap: 48px; } }
 @media (max-width: 860px) { .close { border-radius: 36px; margin: 0 8px; padding: 88px 24px; } }
 @media (max-width: 560px) { .row { grid-template-columns: 1fr; } .inquiry { padding: 24px 20px; border-radius: 22px; } }
