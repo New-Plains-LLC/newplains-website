@@ -9,13 +9,14 @@ import Hero from "./Hero";
 import s from "./b.module.css";
 
 export const metadata: Metadata = {
-  title: "AI Business Consulting for Established Businesses | New Plains",
-  description: "Align your leadership team, choose practical AI opportunities, and build systems around the way your business works. Workshops, custom implementation, and the $999 AI Audit.",
+  title: "AI Consulting for Mid-Sized Businesses | New Plains",
+  description: "A leadership workshop that aligns your team on where AI belongs, then custom systems built around the way your business works. For mid-sized businesses.",
   robots: { index: false },
 };
 
 const serif = Newsreader({ subsets: ["latin"], weight: ["300", "400"], variable: "--font-serif", display: "swap" });
 
+const workshop = mailto("Leadership AI workshop inquiry", "Business name:\nTeam size:\nWho would attend:\nWhat we want to decide:\n");
 const inquiry = (subject: string) => mailto(subject, "Business name:\nTeam size:\nWorkflow or challenge:\nTools you use:\nWhat a better outcome would look like:\n");
 const featured = consultingToolExamples.find((e) => e.image);
 const listed = consultingToolExamples.filter((e) => !e.image);
@@ -25,10 +26,10 @@ const listed = consultingToolExamples.filter((e) => !e.image);
 const story = [
   "Every business has the work it exists to do, and the work that piles up around it.",
   "The same order, typed into three systems. A quote waiting four days in someone’s inbox. The Monday report, rebuilt by hand. Again.",
-  "One person knows how it works. They’re on vacation.",
+  "Every department picked its own AI tool. None of them talk to each other.",
   "When tools multiply but work still gets stuck between people, more software is not the answer.",
 ];
-const storyMark = "The next step is an operating decision.";
+const storyMark = "The next step is a leadership decision.";
 
 const steps = [
   ["Understand the work", "Map the people, systems, handoffs, and exceptions before choosing technology."],
@@ -83,9 +84,9 @@ export default function AiPageB() {
           <a href="#outcomes">Outcomes</a>
           <a href="#tools">Tools</a>
           <a href="#approach">Approach</a>
-          <Link href="/a/ai/workshop">Workshop</Link>
+          <a href="#audit">$999 audit</a>
         </nav>
-        <a className={s.navCta} href="#audit">$999 audit</a>
+        <a className={s.navCta} href="#workshop">Plan a workshop</a>
       </header>
 
       <Hero />
@@ -172,9 +173,10 @@ export default function AiPageB() {
           mock={
             <div className={s.stack}>
               <div className={`${s.card} ${s.cardOpen}`}>
-                <div className={s.who}><span className={s.avatar}>MR</span><div><strong>Monday operations report</strong><small>Built at 6:02 AM</small></div></div>
+                <div className={s.who}><span className={s.avatar}>MR</span><div><strong>Monday operations report</strong><small>4 branches · built at 6:02 AM</small></div></div>
                 <ul className={s.checks}>
                   <li><span>Orders, from three systems</span><em>Synced</em></li>
+                  <li><span>Branch numbers, side by side</span><em>Reconciled</em></li>
                   <li><span>Invoices received</span><em>Filed</em></li>
                   <li><span>Meeting notes, last week</span><em>Summarized</em></li>
                   <li className={s.needs}><span>Exceptions</span><em>3 need a person</em></li>
@@ -255,15 +257,18 @@ export default function AiPageB() {
         <a href={inquiry("AI Concierge inquiry")}><strong>AI concierge</strong><span>Ongoing support that ships the next improvement and trains the people who own it.</span><i>↗</i></a>
       </section>
 
-      <section id="audit" className={s.audit}>
-        <p className={s.label}>A distinct starting point</p>
-        <h2>The $999 AI Audit.</h2>
-        <p>A paid, standalone one-hour conversation to examine your workflow and scope a useful next step. Separate from the workshop, with no obligation to commission a build.</p>
-        <div className={s.auditActions}>
-          <a className={s.button} href={inquiry("AI Audit: $999")}>Ask about the $999 audit ↗</a>
-          <Link href="/a/ai/workshop">Or start with the workshop →</Link>
+      <section id="workshop" className={s.close}>
+        <p className={s.label}>Where to start</p>
+        <h2>The leadership workshop.</h2>
+        <p>A working session for your leadership team. Agree where AI supports the business, choose the opportunities worth a closer look, and decide what your people need to use it well. We confirm the agenda, format, duration, and fee with you before you book.</p>
+        <div className={s.closeActions}>
+          <a className={s.button} href={workshop}>Plan a leadership workshop ↗</a>
+          <Link href="/a/ai/workshop">What the workshop covers →</Link>
         </div>
-        <div className={s.auditNote}><DirectEmailNote /></div>
+        <div id="audit" className={s.closeAside}>
+          <p><strong>Need a narrower start?</strong> The $999 AI Audit is a paid, standalone one-hour conversation about a single workflow, with no obligation to commission a build. <a href={inquiry("AI Audit: $999")}>Ask about the audit&nbsp;↗</a></p>
+        </div>
+        <div className={s.closeNote}><DirectEmailNote /></div>
       </section>
 
       <p className={s.wordmark} aria-hidden="true">New Plains</p>

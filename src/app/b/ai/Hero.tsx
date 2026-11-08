@@ -26,45 +26,50 @@ function CycleWord() {
   );
 }
 
-// A two-tab ask box. The audit tab opens a pre-filled email in the visitor's
-// own mail app; nothing is sent from the page.
+// A two-tab ask box, workshop first. Each tab opens a pre-filled email in the
+// visitor's own mail app; nothing is sent from the page.
+const OFFERS = {
+  workshop: {
+    tab: "Leadership workshop",
+    prompt: "What should leadership decide?",
+    submit: "Write to us about a leadership workshop",
+    subject: "Leadership AI workshop inquiry",
+    body: (t: string) => `What we want to decide:\n${t}\n\nBusiness name:\nTeam size:\nWho would attend:\n`,
+  },
+  audit: {
+    tab: "The $999 audit",
+    prompt: "Which workflow slows you down?",
+    submit: "Write to us about the $999 audit",
+    subject: "AI Audit: $999",
+    body: (t: string) => `What slows us down:\n${t}\n\nBusiness name:\nTeam size:\nTools you use:\n`,
+  },
+} as const;
+type Offer = keyof typeof OFFERS;
+
 function AskBox() {
-  const [tab, setTab] = useState<"audit" | "workshop">("audit");
+  const [tab, setTab] = useState<Offer>("workshop");
   const [text, setText] = useState("");
+  const o = OFFERS[tab];
   const send = (e: FormEvent) => {
     e.preventDefault();
-    location.href = mailto(
-      "AI Audit: $999",
-      `What slows us down:\n${text.trim()}\n\nBusiness name:\nTeam size:\nTools you use:\n`,
-    );
+    location.href = mailto(o.subject, o.body(text.trim()));
   };
   return (
     <div className={s.ask}>
       <div className={s.tabs} role="tablist" aria-label="Ways to start">
-        <button type="button" role="tab" id="tab-audit" aria-controls="panel-audit" aria-selected={tab === "audit"} onClick={() => setTab("audit")}>
-          The $999 audit
-        </button>
-        <button type="button" role="tab" id="tab-workshop" aria-controls="panel-workshop" aria-selected={tab === "workshop"} onClick={() => setTab("workshop")}>
-          Leadership workshop
-        </button>
+        {(Object.keys(OFFERS) as Offer[]).map((k) => (
+          <button key={k} type="button" role="tab" id={`tab-${k}`} aria-controls="ask-panel" aria-selected={tab === k} onClick={() => setTab(k)}>
+            {OFFERS[k].tab}
+          </button>
+        ))}
       </div>
-      {tab === "audit" ? (
-        <form id="panel-audit" role="tabpanel" aria-labelledby="tab-audit" className={s.askPanel} onSubmit={send}>
-          <label htmlFor="ask-text" className={s.srOnly}>What busywork slows your team down?</label>
-          <input
-            id="ask-text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="What busywork slows your team down?"
-            autoComplete="off"
-          />
-          <button type="submit" aria-label="Write to us about the $999 audit">↵</button>
-        </form>
-      ) : (
-        <div id="panel-workshop" role="tabpanel" aria-labelledby="tab-workshop" className={s.askPanel}>
-          <p>Align the team, prioritize opportunities, build capability.</p>
-          <Link href="/a/ai/workshop" aria-label="See the leadership workshop">→</Link>
-        </div>
+      <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} onSubmit={send}>
+        <label htmlFor="ask-text" className={s.srOnly}>{o.prompt}</label>
+        <input id="ask-text" value={text} onChange={(e) => setText(e.target.value)} placeholder={o.prompt} autoComplete="off" />
+        <button type="submit" aria-label={o.submit}>↵</button>
+      </form>
+      {tab === "workshop" && (
+        <Link href="/a/ai/workshop" className={s.askMore}>What the workshop covers →</Link>
       )}
     </div>
   );
@@ -80,8 +85,8 @@ export default function Hero() {
           Less <CycleWord />
         </h1>
         <p className={s.heroLede}>
-          AI with a purpose for established businesses. We help leadership teams choose the right
-          opportunities, equip their people, and build systems that fit the work.
+          AI with a purpose for mid-sized businesses. It starts with your leadership team: agree
+          where AI belongs, equip your people, then build systems that fit the work.
         </p>
         <AskBox />
       </div>
