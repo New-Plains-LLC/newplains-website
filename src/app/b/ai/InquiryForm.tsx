@@ -98,7 +98,11 @@ export default function InquiryForm() {
       <div ref={thanks} tabIndex={-1} className={s.inquiry} role="status">
         <p className={s.sentTitle}>{status.name ? `Thanks, ${status.name}.` : "Thanks."}</p>
         <p>Your inquiry is in. Shawn’s assistant will email <strong>{status.email}</strong> shortly to confirm, then follow up to find a time that works.</p>
-        <button type="button" className={s.again} onClick={() => setStatus({ kind: "idle" })}>Send another note</button>
+        <button type="button" className={s.again} onClick={() => {
+          setStatus({ kind: "idle" });
+          // This button disappears with the thank-you; put focus in the new form.
+          requestAnimationFrame(() => document.getElementById("inq-name")?.focus());
+        }}>Send another note</button>
       </div>
     );
   }

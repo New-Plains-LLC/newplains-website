@@ -167,6 +167,8 @@
 
 /* Feature bands */
 .outcomes { margin-top: 120px; }
+/* Nav anchors land below the 64px sticky header. */
+.outcomes, .tools, .approach { scroll-margin-top: 64px; }
 @media (max-width: 860px) { .outcomes { margin-top: 72px; } }
 .band { padding: 128px 0; }
 .sage { background: color-mix(in oklab, var(--sage) 22%, var(--cream)); --deep: var(--sage-deep); }

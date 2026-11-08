@@ -16,6 +16,23 @@ const API = process.env.AGENTMAIL_API_BASE ?? "https://api.agentmail.to/v0";
 const ok = () => NextResponse.json({ ok: true });
 const fail = (status: number, error: string, field?: string) => NextResponse.json({ ok: false, error, field }, { status });
 
+// Reads the body but stops at max bytes, so a chunked upload with no
+// content-length can't make the function buffer more than that.
+async function readCapped(req: NextRequest, max: number): Promise<string | null> {
+  if (!req.body) return "";
+  const reader = req.body.getReader();
+  const parts: Uint8Array[] = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > max) { await reader.cancel(); return null; }
+    parts.push(value);
+  }
+  return Buffer.concat(parts).toString("utf8");
+}
+
 function ownPage(referer: string | null, origin: string) {
   try {
     const u = new URL(referer ?? "");
@@ -44,12 +61,13 @@ export async function POST(req: NextRequest) {
   const inbox = process.env.AGENTMAIL_FORM_INBOX;
   if (!key || !inbox) return fail(503, "The form is not set up yet.");
 
-  // Check the size before parsing, so a huge body costs no JSON work.
+  // Refuse oversized bodies before parsing: early on content-length, and
+  // while reading for chunked uploads that don't send one.
   if (Number(req.headers.get("content-length") ?? 0) > MAX_BODY) return fail(413, "Request too large");
+  const textBody = await readCapped(req, MAX_BODY);
+  if (textBody === null) return fail(413, "Request too large");
   let raw: Record<string, unknown>;
   try {
-    const textBody = await req.text();
-    if (Buffer.byteLength(textBody) > MAX_BODY) return fail(413, "Request too large");
     const body = JSON.parse(textBody);
     if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error();
     raw = body;
