@@ -254,7 +254,6 @@
   }
   .world { display: block; max-width: none; margin: 0; }
   .world > .stop { position: absolute; left: 50%; top: 50%; width: min(560px, 88vw); }
-  .world > .hero { width: min(560px, 88vw); }
   .world > .sign { width: min(420px, 82vw); }
   .world > .card { width: min(440px, 86vw); }
   .world > .operator, .world > .feature { width: min(520px, 90vw); }
@@ -287,9 +286,11 @@
     right: 16px;
     top: 12px;
     font-size: 0.68rem;
-    color: #FAF8F5 !important;
+    /* Cream on the storm, ink once the sky clears: the credit stays
+       readable (and its focus visible) the whole walk. */
+    color: color-mix(in oklab, #FAF8F5 calc((1 - var(--clear)) * 100%), #2D2A26) !important;
     text-decoration: none !important;
-    opacity: calc(0.75 - var(--clear));
+    opacity: calc(0.75 - var(--clear) * 0.3);
   }
 
   .rail { display: block; position: absolute; left: 20px; bottom: 20px; z-index: 5; }

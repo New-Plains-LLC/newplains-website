@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, type ReactNode } from "react";
-import { HORIZON_CREDIT, HORIZON_PHOTO } from "./HorizonPhoto";
+import { HORIZON_CREDIT, HORIZON_CREDIT_LABEL, HORIZON_PHOTO } from "./HorizonPhoto";
 import HorizonWindmill from "./HorizonWindmill";
 import styles from "./walk.module.css";
 
@@ -46,9 +46,9 @@ const FIELDS: [number, number, string][] = [
 export type Mark = { id: string; label: string };
 
 type Seg = { u0: number; u1: number; c0: number; c1: number; ease: boolean };
-// o and pe cache the last written opacity and pointer-events, so frames
+// o, pe and k cache the last written opacity, pointer-events and --k, so frames
 // only touch the DOM when a value changes.
-type Board = { el: HTMLElement; z: number; uA: number; uB: number; peak: boolean; o?: string; pe?: string };
+type Board = { el: HTMLElement; z: number; uA: number; uB: number; peak: boolean; o?: string; pe?: string; k?: string };
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -83,6 +83,8 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   let raf = 0;
   let millZ = 0;
   let railCur = -1;
+  let railBoards: (Board | undefined)[] = [];
+  let clearS = "";
   let resizeRaf = 0;
 
   const camAt = (u: number) => {
@@ -140,6 +142,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
       return { el, z, uA, uB: u, peak: el.hasAttribute("data-peak") };
     });
     total = u;
+    railBoards = railBtns.map((btn) => boards.find((b) => b.el.id === btn.dataset.target));
     trackEl.style.height = `${(total + 1) * vh}px`;
 
     // Fence posts ride a treadmill: fixed slots, shifted by cam mod gap.
@@ -154,7 +157,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     // data-landmark (the start of the approach markers).
     const at = boards.find((b) => b.el.hasAttribute("data-landmark"));
     millZ = (at?.z ?? 20000) + 2600;
-    millEl.style.transform = `translate3d(${vw * (narrow ? 0.9 : 0.95)}px, -100%, ${-millZ}px)`;
+    millEl.style.transform = `translate3d(${vw * (narrow ? 0.9 : 0.95)}px, 0, ${-millZ}px)`;
   };
 
   const draw = (u: number) => {
@@ -179,16 +182,17 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
         const span = b.uB - b.uA;
         const local = span > 0 ? (u - b.uA) / span : 1;
         const k = smooth(0.12, 0.72, local);
-        b.el.style.setProperty("--k", k.toFixed(4));
+        const ks = k.toFixed(4);
+        if (b.k !== ks) b.el.style.setProperty("--k", (b.k = ks));
         clear = smooth(0.3, 0.9, local);
       }
     });
-    stageEl.style.setProperty("--clear", clear.toFixed(4));
+    const cs = clear.toFixed(4);
+    if (cs !== clearS) stageEl.style.setProperty("--clear", (clearS = cs));
 
     // Rail: the last marker whose board we have reached.
     let current = 0;
-    railBtns.forEach((btn, i) => {
-      const b = boards.find((x) => x.el.id === btn.dataset.target);
+    railBoards.forEach((b, i) => {
       if (b && u >= b.uA - 0.15) current = i;
     });
     if (current !== railCur) {
@@ -357,7 +361,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
           ))}
         </div>
         <a className={styles.credit} href={HORIZON_CREDIT}>
-          Photo: Raychel Sanner / Unsplash
+          {HORIZON_CREDIT_LABEL}
         </a>
         <nav className={styles.rail} aria-label="Along the road">
           <ol ref={rail}>
