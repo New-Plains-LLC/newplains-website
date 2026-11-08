@@ -36,7 +36,13 @@ export async function POST(req: NextRequest) {
   if (isBot) return fail(403, UNVERIFIED);
   // Browsers send Origin on a cross-site POST; only our own host may submit.
   // Compared by host, so http/https behind a proxy can't cause a mismatch.
-  if (!sameHost(req.headers.get("origin"), req.headers.get("host"))) return fail(403, UNVERIFIED);
+  const origin = req.headers.get("origin"), host = req.headers.get("host");
+  if (!sameHost(origin, host)) {
+    // Logged so a proxy rewriting Host would show up instead of silently
+    // refusing real leads. Neither header carries visitor data.
+    console.warn("[inquiry] refused: origin/host mismatch", { origin, host });
+    return fail(403, UNVERIFIED);
+  }
 
   const key = process.env.AGENTMAIL_API_KEY;
   const inbox = process.env.AGENTMAIL_FORM_INBOX;

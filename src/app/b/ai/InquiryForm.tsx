@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { INQUIRY_PATH, INTERESTS, MAX, PROMPTS, SIZES, firstName, isInterest, type Interest } from "@/../lib/inquiry";
+import { CONTACT_EMAIL } from "./links";
 import s from "./b.module.css";
 
-const CONTACT_EMAIL = "info@newplains.dev";
 export const INQUIRY_EVENT = "np:inquiry";
 export type InquiryDetail = { interest: Interest; message?: string };
 
@@ -78,8 +78,13 @@ export default function InquiryForm() {
     return () => { window.removeEventListener(INQUIRY_EVENT, onEvent); document.removeEventListener("click", onClick); };
   }, []);
 
+  // One request at a time, even if a submit slips past the disabled button
+  // before the "sending" render lands; a second POST would be a second email.
+  const inFlight = useRef(false);
   const send = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inFlight.current) return;
+    inFlight.current = true;
     const f = Object.fromEntries(new FormData(e.currentTarget));
     setStatus({ kind: "sending" });
     // The route gives AgentMail 10s; never leave the button on "Sending…".
@@ -104,6 +109,7 @@ export default function InquiryForm() {
       setStatus({ kind: "error", error: "Could not send right now." });
     } finally {
       clearTimeout(timer);
+      inFlight.current = false;
     }
   };
 
