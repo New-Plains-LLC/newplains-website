@@ -4,6 +4,9 @@
 // docs/hermes-inquiry-assistant.md before changing a field or the subject.
 
 export const INQUIRY_TO = "shawns_assistant@agentmail.to";
+// The form posts here and BotID protects it (src/instrumentation-client.ts);
+// the route itself lives at src/app/api/inquiry/route.ts.
+export const INQUIRY_PATH = "/api/inquiry";
 export const SUBJECT_PREFIX = "Website inquiry:";
 
 export const INTERESTS = {
@@ -45,7 +48,8 @@ type Result = { ok: true; value: Inquiry } | { ok: false; field: keyof Inquiry; 
 // cannot fake an extra "Field: value" line in the email.
 const line = (v: unknown) => (typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim() : "");
 const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, "").trim() : "");
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Domain is dot-separated labels, so "a@b..com" and "x@y.com." fail.
+const EMAIL_RE = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
 
 export function parseInquiry(raw: Record<string, unknown>): Result {
   const v = {
@@ -70,7 +74,7 @@ export function parseInquiry(raw: Record<string, unknown>): Result {
 
 // A greeting-safe first name: one word of letters (plus ' . -), at most 30
 // characters. Anything else is blank and the assistant writes "Hi there".
-const firstName = (name: string) => {
+export const firstName = (name: string) => {
   const w = name.split(" ")[0];
   return /^\p{L}[\p{L}'’.-]{0,29}$/u.test(w) ? w : "";
 };
@@ -120,5 +124,5 @@ export function inquiryEmail(q: Inquiry, meta: { page: string; at: Date }) {
     JSON.stringify(data, null, 2).replace(/---/g, "\\u002d\\u002d\\u002d"),
     `--- end inquiry data ---`,
   ].join("\n");
-  return { subject, text, data };
+  return { subject, text };
 }

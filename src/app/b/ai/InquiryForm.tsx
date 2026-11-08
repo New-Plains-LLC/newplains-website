@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sendGTMEvent } from "@next/third-parties/google";
-import { INTERESTS, MAX, PROMPTS, SIZES, isInterest, type Interest } from "@/../lib/inquiry";
+import { INQUIRY_PATH, INTERESTS, MAX, PROMPTS, SIZES, firstName, isInterest, type Interest } from "@/../lib/inquiry";
 import s from "./b.module.css";
 
 const CONTACT_EMAIL = "info@newplains.dev";
@@ -16,7 +16,9 @@ export function openInquiry(detail: InquiryDetail) {
 
 // The form replaces mailto CTAs, which MailtoTracker counted as
 // contact_email_click. A sent inquiry is the stronger signal: GA4's
-// recommended generate_lead event, with no name or email attached.
+// recommended generate_lead event, with no name or email attached. Sent to
+// GTM and straight to GA4, like MailtoTracker: the GTM container has no GA4
+// tag for it. If one is added there, drop the gtag line to avoid doubles.
 function trackLead(interest: string, size: string) {
   const params = { inquiry_interest: interest, company_size: size, page_path: location.pathname };
   sendGTMEvent({ event: "generate_lead", ...params });
@@ -34,7 +36,9 @@ export default function InquiryForm() {
   useEffect(() => {
     const go = (d: InquiryDetail, scroll: boolean) => {
       setInterest(d.interest);
-      if (d.message) setMessage(d.message);
+      // The hero always sends its tab's text, even empty, so an earlier
+      // tab's answer is never left under a different interest.
+      if (d.message !== undefined) setMessage(d.message);
       const el = document.getElementById("contact");
       if (scroll) el?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       form.current?.querySelector<HTMLInputElement>("#inq-name")?.focus({ preventScroll: true });
@@ -57,7 +61,7 @@ export default function InquiryForm() {
     const f = Object.fromEntries(new FormData(e.currentTarget));
     setStatus({ kind: "sending" });
     try {
-      const res = await fetch("/api/inquiry", {
+      const res = await fetch(INQUIRY_PATH, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(f),
@@ -66,7 +70,7 @@ export default function InquiryForm() {
       if (res.ok && out.ok) {
         // Analytics must never turn a sent inquiry into an error message.
         try { trackLead(String(f.interest), String(f.size)); } catch {}
-        setStatus({ kind: "sent", name: String(f.name).trim().split(/\s+/)[0], email: String(f.email).trim() });
+        setStatus({ kind: "sent", name: firstName(String(f.name).trim().replace(/\s+/g, " ")), email: String(f.email).trim() });
       } else setStatus({ kind: "error", error: out.error ?? "Could not send right now.", field: out.field });
     } catch {
       setStatus({ kind: "error", error: "Could not send right now." });
@@ -76,8 +80,9 @@ export default function InquiryForm() {
   if (status.kind === "sent") {
     return (
       <div className={s.inquiry} role="status">
-        <p className={s.sentTitle}>Thanks, {status.name}.</p>
+        <p className={s.sentTitle}>{status.name ? `Thanks, ${status.name}.` : "Thanks."}</p>
         <p>Your inquiry is in. Shawn’s assistant will email <strong>{status.email}</strong> shortly to confirm, then follow up to find a time that works.</p>
+        <button type="button" className={s.again} onClick={() => { setMessage(""); setStatus({ kind: "idle" }); }}>Send another note</button>
       </div>
     );
   }
