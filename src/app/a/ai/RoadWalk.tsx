@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, type ReactNode } from "react";
+import { HORIZON_CREDIT, HORIZON_PHOTO } from "./HorizonPhoto";
 import HorizonWindmill from "./HorizonWindmill";
 import styles from "./walk.module.css";
 
@@ -45,7 +46,9 @@ const FIELDS: [number, number, string][] = [
 export type Mark = { id: string; label: string };
 
 type Seg = { u0: number; u1: number; c0: number; c1: number; ease: boolean };
-type Board = { el: HTMLElement; z: number; uA: number; uB: number; peak: boolean };
+// o and pe cache the last written opacity and pointer-events, so frames
+// only touch the DOM when a value changes.
+type Board = { el: HTMLElement; z: number; uA: number; uB: number; peak: boolean; o?: string; pe?: string };
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -79,6 +82,7 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
   let last = 0;
   let raf = 0;
   let millZ = 0;
+  let railCur = -1;
 
   const camAt = (u: number) => {
     for (const s of segs) {
@@ -164,8 +168,10 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
       const o = d < 0 ? clamp((2800 + d) / 1600) : clamp(1 - d / 420);
       // Opacity only, never visibility: hidden boards would drop out of the
       // tab order, and focusing a far board is how keyboard users walk.
-      b.el.style.opacity = o.toFixed(3);
-      b.el.style.pointerEvents = Math.abs(d) < 260 ? "auto" : "none";
+      const os = o.toFixed(3);
+      const pe = Math.abs(d) < 260 ? "auto" : "none";
+      if (b.o !== os) b.el.style.opacity = b.o = os;
+      if (b.pe !== pe) b.el.style.pointerEvents = b.pe = pe;
       if (b.peak) {
         const span = b.uB - b.uA;
         const local = span > 0 ? (u - b.uA) / span : 1;
@@ -182,7 +188,10 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
       const b = boards.find((x) => x.el.id === btn.dataset.target);
       if (b && u >= b.uA - 0.15) current = i;
     });
-    railBtns.forEach((btn, i) => btn.setAttribute("aria-current", i === current ? "step" : "false"));
+    if (current !== railCur) {
+      railCur = current;
+      railBtns.forEach((btn, i) => btn.setAttribute("aria-current", i === current ? "step" : "false"));
+    }
   };
 
   const target = () => clamp(-trackEl.getBoundingClientRect().top / vh, 0, total);
@@ -224,7 +233,14 @@ function startWalk({ track: trackEl, stage: stageEl, world: worldEl, road: roadE
     if (el) requestAnimationFrame(() => !disposed && scrollToBoard(el));
   };
   const onHash = () => {
-    const id = decodeURIComponent(location.hash.slice(1));
+    // A malformed fragment (a bare "%") makes decodeURIComponent throw;
+    // ignore it rather than break the walk.
+    let id = "";
+    try {
+      id = decodeURIComponent(location.hash.slice(1));
+    } catch {
+      return;
+    }
     if (id) scrollToBoard(id);
   };
   const onRail = (e: MouseEvent) => {
@@ -305,7 +321,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
           <div className={styles.stormSky}>
             <div>
             <Image
-              src="https://images.unsplash.com/photo-1702432665495-38902d6e5633"
+              src={HORIZON_PHOTO}
               alt=""
               fill
               priority
@@ -330,7 +346,7 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
             <span key={i} className={styles.post} />
           ))}
         </div>
-        <a className={styles.credit} href="https://unsplash.com/photos/nqu5L_xc6bc">
+        <a className={styles.credit} href={HORIZON_CREDIT}>
           Photo: Raychel Sanner / Unsplash
         </a>
         <nav className={styles.rail} aria-label="Along the road">

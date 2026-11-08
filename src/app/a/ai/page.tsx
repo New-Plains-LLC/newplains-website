@@ -65,7 +65,7 @@ type StopProps = {
   gap?: number; // z distance from the previous board
   hold?: number; // screens of scroll spent at reading distance
   pace?: number; // screens of scroll per 1000 z of travel
-  x?: number; // horizontal offset, fraction of viewport width
+  x?: -1 | 0 | 1; // which shoulder: -1 left, 1 right, 0 across the road (the gate)
   y?: number; // vertical offset, fraction of viewport height
   className?: string;
   peak?: boolean;
@@ -98,25 +98,25 @@ export default function AiPage() {
     <div className={`${w.walk} ${serif.variable}`}>
       <RoadWalk marks={marks}>
         {/* The storm: fast, tight, close together. */}
-        <Stop id="top" hold={0.55} x={-0.17} className={w.hero}>
+        <Stop id="top" hold={0.55} x={-1} className={w.hero}>
           <p className={w.label}>New Plains / AI business consulting</p>
           <h1>Better business.<br />Less busywork.<br /><span>AI with a purpose.</span></h1>
           <p>For established businesses ready to put AI to work on the processes that slow them down. We help leadership teams choose the right opportunities, equip their people, and build systems that fit the work.</p>
           <p className={w.small}>Oklahoma roots. An operator’s perspective.</p>
         </Stop>
         {pains.map((line, i) => (
-          <Stop key={line} gap={1150} hold={0.32} pace={0.5} x={i % 2 ? -0.2 : 0.21} y={0.03} className={w.sign}>
+          <Stop key={line} gap={1150} hold={0.32} pace={0.5} x={i % 2 ? -1 : 1} y={0.03} className={w.sign}>
             <p className={w.signText}>{line}</p>
           </Stop>
         ))}
-        <Stop gap={1500} hold={0.6} pace={0.6} x={0.15} className={w.panel}>
+        <Stop gap={1500} hold={0.6} pace={0.6} x={1} className={w.panel}>
           <p className={w.label}>The business comes first</p>
           <h2>A promising experiment is only the beginning.</h2>
           <p>When tools multiply but work still gets stuck between people, the next step is an operating decision. What should change? Who approves it? How will the team know it is working?</p>
         </Stop>
 
         {/* An empty stretch of road, then the operator. Slower. */}
-        <Stop id="operator" gap={2600} hold={0.85} pace={0.9} x={-0.13} className={`${w.panel} ${w.operator}`}>
+        <Stop id="operator" gap={2600} hold={0.85} pace={0.9} x={-1} className={`${w.panel} ${w.operator}`}>
           <Image src="/a-ai/shawn-listening.jpg" alt="Shawn Skaggs listening across a table at a business dinner" width={1600} height={1067} sizes="(max-width: 760px) 88vw, 520px" />
           <div>
             <p className={w.label}>Who you’ll work with</p>
@@ -149,13 +149,13 @@ export default function AiPage() {
         </Stop>
 
         {/* Clear sky: slower, wider, even. */}
-        <Stop id="build" gap={1500} hold={0.55} pace={1} x={-0.16} className={w.panel}>
+        <Stop id="build" gap={1500} hold={0.55} pace={1} x={-1} className={w.panel}>
           <p className={w.label}>Three outcomes worth building for</p>
           <h2>Start with the work.<br />Measure what changes.</h2>
           <p className={w.small}>Representative workflows to explore together, not promised results.</p>
         </Stop>
         {outcomes.map(([label, title, body, tint], i) => (
-          <Stop key={label} gap={1250} hold={0.5} pace={1} x={i % 2 ? -0.19 : 0.19} className={`${w.panel} ${w.card} ${tint}`}>
+          <Stop key={label} gap={1250} hold={0.5} pace={1} x={i % 2 ? -1 : 1} className={`${w.panel} ${w.card} ${tint}`}>
             <p className={w.label}>{label}</p>
             <h3>{title}</h3>
             <p>{body}</p>
@@ -181,13 +181,13 @@ export default function AiPage() {
           </Stop>
         ))}
 
-        <Stop id="approach" landmark gap={1500} hold={0.55} pace={1} x={0.16} className={w.panel}>
+        <Stop id="approach" landmark gap={1500} hold={0.55} pace={1} x={1} className={w.panel}>
           <p className={w.label}>From first question to everyday use</p>
           <h2>Built with your people.<br />Designed for the real world.</h2>
           <p className={w.small}>Clear scope. Human approval. Deliberate data access. A person to handle the exceptions.</p>
         </Stop>
         {steps.map(([title, body], i) => (
-          <Stop key={title} gap={950} hold={0.32} pace={0.95} x={i % 2 ? -0.17 : 0.17} y={0.04} className={w.marker}>
+          <Stop key={title} gap={950} hold={0.32} pace={0.95} x={i % 2 ? -1 : 1} y={0.04} className={w.marker}>
             <p className={w.mile}>{String(i + 1).padStart(2, "0")}</p>
             <h3>{title}</h3>
             <p>{body}</p>

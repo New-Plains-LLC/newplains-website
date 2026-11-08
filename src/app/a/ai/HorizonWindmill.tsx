@@ -15,7 +15,8 @@ const leg = (y: number) => {
 };
 const levels = [320, 262, 210, 166, 132, 112];
 
-export default function HorizonWindmill({ className = styles.windmill }: { className?: string }) {
+// The caller places and sizes it; this file only owns the turning fan.
+export default function HorizonWindmill({ className }: { className: string }) {
   return (
     <svg className={className} viewBox="0 0 200 320" aria-hidden="true" focusable="false">
       <g fill="none" stroke="currentColor" strokeLinecap="round">

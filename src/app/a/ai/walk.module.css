@@ -47,26 +47,23 @@
   border-radius: 22px;
   padding: clamp(22px, 2.6vw, 36px);
   box-shadow: 0 1px 0 #2D2A2612, 0 28px 60px -32px #2D2A2670;
-  width: min(560px, 88vw);
 }
-.hero { width: min(560px, 88vw); }
 .hero > p:not(.label):not(.small) { font-size: 1.05rem; }
 .hero .small { margin-top: 18px !important; }
 
-.sign { width: min(420px, 82vw); border-radius: 14px; border-top: 4px solid var(--copper); }
+.sign { border-radius: 14px; border-top: 4px solid var(--copper); }
 .signText { font-family: var(--font-serif), Georgia, serif; font-size: clamp(1.45rem, 2.2vw, 1.9rem); line-height: 1.2; }
 
 .tintGreen { background: #E6EADB; }
 .tintWheat { background: #F3E9D2; }
 .tintCopper { background: #F3E3D6; }
-.card { width: min(440px, 86vw); }
 
-.operator, .feature { width: min(520px, 90vw); display: grid; gap: 18px; }
+.operator, .feature { display: grid; gap: 18px; }
 .operator img, .feature img { width: 100%; height: auto; max-height: 230px; object-fit: cover; border-radius: 12px; display: block; }
 .feature img { object-fit: contain; background: #fff; }
 
 
-.marker { width: min(340px, 80vw); border-radius: 14px; background: #F3E9D2; }
+.marker { border-radius: 14px; background: #F3E9D2; }
 .marker p:not(.mile) { font-size: 0.95rem; }
 .mile {
   font-family: var(--font-serif), Georgia, serif;
@@ -75,7 +72,6 @@
   color: var(--green);
 }
 
-.fork { width: min(500px, 92vw); }
 .arms { display: grid; gap: 10px; margin-top: 16px; }
 .arms a {
   display: flex;
@@ -93,7 +89,7 @@
 .arms strong { font-family: var(--font-serif), Georgia, serif; font-weight: 500; font-size: 1.35rem; line-height: 1.2; }
 .arms span { font-size: 0.88rem; line-height: 1.5; color: var(--soft); }
 
-.gate { width: min(640px, 90vw); background: #EADBB4; }
+.gate { background: #EADBB4; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin: 22px 0 6px; }
 .button {
   display: inline-block;
@@ -109,7 +105,7 @@
 .quiet { font-weight: 600; font-size: 0.92rem; }
 
 /* ---- The peak board ---- */
-.board { width: min(520px, 92vw); --k: 1; }
+.board { --k: 1; }
 .notes { position: relative; height: 252px; margin: 16px 0 8px; container-type: inline-size; }
 /* Scattered (sx in cqw, sy in px) at k = 0; a single-column flow at k = 1. */
 .note {
@@ -158,6 +154,8 @@
 }
 
 /* ---- The walk ---- */
+/* Keep this query identical to WALK_QUERY in RoadWalk.tsx: the CSS decides
+   whether the 3D stage exists, the JS whether it moves. */
 @media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
   .track { padding: 0; position: relative; height: 100svh; }
   .stage {

@@ -7,4 +7,4 @@
    --wm-out is how far the centered column sits in from the viewport edge. The windmill is
    pinned --wm-inset from the viewport edge; the text gives back only what that column
    inset does not already cover. */
-.withWindmill{position:relative;--wm-h:300px;--wm-ratio:.625;--wm-inset:48px;--wm-gap:32px;--wm-out:max(0px,(100vw - var(--col))/2)}.windmill{display:none;position:absolute;right:calc(var(--wm-inset) - var(--wm-out));bottom:0;height:var(--wm-h);width:auto;color:var(--ink)}.windmillFan{transform-box:fill-box;transform-origin:center;animation:windmillTurn 20s linear infinite}@keyframes windmillTurn{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.windmillFan{animation:none}}@media(min-width:1100px){.windmill{display:block}.page .withWindmill>p,.page .withWindmill h1{padding-right:max(0px,var(--wm-inset) + var(--wm-h)*var(--wm-ratio) + var(--wm-gap) - var(--pad) - var(--wm-out))}}
+.windmillFan{transform-box:fill-box;transform-origin:center;animation:windmillTurn 20s linear infinite}@keyframes windmillTurn{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.windmillFan{animation:none}}
