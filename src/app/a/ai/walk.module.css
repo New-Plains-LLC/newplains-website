@@ -21,13 +21,14 @@
   text-wrap: balance;
   margin: 0;
 }
-.walk h1 { font-size: clamp(2.5rem, 4.6vw, 4.4rem); line-height: 1.02; margin: 14px 0 22px; }
+.walk h1 { font-size: clamp(2.4rem, 4vw, 3.5rem); line-height: 1.02; margin: 14px 0 22px; }
 .walk h1 span { color: var(--copper-ink); }
 .walk h2 { font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.06; margin: 12px 0 18px; }
 .walk h3 { font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.15; margin: 10px 0 12px; }
 .walk p { margin: 0; line-height: 1.6; text-wrap: pretty; }
 .walk p + p { margin-top: 12px; }
 .walk a:not(.button) { color: var(--copper-ink); text-decoration: underline; text-underline-offset: 4px; }
+.panel > a:not(.button) { display: inline-block; margin-top: 12px; font-weight: 600; font-size: 0.9rem; }
 
 .label {
   font-size: 0.7rem;
@@ -48,7 +49,7 @@
   box-shadow: 0 1px 0 #2D2A2612, 0 28px 60px -32px #2D2A2670;
   width: min(560px, 88vw);
 }
-.hero { width: min(640px, 88vw); }
+.hero { width: min(560px, 88vw); }
 .hero > p:not(.label):not(.small) { font-size: 1.05rem; }
 .hero .small { margin-top: 18px !important; }
 
@@ -60,13 +61,10 @@
 .tintCopper { background: #F3E3D6; }
 .card { width: min(440px, 86vw); }
 
-.operator, .feature { width: min(860px, 90vw); display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; }
-.operator img, .feature img { width: 100%; height: auto; border-radius: 12px; display: block; }
-.feature { grid-template-columns: 1.35fr 1fr; }
+.operator, .feature { width: min(520px, 90vw); display: grid; gap: 18px; }
+.operator img, .feature img { width: 100%; height: auto; max-height: 230px; object-fit: cover; border-radius: 12px; display: block; }
+.feature img { object-fit: contain; background: #fff; }
 
-.pair { width: min(900px, 90vw); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-.pair p { font-size: 0.95rem; }
-.pair a { display: inline-block; margin-top: 12px; font-weight: 600; font-size: 0.9rem; }
 
 .marker { width: min(340px, 80vw); border-radius: 14px; background: #F3E9D2; }
 .marker p:not(.mile) { font-size: 0.95rem; }
@@ -77,8 +75,8 @@
   color: var(--green);
 }
 
-.fork { width: min(940px, 92vw); }
-.arms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+.fork { width: min(500px, 92vw); }
+.arms { display: grid; gap: 10px; margin-top: 16px; }
 .arms a {
   display: flex;
   flex-direction: column;
@@ -111,44 +109,36 @@
 .quiet { font-weight: 600; font-size: 0.92rem; }
 
 /* ---- The peak board ---- */
-.board { width: min(940px, 92vw); --k: 1; }
-.notes { position: relative; height: 232px; margin: 18px 0 8px; container-type: inline-size; }
+.board { width: min(520px, 92vw); --k: 1; }
+.notes { position: relative; height: 252px; margin: 16px 0 8px; container-type: inline-size; }
+/* Scattered (sx in cqw, sy in px) at k = 0; a single-column flow at k = 1. */
 .note {
-  --ox: calc(var(--o) * 26.33);
-  --oy: 92;
+  --ox: 27;
+  --oy: calc(var(--o) * 60 + 6);
   position: absolute;
   left: 0;
   top: 0;
-  width: 21cqw;
-  min-height: 48px;
+  width: 46cqw;
+  min-height: 46px;
   display: grid;
   align-items: center;
   padding: 10px 14px;
   border-radius: 10px;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 600;
   line-height: 1.25;
   background: color-mix(in oklab, #F0DDAE calc((1 - var(--k)) * 100%), #E1E8D3);
   box-shadow: 0 10px 18px -12px #2D2A2680;
   transform:
-    translate(calc((var(--sx) * (1 - var(--k)) + var(--ox) * var(--k)) * 1cqw),
-              calc((var(--sy) * (1 - var(--k)) + var(--oy) * var(--k)) * 1px))
+    translate(calc((min(var(--sx), 54) * (1 - var(--k)) + var(--ox) * var(--k)) * 1cqw),
+              calc((var(--sy) * 1.15 * (1 - var(--k)) + var(--oy) * var(--k)) * 1px))
     rotate(calc(var(--r) * (1 - var(--k)) * 1deg));
 }
 .note > span { grid-area: 1 / 1; }
 .note .before { opacity: calc(1 - var(--k) * 2); }
 .note .after { opacity: calc(var(--k) * 2 - 1); color: #3E4A2C; }
 .gone { opacity: calc(1 - var(--k) * 1.8); }
-.flow {
-  position: absolute;
-  left: 4cqw;
-  right: 4cqw;
-  top: 115px;
-  height: 2px;
-  background: var(--green);
-  transform: scaleX(var(--k));
-  transform-origin: left;
-}
+.flow { position: absolute; left: 50%; top: 20px; width: 2px; height: 190px; background: var(--green); transform: scaleY(var(--k)); transform-origin: top; }
 .captions { display: grid; font-size: 0.95rem; color: var(--soft); }
 .captions > p { grid-area: 1 / 1; margin: 0 !important; }
 .captions .before { opacity: calc(1 - var(--k) * 2); }
@@ -158,27 +148,13 @@
 .track { padding: 40px 16px 96px; }
 .world { display: grid; justify-items: center; gap: 28px; max-width: 960px; margin: auto; }
 .world > .stop { width: min(100%, 860px); }
-.storm, .sun, .rows, .road, .posts, .mill, .credit, .rail { display: none; }
+.storm, .sun, .fields, .haze, .road, .posts, .mill, .credit, .rail { display: none; }
 
 @media (max-width: 759px) {
-  .operator, .feature, .pair { grid-template-columns: 1fr; gap: 16px; }
-  .arms { grid-template-columns: 1fr; gap: 8px; }
   .arms a { padding: 14px 16px; gap: 4px; }
   .arms span { display: none; }
-  .notes { height: 252px; }
-  .note {
-    width: 46cqw;
-    --ox: 27;
-    --oy: calc(var(--o) * 60 + 6);
-    font-size: 0.8rem;
-    transform:
-      translate(calc((min(var(--sx), 54) * (1 - var(--k)) + var(--ox) * var(--k)) * 1cqw),
-                calc((var(--sy) * 1.15 * (1 - var(--k)) + var(--oy) * var(--k)) * 1px))
-      rotate(calc(var(--r) * (1 - var(--k)) * 1deg));
-  }
-  .flow { left: 50%; right: auto; top: 20px; width: 2px; height: 190px; transform: scaleY(var(--k)); transform-origin: top; }
-  .operator img { max-height: 30svh; object-fit: cover; }
-  .feature img { max-height: 26svh; object-fit: cover; object-position: top; }
+  .operator img { max-height: 30svh; }
+  .feature img { max-height: 26svh; }
 }
 
 /* ---- The walk ---- */
@@ -225,16 +201,30 @@
     opacity: calc(var(--clear) * (1 - var(--clear)) * 3.2);
     pointer-events: none;
   }
-  .rows {
+  .fields {
     display: block;
     position: absolute;
     left: 0;
     top: 40%;
     width: 100%;
     height: 60%;
-    overflow: visible;
   }
-  .rows line { stroke: #9CAF88; stroke-opacity: 0.38; stroke-width: 1; vector-effect: non-scaling-stroke; }
+  /* Distance haze: the far ground dissolves into the horizon instead of
+     ending on a hard edge. Tracks the storm-to-clear regrade. */
+  .haze {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(40% - 2px);
+    height: 24%;
+    background: linear-gradient(
+      color-mix(in oklab, #3A3631 calc((1 - var(--clear)) * 100%), #EFE2C4) 0%,
+      color-mix(in oklab, #3A3631 calc((1 - var(--clear)) * 100%), #EFE2C4) 8%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
 
   .road {
     display: block;
@@ -246,10 +236,10 @@
     margin-left: -130px;
     transform-origin: 50% 0;
     transform: translateZ(700px) rotateX(-90deg);
+    /* A gravel road surface with soft shoulders, and the copper center dashes. */
     background:
       repeating-linear-gradient(to bottom, transparent 0 70px, var(--copper) 70px 124px, transparent 124px 180px) center / 8px 100% no-repeat,
-      linear-gradient(var(--green), var(--green)) left / 3px 100% no-repeat,
-      linear-gradient(var(--green), var(--green)) right / 3px 100% no-repeat;
+      linear-gradient(to right, transparent, #8C7B5E40 14%, #8C7B5E4D 50%, #8C7B5E40 86%, transparent);
     pointer-events: none;
   }
   .posts, .world { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; }
@@ -266,13 +256,13 @@
   }
   .world { display: block; max-width: none; margin: 0; }
   .world > .stop { position: absolute; left: 50%; top: 50%; width: min(560px, 88vw); }
-  .world > .hero { width: min(640px, 88vw); }
+  .world > .hero { width: min(560px, 88vw); }
   .world > .sign { width: min(420px, 82vw); }
   .world > .card { width: min(440px, 86vw); }
-  .world > .operator, .world > .feature { width: min(860px, 90vw); }
-  .world > .pair { width: min(900px, 90vw); }
+  .world > .operator, .world > .feature { width: min(520px, 90vw); }
   .world > .marker { width: min(340px, 80vw); }
-  .world > .fork, .world > .board { width: min(940px, 92vw); }
+  .world > .fork { width: min(500px, 92vw); }
+  .world > .board { width: min(520px, 92vw); }
   .world > .gate { width: min(640px, 90vw); }
   .stage:not([data-ready]) .world > .stop:not(:first-of-type) { opacity: 0; }
 

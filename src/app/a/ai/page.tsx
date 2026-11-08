@@ -124,7 +124,7 @@ export default function AiPage() {
         </Stop>
 
         {/* The turn. The largest hold on the page; the storm clears here. */}
-        <Stop id="turn" gap={1700} hold={2.2} pace={0.9} x={0} peak className={`${w.panel} ${w.board}`} label="Lead follow-up, before and after">
+        <Stop id="turn" gap={1700} hold={2.2} pace={0.9} x={-1} peak className={`${w.panel} ${w.board}`} label="Lead follow-up, before and after">
           <p className={w.label}>Representative example: lead follow-up</p>
           <h2>The busywork goes.<br />The work stays.</h2>
           <div className={w.notes}>
@@ -160,7 +160,7 @@ export default function AiPage() {
           </Stop>
         ))}
         {featured.map((e) => (
-          <Stop key={e.title} gap={1500} hold={0.75} pace={1} x={-0.05} className={`${w.panel} ${w.feature}`}>
+          <Stop key={e.title} gap={1500} hold={0.75} pace={1} x={1} className={`${w.panel} ${w.feature}`}>
             <Image src={e.image!} alt={e.imageAlt ?? ""} width={2998} height={1592} sizes="(max-width: 760px) 88vw, 560px" />
             <div>
               <p className={w.label}>{e.label}</p>
@@ -169,17 +169,13 @@ export default function AiPage() {
             </div>
           </Stop>
         ))}
-        {[listed.slice(0, 2), listed.slice(2, 4)].map((pair, i) => (
-          <Stop key={pair[0].title} gap={1450} hold={0.75} pace={1} x={i ? -0.07 : 0.07} className={`${w.panel} ${w.pair}`}>
-            {pair.map((e) => (
-              <div key={e.title}>
-                <p className={w.label}>{e.label}</p>
-                <h3>{e.title}</h3>
-                <p>{e.description}</p>
-                {e.upcoming && <p className={w.small}>{e.upcoming}</p>}
-                {e.url && <a href={e.url}>{e.linkLabel} ↗</a>}
-              </div>
-            ))}
+        {listed.map((e, i) => (
+          <Stop key={e.title} gap={1250} hold={0.6} pace={1} x={i % 2 ? -1 : 1} className={w.panel}>
+            <p className={w.label}>{e.label}</p>
+            <h3>{e.title}</h3>
+            <p>{e.description}</p>
+            {e.upcoming && <p className={w.small}>{e.upcoming}</p>}
+            {e.url && <a href={e.url}>{e.linkLabel} ↗</a>}
           </Stop>
         ))}
 
@@ -197,7 +193,7 @@ export default function AiPage() {
         ))}
 
         {/* The fork, then the gate. */}
-        <Stop gap={1600} hold={0.85} pace={1} x={0} className={`${w.panel} ${w.fork}`} label="Three ways in">
+        <Stop gap={1600} hold={0.85} pace={1} x={1} className={`${w.panel} ${w.fork}`} label="Three ways in">
           <p className={w.label}>Three ways in</p>
           <div className={w.arms}>
             <Link href="/a/ai/workshop"><small>Find your direction</small><strong>Leadership workshop →</strong><span>Align the team. Prioritize opportunities. Build practical AI capability.</span></Link>

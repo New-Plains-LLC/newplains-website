@@ -25,6 +25,22 @@ const SMOOTH = 7.7; // per-second damping, about 0.12 per 60 fps frame
 const TRAVEL = 0.55; // global scale on travel scroll between boards
 const HOLD = 0.8; // global scale on hold scroll at each board
 
+// Field patches: [left edge, right edge, fill] at the bottom of the screen,
+// each a wedge to the vanishing point. Low-contrast brand tones, irregular
+// widths, a bare gap around the road.
+const FIELDS: [number, number, string][] = [
+  [-420, -230, "#C4A26530"],
+  [-230, -120, "#7A8B5C26"],
+  [-120, -55, "#8A6A4A1F"],
+  [-55, -8, "#C4A26538"],
+  [-8, 28, "#7A8B5C1C"],
+  [72, 104, "#C4A2652E"],
+  [104, 160, "#8A6A4A1C"],
+  [160, 250, "#7A8B5C2B"],
+  [250, 400, "#C4A26526"],
+  [400, 560, "#7A8B5C1F"],
+];
+
 export type Mark = { id: string; label: string };
 
 type Seg = { u0: number; u1: number; c0: number; c1: number; ease: boolean };
@@ -98,29 +114,37 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
         el.dataset.u = ((uA + u) / 2).toFixed(3); // hold midpoint, for tests
         // Keep the board's foot above the ground line so its posts can stand.
         const h = el.offsetHeight;
+        // Boards stand on the shoulders, inner edge clear of the road ahead,
+        // angled to face the walker. data-x picks the side (sign only); 0 is
+        // across the road (the gate). Phones have no room for a clear lane,
+        // so boards only lean toward their side there.
         const xf = Number(el.dataset.x ?? 0);
-        const x = xf * vw * (narrow ? 0.12 : 1);
+        const side = Math.sign(xf);
+        const w = el.offsetWidth;
+        const lane = Math.min(Math.max(170, vw * 0.11), Math.max(0, vw / 2 - 20 - w));
+        const x = narrow ? side * Math.max(0, (vw - w) / 2 - 8) : side * (lane + w / 2);
+        const turn = narrow ? 0 : side * 11;
         const room = (ground - 0.5) * vh - h / 2 - 28;
         const y = Math.max(Math.min(Number(el.dataset.y ?? 0) * vh, room), -(0.5 * vh - h / 2 - 12));
         el.style.setProperty("--post", `${Math.max(0, (ground - 0.5) * vh - y - h / 2)}px`);
-        el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${-z}px)`;
+        el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${-z}px) rotateY(${turn}deg)`;
         return { el, z, uA, uB: u, peak: el.hasAttribute("data-peak") };
       });
       total = u;
       trackEl.style.height = `${(total + 1) * vh}px`;
 
       // Fence posts ride a treadmill: fixed slots, shifted by cam mod gap.
-      const side = narrow ? vw * 0.62 : vw * 0.34;
+      const fence = narrow ? vw * 0.62 : vw * 0.56;
       [...postsEl.children].forEach((p, i) => {
         const k = Math.floor(i / 2);
         const s = i % 2 ? 1 : -1;
-        (p as HTMLElement).style.transform = `translate3d(${s * side}px, -100%, ${-k * POST_GAP + 400}px)`;
+        (p as HTMLElement).style.transform = `translate3d(${s * fence}px, -100%, ${-k * POST_GAP + 400}px)`;
       });
 
       // The windmill stands well off the road, between two approach markers.
       const at = boards.find((b) => b.el.id === "approach");
       millZ = (at?.z ?? 20000) + 2600;
-      millEl.style.transform = `translate3d(${vw * (narrow ? 0.9 : 0.62)}px, -100%, ${-millZ}px)`;
+      millEl.style.transform = `translate3d(${vw * (narrow ? 0.9 : 0.95)}px, -100%, ${-millZ}px)`;
     };
 
     const draw = (u: number) => {
@@ -247,12 +271,15 @@ export default function RoadWalk({ children, marks }: { children: ReactNode; mar
           </div>
         </div>
         <div className={styles.sun} aria-hidden="true" />
-        <svg className={styles.rows} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <line x1="-400" y1="0" x2="500" y2="0" />
-          {Array.from({ length: 23 }, (_, i) => -230 + i * 20.9).map((x) => (
-            <line key={x} x1="50" y1="0" x2={x} y2="100" />
+        {/* Fields seen from the road: soft patches running away to the horizon,
+            not lines. Edges that run parallel to the road do not move as you
+            walk, which is true to life; speed comes from posts and dashes. */}
+        <svg className={styles.fields} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {FIELDS.map(([a, b, fill], i) => (
+            <polygon key={i} points={`50,0 ${a},100 ${b},100`} fill={fill} />
           ))}
         </svg>
+        <div className={styles.haze} aria-hidden="true" />
         <div ref={road} className={styles.road} aria-hidden="true" />
         <div ref={posts} className={styles.posts} aria-hidden="true">
           {Array.from({ length: POSTS * 2 }, (_, i) => (
