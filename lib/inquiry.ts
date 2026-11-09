@@ -65,11 +65,14 @@ const block = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n?|[\u0085\
 const LABEL = String.raw`[\p{L}\p{N}](?:[\p{L}\p{N}-]*[\p{L}\p{N}])?`;
 const ATOM = String.raw`[^\s@."(),:;<>[\]\\]+`;
 const EMAIL_RE = new RegExp(String.raw`^${ATOM}(\.${ATOM})*@${LABEL}(\.${LABEL})+$`, "u");
-// SMTP caps the local part at 64 bytes and DNS caps each label at 63.
+// SMTP caps the local part at 64 bytes and DNS caps each label at 63
+// (after punycode, for international domains).
 const validEmail = (e: string) => {
   if (!EMAIL_RE.test(e)) return false;
   const [local, domain] = e.split("@");
-  return new TextEncoder().encode(local).length <= 64 && domain.split(".").every((l) => l.length <= 63);
+  if (new TextEncoder().encode(local).length > 64) return false;
+  // Measure labels as DNS sees them: URL turns münchen.de into punycode.
+  try { return new URL(`http://${domain}`).hostname.split(".").every((l) => l.length <= 63); } catch { return false; }
 };
 
 export function parseInquiry(raw: Record<string, unknown>): Result {

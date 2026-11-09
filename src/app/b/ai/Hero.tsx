@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { MAX } from "@/../lib/inquiry";
 import { openInquiry } from "./InquiryForm";
 import { WORKSHOP_HREF } from "./links";
@@ -53,13 +53,18 @@ function AskBox() {
   const [texts, setTexts] = useState<Record<Offer, string>>({ workshop: "", audit: "" });
   const text = texts[tab];
   const o = OFFERS[tab];
+  // Text typed before hydration lives only in the DOM (React doesn't read
+  // input values back when it hydrates), so send falls back to it.
+  const input = useRef<HTMLInputElement>(null);
   const send = (e: FormEvent) => {
     e.preventDefault();
     // The note moves to the form and leaves the box, so a later submit here
     // can't refill the form with a note that was already sent. An empty box
     // sends no message: the form keeps its text for the same interest.
-    openInquiry({ interest: tab, message: text.trim() || undefined });
+    const note = (text || input.current?.value || "").trim();
+    openInquiry({ interest: tab, message: note || undefined });
     setTexts((t) => ({ ...t, [tab]: "" }));
+    if (input.current) input.current.value = ""; // early text never reached state
   };
   // Tabs pattern: only the selected tab is in the Tab order; arrow keys,
   // Home and End move between tabs and select them.
@@ -87,7 +92,7 @@ function AskBox() {
           text; once hydrated, send() handles the submit. */}
       <form id="ask-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.askPanel} method="dialog" onSubmit={send}>
         <label htmlFor="ask-text" className={s.srOnly}>{o.prompt}</label>
-        <input id="ask-text" value={text} onChange={(e) => setTexts((t) => ({ ...t, [tab]: e.target.value }))} placeholder={o.prompt} autoComplete="off" maxLength={MAX.message} />
+        <input ref={input} id="ask-text" value={text} onChange={(e) => setTexts((t) => ({ ...t, [tab]: e.target.value }))} placeholder={o.prompt} autoComplete="off" maxLength={MAX.message} />
         <button type="submit" aria-label="Continue to the inquiry form">↵</button>
       </form>
       {tab === "workshop" && (
